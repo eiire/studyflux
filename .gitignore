@@ -1,0 +1,9 @@
+.idea/*
+__pycache__/*
+python
+venv/*
+blog/__pycache__/*
+projects/__pycache__/*
+my_portfolio/__pycache__/*
+projects/migrations/__pycache__/*
+blog/migrations/__pycache__/*
