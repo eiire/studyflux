@@ -5,4 +5,4 @@ class Project(models.Model):
     description = models.TextField()
     technology = models.CharField(max_length=30)
     image = models.FilePathField(path="static/img")
-
+    github = models.CharField(max_length=100)
