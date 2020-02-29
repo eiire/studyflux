@@ -7,7 +7,7 @@ def index(request):
 
 
 def about(request):
-    about = "about"
+    about = "about.xhtml"
     context = {
         'about': about
     }
