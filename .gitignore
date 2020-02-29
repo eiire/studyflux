@@ -7,3 +7,5 @@ projects/__pycache__/*
 my_portfolio/__pycache__/*
 projects/migrations/__pycache__/*
 blog/migrations/__pycache__/*
+index_page/migrations/__pycache__/*
+index_page/__pycache__/*
