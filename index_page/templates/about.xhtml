@@ -1,3 +1,4 @@
+{% load static %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -16,7 +17,7 @@
 
 <body>
     <div style=" position: relative; z-index: 1" class="topnavigation">
-        <a class="active" style="margin-right: 5%;" href="index.xhtml">Home</a>
+        <a class="active" style="margin-right: 5%;" href="{% url 'index' %}">Home</a>
 <!--        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="#news">News</a>-->
         <a style="margin-left: 1%" href="#contact">Contact</a>
 <!--        <font style="float: right"> <a href="pages/about.xhtml">About</a> </font>-->

@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
-<h1 align="center">Projects</h1>
-<div class="row">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css'  %}"/>
+<div class="welcome"><basefont >WELCOME TO MY <font style="color: white; tab-size: 10px"> PROJECTS </font> PAGE </basefont></div>
+<div class="topnavigation">
+    <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
+{#    <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' %}">My projects</a>#}
+    <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'blog_index' %}">My blog</a>
+<!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
+    <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
+</div>
+<hr>
+<div class="row" align="center">
 {% for project in projects %}
     <div class="col-md-4">
         <div class="card mb-2">

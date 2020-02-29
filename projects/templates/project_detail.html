@@ -2,12 +2,20 @@
 {% load static %}
 
 {% block page_content %}
-    <h1>{{ project.title }}</h1>
+    <div align="center" class="welcome"><basefont >WELCOME TO MY <font style="color: Grey; tab-size: 10px"> {{ project.title }} </font>  </basefont></div>
+    <div>
+        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
+        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' %}">My projects</a>
+{#        <a "padding-right: 35px; padding-left: 35px;" href="{% url 'blog_index' %}">My blog</a>#}
+    <!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
+        <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
+    </div>
+    <hr>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-5">
             <img src="{% static project.image %}" alt="" width="100%">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <h5>About the project:</h5>
             <p>{{ project.description }}</p>
             <br>
