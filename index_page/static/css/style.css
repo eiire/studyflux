@@ -1,0 +1,103 @@
+.welcome {
+    color: #333;
+    background-color: #af6800;
+    padding: 1vmin;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Add a black background color to the top navigation */
+.topnavigation {
+    position: relative;
+    background-color: #333;
+    overflow: hidden;
+    box-shadow: 0px 11px 30px -2px rgba(0,0,0,0.52);
+}
+
+/* Style the links inside the navigation bar */
+.topnavigation a {
+    float: left;
+    color: #f2f2f2;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 17px;
+    box-shadow: 0px 11px 30px -2px rgba(0,0,0,0.52);
+}
+
+/* Change the color of links on hover */
+.topnavigation a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnavigation a.active {
+    background-color: #af6800;
+    color: white;
+}
+
+/*----------------------IMG-------------------------*/
+.my_container {
+    position: relative;
+    background: #e6e6e6;
+    height: 100%;
+}
+
+.my_imageme {
+    padding-top: 10%;
+    width: 311px;
+    height: 540px;
+}
+
+.my_overlay {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    transition: .5s ease;
+}
+
+.my_container:hover .my_overlay {
+    height: 100%;
+    width: 100%;
+}
+/*---------------------------------------------------*/
+
+.block_of_description {
+    position: relative;
+    padding-top: 10%;
+    align-items: normal;
+    text-align: center;
+}
+
+.links {
+    position: relative;
+    background-color: #af6800;
+}
+
+/*---------------BOOTSRTUP----------------------*/
+html,body,.container-fluid {
+    height:99.7%;
+}
+.container-fluid {
+    display:table;
+    -ms-flex-align: center;
+    width: 100%;
+    margin-top: -50px;
+    padding: 50px 0 0 0; /*set left/right padding according to needs*/
+    box-sizing: border-box;
+}
+
+.row {
+    height: 100%;
+    display: table-row;
+}
+
+.row .no-float {
+    display: table-cell;
+    float: none;
+}
+/*---------------BOOTSRTUP----------------------*/
