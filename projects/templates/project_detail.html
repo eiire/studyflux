@@ -5,7 +5,7 @@
     <div align="center" class="welcome"><basefont >WELCOME TO MY <font style="color: Grey; tab-size: 10px"> {{ project.title }} </font>  </basefont></div>
     <div>
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
-        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' %}">My projects</a>
+        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' 'Me'%}">My projects</a>
 {#        <a "padding-right: 35px; padding-left: 35px;" href="{% url 'blog_index' %}">My blog</a>#}
     <!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
         <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
