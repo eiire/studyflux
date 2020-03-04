@@ -2,8 +2,9 @@ from django.shortcuts import render
 from projects.models import Project
 
 
-def project_index(request):
-    projects = Project.objects.all()
+def project_index(request, name_portfolio):
+    # if name_portfolio == Project.objects.
+    projects = Project.objects.all.filter()
     context = {
         'projects': projects
     }

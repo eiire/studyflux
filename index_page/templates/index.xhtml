@@ -1,4 +1,6 @@
+{% extends "base.html" %}
 {% load static %}
+{% block page_content %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -17,5 +19,21 @@
 <!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
         <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
     </div>
+    <h1 align="center">Other portfolios</h1>
+    <div class="row">
+        {% for portfolio in portfolios %}
+            <div class="col-md-3">
+            <hr></hr>
+                <img src="{% static portfolio.image %}" class="card-img-top"/>
+                <p>Name: {{ portfolio.name }}</p>
+                <p>Adress: {{ portfolio.address }}</p>
+                <p>Age: {{ portfolio.age }}</p>
+                <p>Contacts: {{ portfolio.contacts }}</p>
+                <a href="{% url 'project_index' %}" class="btn btn-primary">Check Projects</a>
+            <hr></hr>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
+{% endblock %}
