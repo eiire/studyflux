@@ -3,8 +3,7 @@ from projects.models import Project
 
 
 def project_index(request, name_portfolio):
-    # if name_portfolio == Project.objects.
-    projects = Project.objects.all.filter()
+    projects = Project.objects.filter(name_for_portfolios=name_portfolio)
     context = {
         'projects': projects
     }
