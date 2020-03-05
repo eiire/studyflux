@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block page_content %}
-    <div align="center" class="welcome"><basefont >WELCOME TO MY <font style="color: Grey; tab-size: 10px"> {{ project.title }} </font>  </basefont></div>
-    <div>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'  %}"/>
+    <div align="center" class="welcome"><basefont >WELCOME TO MY <font style="color: white; tab-size: 10px"> {{ project.title }} </font></div>
+    <div class="topnavigation">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
         <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' 'Me'%}">My projects</a>
 {#        <a "padding-right: 35px; padding-left: 35px;" href="{% url 'blog_index' %}">My blog</a>#}

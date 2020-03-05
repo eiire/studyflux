@@ -16,24 +16,29 @@
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
         <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' 'Me' %}">My projects</a>
         <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'blog_index' %}">My blog</a>
-<!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
+        <a style="margin-left: 1%" href="#contact">Contact</a>
         <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
     </div>
     <h1 align="center">Other portfolios</h1>
+
     <div class="row">
         {% for portfolio in portfolios %}
-            <div class="col-md-3">
-            <hr></hr>
-                <img src="{% static portfolio.image %}" class="card-img-top"/>
-                <p>Name: {{ portfolio.name }}</p>
-                <p>Adress: {{ portfolio.address }}</p>
-                <p>Age: {{ portfolio.age }}</p>
-                <p>Contacts: {{ portfolio.contacts }}</p>
-                <a href="{% url 'project_index' portfolio.name %}" class="btn btn-primary">Check Projects</a>
-            <hr></hr>
+            <div class="card-md-4">
+                <div class="card mb-2">
+                    <img src="{% static portfolio.image %}" class="card-img-top"/>
+                    <div class="card-body" >
+                        <p>Name: {{ portfolio.name }}</p>
+                        <p>Adress: {{ portfolio.address }}</p>
+                        <p>Age: {{ portfolio.age }}</p>
+                        <p>Contacts: {{ portfolio.contacts }}</p>
+                        <a href="{% url 'project_index' portfolio.name %}" class="btn btn-primary">Check Projects</a>
+                        <hr></hr>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>
+
 </body>
 </html>
 {% endblock %}
