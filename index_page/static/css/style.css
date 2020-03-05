@@ -5,11 +5,6 @@
     text-align: center;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 /* Add a black background color to the top navigation */
 .topnavigation {
     position: relative;
@@ -77,27 +72,3 @@ body {
     position: relative;
     background-color: #af6800;
 }
-
-/*---------------BOOTSRTUP----------------------*/
-html,body,.container-fluid {
-    height:99.7%;
-}
-.container-fluid {
-    display:table;
-    -ms-flex-align: center;
-    width: 100%;
-    margin-top: -50px;
-    padding: 50px 0 0 0; /*set left/right padding according to needs*/
-    box-sizing: border-box;
-}
-
-.row {
-    height: 100%;
-    display: table-row;
-}
-
-.row .no-float {
-    display: table-cell;
-    float: none;
-}
-/*---------------BOOTSRTUP----------------------*/
