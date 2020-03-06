@@ -2,7 +2,7 @@
 {% load static %}
 {% block page_content %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'  %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'  %}"/> {# load global static files #}
     <div align="center" class="welcome"><basefont >WELCOME TO MY <font style="color: white; tab-size: 10px"> {{ project.title }} </font></div>
     <div class="topnavigation">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
@@ -14,7 +14,7 @@
     <hr>
     <div class="row">
         <div class="col-md-5">
-            <img src="{% static project.image %}" alt="" width="100%">
+            <img src="{% static project.image %}" alt="" width="100%"> {# load static files inside project #}
         </div>
         <div class="col-md-3">
             <h5>About the project:</h5>

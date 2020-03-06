@@ -6,4 +6,4 @@ class Portfolios (models.Model):
     age = models.CharField(max_length=3)
     contacts = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    image = models.FilePathField(path="static/img")
+    image = models.CharField(max_length=1000)
