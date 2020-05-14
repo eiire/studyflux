@@ -8,3 +8,4 @@ projects/migrations/__pycache__/*
 blog/migrations/__pycache__/*
 index_page/migrations/__pycache__/*
 index_page/__pycache__/*
+venv/*
