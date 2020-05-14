@@ -123,3 +123,5 @@ USE_TZ = True
 
 STATIC_URL = '/my_portfolio/static/'
 
+LOGIN_URL = '/login/'
+

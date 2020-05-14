@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
 class Portfolios (models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     name = models.CharField(max_length=30)
     age = models.CharField(max_length=3)
     contacts = models.CharField(max_length=100)
