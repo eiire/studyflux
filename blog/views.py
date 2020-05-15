@@ -1,15 +1,33 @@
-from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.views import View
 from blog.models import Post, Comment
 from .forms import CommentForm
 
 
-# Create your views here.
-def blog_index(request):
-    posts = Post.objects.all().order_by('-created_on')
-    context = {
-        "posts": posts,
-    }
-    return render(request, "blog_index.html", context)
+class CreateArticle(View):
+    def get(sel, request, user):
+        if request.user.is_authenticated and request.user.id == int(user):
+            return render(request, "article.html")
+        else:
+            return HttpResponse(status=404)
+
+
+def blog_index(request, user):
+    try:
+        user = User.objects.get(id=user)
+        posts = Post.objects.filter(user=user).order_by('-created_on')
+        context = {"posts": posts}
+    except:
+        return HttpResponse(status=404, content_type='User does not exist')
+
+    if request.user.is_authenticated:
+        context.update({"user": True})
+        return render(request, "article_index.html", context)
+    else:
+        context.update({"user": False})
+        return render(request, "article_index.html", context)
 
 
 def blog_category(request, category):
@@ -22,7 +40,7 @@ def blog_category(request, category):
         "category": category,
         "posts": posts
     }
-    return render(request, "blog_category.html", context)
+    return render(request, "article_category.html", context)
 
 
 def blog_detail(request, pk):
@@ -44,4 +62,4 @@ def blog_detail(request, pk):
         "form": form,
     }
 
-    return render(request, "blog_detail.html", context)
+    return render(request, "article_detail.html", context)

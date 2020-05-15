@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Тег form</title>
-</head>
-<body>
-<h1>Вход</h1>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
+{% block page_content %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Тег form</title>
+    </head>
+    <body>
+    <h1>Вход</h1>
     {% if next %}
         <form action="/login/?next={{ next }}" method="post">
     {% else %}
@@ -14,13 +17,19 @@
     {% endif %}
 
     {% csrf_token %}
-    {{ form }}
+    <div class="row">
+        <div class="col-2">
+            {{ form.username|as_crispy_field }}
+            {{ form.password|as_crispy_field }}
+        </div>
+    </div>
 
     {% for portfolio in portfolios %}
         portfolio.name
     {% endfor %}
 
-<input id="feedback-submit" type="submit" value="Отправить">
-</form>
-</body>
-</html>
+    <input id="feedback-submit" type="submit" value="Отправить">
+    </form>
+    </body>
+    </html>
+{% endblock %}

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'projects',
     'blog',
     'index_page',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -125,3 +125,4 @@ STATIC_URL = '/my_portfolio/static/'
 
 LOGIN_URL = '/login/'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

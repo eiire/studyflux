@@ -12,6 +12,15 @@ class PortfolioForm(forms.Form):
     )
 
 
+class CreateUser(forms.Form):
+    login = forms.CharField(
+        initial="Login"
+    )
+    password = forms.CharField(
+        initial="Password"
+    )
+
+
 class ReviewForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
