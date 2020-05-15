@@ -8,5 +8,6 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("login/", auth_views.LoginView.as_view(), name="index_auth"),
     path("<int:user_portfolios>/", views.get_userpage, name="get_userpage"),
+    path("test/", views.CreatePortfolio.as_view(), name="test")
     # path("<int:user_portfolios>/<name_portfolio>/", views.XXX, name="XXX")
 ]

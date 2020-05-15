@@ -3,6 +3,7 @@ from index_page.models import Portfolios
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from .form import ReviewForm
 
 
 # Create your views here.
@@ -33,7 +34,9 @@ def get_userpage(request, user_portfolios):
 class CreatePortfolio(View, LoginRequiredMixin):
     """Создание/редактирование портфолио для зарегестрированного пользователя"""
     def get(self, request):
-        user_id = User.objects.get(username=request.user).pk
+        form = ReviewForm(request.user)
+        print(form.fields)
+        return render(request, 'port_form.html', {'form': form})
 
 
 def about(request):
