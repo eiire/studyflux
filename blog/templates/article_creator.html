@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block page_content %}
+    <div class="welcome">
+        <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> ARTICLE|CREATOR </font> PAGE </basefont>
+    </div>
+
+    {# action="/blog/@{{ user }}/" #}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

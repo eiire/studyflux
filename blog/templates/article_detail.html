@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% block page_content %}
+    <div class="welcome">
+        <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> ARTICLE </font> PAGE </basefont>
+    </div>
+
     <div class="col-md-8 offset-md-2">
         <h1>{{ post.title }}</h1>
+
         <small>
             {{ post.created_on.date }} |&nbsp;
             Categories:&nbsp;
@@ -11,26 +16,36 @@
                 </a>&nbsp;
             {% endfor %}
         </small>
-        <p>{{ post.body | linebreaks }}</p>
-        <h3>Leave a comment:</h3>
-        <form action="/blog/{{ post.pk }}/" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                {{ form.author }}
-        </div>
-        <div class="form-group">
-            {{ form.body }}
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <h3>Comments:</h3>
-    {% for comment in comments %}
-    <p>
-        On {{comment.created_on.date }}&nbsp;
-        <b>{{ comment.author }}</b> wrote:
-    </p>
-    <p>{{ comment.body }}</p>
-    <hr>
-    {% endfor %}
-</div>
+
+        <p>{{ post.body | safe | linebreaks }}</p>
+
+        {% if form %}
+            <h3>Leave a comment:</h3>
+
+            <form action="/blog/@{{ user }}/{{ post.pk }}/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.author }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.body }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        {% endif %}
+
+        <h3>Comments:</h3>
+
+        {% for comment in comments %}
+            <p>
+                On {{ comment.created_on.date }}&nbsp;
+                <b>{{ comment.author }}</b> wrote:
+            </p>
+
+            <p>{{ comment.body }}</p>
+            <hr>
+        {% endfor %}
+    </div>
 {% endblock %}

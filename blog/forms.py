@@ -1,4 +1,13 @@
 from django import forms
+from django.forms import ModelForm
+from blog.models import Post
+
+
+class ArticleCreatorForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['body', 'title']  # 'user', 'title', 'categories']
+
 
 class CommentForm(forms.Form):
     author = forms.CharField(

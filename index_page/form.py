@@ -1,15 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.forms import ModelForm
+from blog.models import Post
 
 
-class PortfolioForm(forms.Form):
-    name_portfolio = forms.CharField(
-        initial="Portfolio"
-    )
-    short_description = forms.CharField(
-        min_length=0,
-        max_length=100
-    )
+class PortfolioForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['body']
 
 
 class CreateUser(forms.Form):
