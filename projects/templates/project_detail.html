@@ -1,29 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
-
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'  %}"/> {# load global static files #}
     <div align="center" class="welcome"><basefont >WELCOME TO MY <font style="color: white; tab-size: 10px"> {{ project.title }} </font></div>
     <div class="topnavigation">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
-        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' 'Me'%}">My projects</a>
-{#        <a "padding-right: 35px; padding-left: 35px;" href="{% url 'blog_index' %}">My blog</a>#}
-    <!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
+        {% if user_auth %}
+            <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' name_portfolio user_id%}">My portfolios</a>
+            <a "padding-right: 35px; padding-left: 35px;" href="{% url 'article_index' user_id %}">My blog</a>
+        {% endif %}
+        <!--<a style="margin-left: 1%" href="#contact">Contact</a>-->
         <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-md-5">
-            <img src="{% static project.image %}" alt="" width="100%"> {# load static files inside project #}
-        </div>
-        <div class="col-md-3">
-            <h5>About the project:</h5>
-            <p>{{ project.description }}</p>
-            <br>
-            <h5>Technology used:</h5>
-            <p>{{ project.technology }}</p>
-            <h5>GitHub Project`s:</h5>
-            <p>{{ project.github }}</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="{% static project.image %}" alt="" width="100%"> {# load static files inside project #}
+            </div>
+            <div class="col-md-3">
+                <h5>About the project:</h5>
+                <p>{{ project.description }}</p>
+                <br>
+                <h5>Technology used:</h5>
+                <p>{{ project.technology }}</p>
+                <h5>GitHub Project`s:</h5>
+                <p>{{ project.github }}</p>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
@@ -14,23 +15,33 @@ class CreateArticle(View):
             form = ArticleCreatorForm()
             context = {
                 "form": form,
-                "user": user_id,
+                "user_id": request.user.id,
             }
             return render(request, "article_creator.html", context=context)
         else:
-            return HttpResponse(status=401)
+            if not request.user.is_authenticated:
+                return redirect("login")
+            else:
+                return redirect("article_creation", request.user.id)
 
     def post(self, request, user_id):
-        try:
-            user_name = User.objects.get(id=user_id)
-            validate(dict(request.POST), ARTICLE_SCHEMA)
-            body_article = request.POST['body']
-            title_article = request.POST['title']
-            article = Post(user=user_name, title=title_article, body=body_article)
-            article.save()
-            return redirect("article_index", user_id)
-        except ValidationError as exc:
-            return JsonResponse({'error': exc.message}, status=401)
+        #  Так как запрос может быть сделан с помощью скрипта
+        if request.user.is_authenticated and request.user.id == int(user_id):
+            try:
+                user_name = User.objects.get(id=user_id)
+                validate(dict(request.POST), ARTICLE_SCHEMA)
+                body_article = request.POST['body']
+                title_article = request.POST['title']
+                article = Post(user=user_name, title=title_article, body=body_article)
+                article.save()
+                return redirect("article_index", user_id)
+            except ValidationError as exc:
+                return JsonResponse({'error': exc.message}, status=401)
+        else:
+            if not request.user.is_authenticated:
+                return redirect("login")
+            else:
+                return redirect("article_creation", request.user.id)
 
 
 def article_index(request, user):

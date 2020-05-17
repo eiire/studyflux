@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest-django = "*"
+
+[packages]
+Django = "*"
+django-ckeditor = "*"
+jsonschema = "*"
+django_crispy = "*"
+
+[requires]
+python_version = "3.6"

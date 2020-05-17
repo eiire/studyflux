@@ -10,12 +10,13 @@ class PortfolioForm(ModelForm):
         fields = ['body']
 
 
-class CreateUser(forms.Form):
+class LoginUser(forms.Form):
     login = forms.CharField(
         initial="Login"
     )
+
     password = forms.CharField(
-        initial="Password"
+        widget=forms.PasswordInput
     )
 
 

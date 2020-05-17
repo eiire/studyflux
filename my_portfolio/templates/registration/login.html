@@ -9,27 +9,24 @@
         <title>Тег form</title>
     </head>
     <body>
-    <h1>Вход</h1>
-    {% if next %}
-        <form action="/login/?next={{ next }}" method="post">
-    {% else %}
-        <form action="/login/" method="post">
-    {% endif %}
+        <h1>Вход</h1>
 
-    {% csrf_token %}
-    <div class="row">
-        <div class="col-2">
-            {{ form.username|as_crispy_field }}
-            {{ form.password|as_crispy_field }}
-        </div>
-    </div>
+        {% if next %}
+            <form action="/login/?next={{ next }}" method="post">
+        {% else %}
+            <form action="/login/" method="post">
+        {% endif %}
 
-    {% for portfolio in portfolios %}
-        portfolio.name
-    {% endfor %}
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-2">
+                    {{ form|crispy }}
+                </div>
+            </div>
 
-    <input id="feedback-submit" type="submit" value="Отправить">
-    </form>
+            <input id="feedback-submit" type="submit" value="Отправить">
+            <a href="{% url "register" %}">Register</a>
+        </form>
     </body>
     </html>
 {% endblock %}
