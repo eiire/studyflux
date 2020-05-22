@@ -1,14 +1,12 @@
 {% extends "base.html" %}
+{% block page_title %}ARTICLES{% endblock %}
 {% block page_content %}
-    <div class="welcome">
-        <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> BLOG </font> PAGE </basefont>
-    </div>
 
     <div class="topnavigation">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
         {% if user == True %}
             <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
-               href="{% url 'get_userpage' user_id %}">My project</a>
+               href="{% url 'get_userpage' user_id %}">My portfolios</a>
             <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
                href="{% url 'article_creation' user_id %}">Create</a>
         {% endif %}
@@ -16,27 +14,32 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col offset-2">
-                <hr>
-                {% for post in posts %}
-                    <h2><a href="{% url 'article_detail' user_id post.pk %}">{{ post.title }}</a></h2>
+        <hr>
+        <div class="row row-cols-1 row-cols-md-4">
+            {% for post in posts %}
+                <div class="col mb-4">
+                    <a href="{% url 'article_dlt' user_id post.pk %}"> Delete article </a>
+                    <div class="card">
+                        <small>
+                            {{ post.created_on.date }} |&nbsp;
+                            Categories:&nbsp;
+                            {% for category in post.categories.all %}
+                                <a href="{% url 'article_category' category.name %}">
+                                    {{ category.name }}
+                                </a>
+                            {% endfor %}
+                        </small>
 
-                    <small>
-                        {{ post.created_on.date }} |&nbsp;
-                        Categories:&nbsp;
-                        {% for category in post.categories.all %}
-                            <a href="{% url 'article_category' category.name %}">
-                                {{ category.name }}
-                            </a>
-                        {% endfor %}
-                    </small>
-
-                    <p>{{ post.body | slice:":100" | safe }}...</p>
-
-                    <hr>
-                {% endfor %}
-            </div>
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.body | slice:":50" | safe }}</p>
+                            <hr>
+                            <a href="{% url 'article_detail' user_id post.pk %}" class="btn btn-primary">Detailed</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

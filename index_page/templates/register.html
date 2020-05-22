@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Регистрация</title>
-  </head>
-  <body>
-    <form action="" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Registration</button>
-    </form>
-  </body>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block page_title %}REGISTRATION{% endblock %}
+{% block page_content %}
+    <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 offset-4">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form | crispy}}
+                    <button type="submit">Registration</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 </html>

@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% block page_title %}HOME{% endblock %}
 {% block page_content %}
-    <div class="welcome">
-        <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> HOME </font> PAGE </basefont>
-    </div>
 
     <body bgcolor="#edf0e8">
 
@@ -13,6 +11,7 @@
         {% if user_id != 'anon' %}
             <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
                href="{% url 'get_userpage' user_id %}">My portfolios</a>
+            <a style="float: right" href={% url 'create_portfolio' user_id %}>Create</a>
             <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
                href="{% url 'article_index' user_id %}">My blog</a>
             <a style="float: right" href={% url 'logout' %}>Exit</a>

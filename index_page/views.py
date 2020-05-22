@@ -8,7 +8,7 @@ from index_page.models import Portfolios
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from .form import ReviewForm, LoginUser, PortfolioForm
+from .forms import ReviewForm, LoginUser, PortfolioForm
 
 
 def get_startpage(request):
@@ -71,7 +71,7 @@ class RegisterFormView(FormView):
 
 class CreatePortfolio(View, LoginRequiredMixin):
     """Создание/редактирование портфолио для аутентефицированного пользователя"""
-    def get(self, request):
+    def get(self, request, user_id):
         form = PortfolioForm()
         print(form.fields)
         return render(request, 'port_form.html', {'form': form})

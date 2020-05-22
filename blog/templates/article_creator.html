@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block page_content %}
-    <div class="welcome">
-        <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> ARTICLE|CREATOR </font> PAGE </basefont>
-    </div>
 
+{% block page_title %}ARTICLE|CREATOR{% endblock %}
+
+{% block page_content %}
     <div class="topnavigation">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
         <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
@@ -23,7 +22,7 @@
             <div class="col offset-2">
                 <form method="post">
                     {% csrf_token %}
-                    <p> {{ form.media }} </p>
+                    <p> {{ form.media  }} </p>
                     <p> {{ form.title }} </p>
                     <p> {{ form.body }} </p>
                     <p> <button type="submit" class="btn btn-primary">Submit</button> </p>

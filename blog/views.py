@@ -44,10 +44,26 @@ class CreateArticle(View):
                 return redirect("article_creation", request.user.id)
 
 
+def article_dlt(request, user_id, pk):
+    if request.user.is_authenticated:
+        try:
+            user = User.objects.get(id=request.user.pk)
+            posts = Post.objects.filter(user=user)
+            post = posts.get(id=pk)
+            post.delete()
+
+            return redirect("article_index", request.user.id)
+        except:
+            return HttpResponse(status=401)
+    else:
+        return redirect("login")
+
+
 def article_index(request, user):
     try:
         user = User.objects.get(id=user)
         posts = Post.objects.filter(user=user).order_by('-created_on')
+        # print(posts)
         context = {
             "posts": posts,
             "user_id": user.id,

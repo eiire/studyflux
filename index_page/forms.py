@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from blog.models import Post
+from index_page.models import Portfolios
 
 
 class PortfolioForm(ModelForm):
     class Meta:
-        model = Post
-        fields = ['body']
+        model = Portfolios
+        fields = ['user', 'name']
 
 
 class LoginUser(forms.Form):
