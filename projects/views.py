@@ -3,8 +3,7 @@ from projects.models import Project
 
 
 def project_index(request, user_id, name_portfolio):
-
-    projects = Project.objects.filter(user_portfolio=user_id)
+    projects = Project.objects.filter(user_portfolio=name_portfolio)
     context = {
         'user_id': user_id,
         'user_auth': request.user.is_authenticated,

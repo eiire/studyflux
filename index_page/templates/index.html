@@ -30,13 +30,10 @@
                         {% for portfolio in portfolios %}
                             <div class="col-4">
                                 <div class="card">
-                                    <img src="{% static portfolio.image %}" class="card-img-top"/>
+                                    <img src="{{ portfolio.image.url }}" class="card-img-top"/>
                                     <div class="card-body">
-                                        <p>Name: {{ portfolio.name }}</p>
-                                        <p>Adress: {{ portfolio.address }}</p>
-                                        <p>Age: {{ portfolio.age }}</p>
-                                        <p>Contacts: {{ portfolio.contacts }}</p>
-                                        <a href="{% url 'project_index' user_id portfolio.name %}" class="btn btn-primary">Check
+                                        {{ portfolio.as_p }}
+                                        <a href="{% url 'project_index' portfolio.user.pk portfolio.pk %}" class="btn btn-primary">Check
                                             Projects</a>
                                         <hr></hr>
                                     </div>
@@ -68,13 +65,13 @@
                         {% for portfolio in portfolios %}
                             <div class="col-4">
                                 <div class="card">
-                                    <img src="{% static portfolio.image %}" class="card-img-top"/>
+                                    <img src="{{ portfolio.image.url }}" class="card-img-top"/>
                                     <div class="card-body">
                                         <p>Name: {{ portfolio.name }}</p>
                                         <p>Adress: {{ portfolio.address }}</p>
                                         <p>Age: {{ portfolio.age }}</p>
                                         <p>Contacts: {{ portfolio.contacts }}</p>
-                                        <a href="{% url 'project_index' user_id portfolio.name %}" class="btn btn-primary">
+                                        <a href="{% url 'project_index' portfolio.user.pk portfolio.pk %}" class="btn btn-primary">
                                             Check Projects</a>
                                     </div>
                                 </div>

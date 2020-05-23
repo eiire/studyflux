@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Тег form</title>
-</head>
-<body>
-<h1>Test</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-</form>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
 
-</body>
-</html>
+{% block page_title %}ARTICLE|CREATOR{% endblock %}
+
+{% block page_content %}
+    <div class="topnavigation">
+        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
+        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
+{#           href="{% url 'get_userpage' user_id %}">My portfolios</a>#}
+        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
+{#           href="{% url 'article_index' user_id %}">My blog</a>#}
+        <a style="float: right" href={% url 'logout' %}>Exit</a>
+        <a style="margin-left: 1%" href="#contact">Contact</a>
+        <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
+    </div>
+
+    <hr>
+
+    <div class="contanier-fluid">
+        <div class="row">
+            <div class="col offset-2">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form.as_p }}
+                    <p> <button type="submit" class="btn btn-primary">Submit</button> </p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

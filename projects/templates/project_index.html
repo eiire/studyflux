@@ -1,32 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
+{% block page_title %} PROJECTS {% endblock %}
 {% block page_content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css'  %}"/>
-<div class="welcome"><basefont >WELCOME TO MY <font style="color: white; tab-size: 10px"> PROJECTS </font> PAGE </basefont></div>
-<div class="topnavigation">
-    <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
-{#    <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' %}">My projects</a>#}
-    <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'article_index' 'TEST'%}">My blog</a>
-<!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
-    <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
-</div>
-<hr>
-<div class="row" align="center">
-{% for project in projects %}
-    <div class="col-md-4">
-        <div class="card mb-2">
-            <img class="card-img-top" src="{% static project.image %}">
-            <div class="card-body">
-                <h5 class="card-title">{{ project.title }}</h5>
-                <p class="card-text">{{ project.description }}</p>
-                <a href="{% url 'project_detail' user_id name_portfolio project.pk %}"
-                   class="btn btn-primary">
-                    Read More
-                </a>
-            </div>
-        </div>
+    <div class="topnavigation">
+        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
+    {#    <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' %}">My projects</a>#}
+        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'article_index' 'TEST'%}">My blog</a>
+    <!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
+        <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
     </div>
-    {% endfor %}
-</div>
+
+    <hr>
+
+    <div class="row" align="center">
+        {% for project in projects %}
+            <div class="col-md-4">
+                <div class="card mb-2">
+                    <img class="card-img-top" src="{% static project.image %}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <a href="{% url 'project_detail' user_id name_portfolio project.pk %}"
+                           class="btn btn-primary">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

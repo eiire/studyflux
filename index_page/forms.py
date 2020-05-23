@@ -7,7 +7,7 @@ from index_page.models import Portfolios
 class PortfolioForm(ModelForm):
     class Meta:
         model = Portfolios
-        fields = ['user', 'name']
+        fields = ['user', 'name', 'image']
 
 
 class LoginUser(forms.Form):

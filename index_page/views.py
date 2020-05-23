@@ -49,6 +49,7 @@ def get_startpage(request):
 def get_userpage(request, user_id):
     """Получить страницу с текущим пользователем"""
     user_portfolio = Portfolios.objects.filter(user_id=user_id)
+    print(user_portfolio)
     context = {
         'portfolios': user_portfolio,
         'user': True,

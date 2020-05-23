@@ -1,20 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <title>About Me</title>
-</head>
-
+{% block page_title %} ABOUT THIS SITE {% endblock %}
+{% block page_content %}
 <body>
     <div style=" position: relative; z-index: 1" class="topnavigation">
         <a class="active" style="margin-right: 5%;" href="{% url 'index' %}">Home</a>
@@ -39,12 +26,11 @@
             <div class="col-sm-3 no-float">
                 <div class="my_container">
                     <div class="my_overlay">
-                        <center><img src="{% static 'imgs/forabout.JPG'  %}" alt="Me" class="my_imageme"/></center>
+                        <center><img src="{% static 'img/forabout.JPG' %}" alt="Me" class="my_imageme"/></center>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
-</html>
+{% endblock %}

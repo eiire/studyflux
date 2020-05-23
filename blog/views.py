@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from blog.models import Post, Comment
+from my_portfolio.settings import MEDIA_ROOT
 from .forms import CommentForm, ArticleCreatorForm
 from jsonschema import ValidationError, validate
 from blog.schemas import ARTICLE_SCHEMA
@@ -15,7 +16,7 @@ class CreateArticle(View):
             form = ArticleCreatorForm()
             context = {
                 "form": form,
-                "user_id": request.user.id,
+                "user_id": request.user.id
             }
             return render(request, "article_creator.html", context=context)
         else:
@@ -31,8 +32,9 @@ class CreateArticle(View):
                 user_name = User.objects.get(id=user_id)
                 validate(dict(request.POST), ARTICLE_SCHEMA)
                 body_article = request.POST['body']
+                image_article = request.FILES['image']
                 title_article = request.POST['title']
-                article = Post(user=user_name, title=title_article, body=body_article)
+                article = Post(user=user_name, title=title_article, body=body_article, image=image_article)
                 article.save()
                 return redirect("article_index", user_id)
             except ValidationError as exc:
@@ -60,6 +62,7 @@ def article_dlt(request, user_id, pk):
 
 
 def article_index(request, user):
+    print(MEDIA_ROOT)
     try:
         user = User.objects.get(id=user)
         posts = Post.objects.filter(user=user).order_by('-created_on')
@@ -67,6 +70,7 @@ def article_index(request, user):
         context = {
             "posts": posts,
             "user_id": user.id,
+            "user": request.user
         }
     except:
         return HttpResponse(status=401)
