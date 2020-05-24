@@ -13,5 +13,6 @@ urlpatterns = [
     path('register/', views.RegisterFormView.as_view(), name="register"),
     path("@<user_id>/", views.get_userpage, name="get_userpage"),
     path("@<user_id>/create/", views.CreatePortfolio.as_view(), name="create_portfolio"),
+    path("@<user_id>/delete/<int:pk>/", views.portfolio_dlt, name="portfolio_dlt"),
     # path("<int:user_portfolios>/<name_portfolio>/", views.XXX, name="XXX")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

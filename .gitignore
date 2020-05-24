@@ -19,3 +19,6 @@ my_portfolio/static/img/*.png
 my_portfolio/static/img/blog/art_cover/*.jpg
 my_portfolio/static/img/blog/art_cover/*.png
 my_portfolio/static/img/uploads/2020/*
+projects/migrations/*.py
+index_page/migrations/*.py
+blog/migrations/*.py

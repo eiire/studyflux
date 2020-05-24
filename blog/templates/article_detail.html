@@ -2,15 +2,17 @@
 {% block page_title %}ARTICLE{% endblock %}
 {% block page_content %}
 
-    <div class="topnavigation">
-        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
+    <div class="my_navbar" id="my_navbar">
+        <a class="active" href="{% url 'index' %}">Home</a>
         {% if user == True %}
-            <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
-               href="{% url 'get_userpage' user_id %}">My portfolios</a>
-            <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
-               href="{% url 'article_creation' user_id %}">Create</a>
+            <a href="{% url 'get_userpage' user_id %}">My portfolios</a>
+            <a href="{% url 'article_creation' user_id %}">Create</a>
         {% endif %}
-        <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
+        <a href="{% url 'about' %}">About</a>
+
+        <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
+            <i>F</i>
+        </a>
     </div>
 
     <div class="col-md-8 offset-md-2">

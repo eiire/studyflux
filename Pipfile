@@ -12,6 +12,7 @@ Pillow = "*"
 django-ckeditor = "*"
 jsonschema = "*"
 django_crispy = "*"
+self = "*"
 
 [requires]
 python_version = "3.6"

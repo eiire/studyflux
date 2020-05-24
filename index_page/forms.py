@@ -1,13 +1,22 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from index_page.models import Portfolios
 
 
 class PortfolioForm(ModelForm):
+    # server side validation
+    def clean_name(self):
+        data = self.cleaned_data['name']
+        if len(data) > 30 or len(data) <= 0:
+            raise ValidationError
+
+        # return clean data
+        return data
+
     class Meta:
         model = Portfolios
-        fields = ['user', 'name', 'image']
+        fields = ['name', 'image', 'count_proj', 'contacts']
 
 
 class LoginUser(forms.Form):

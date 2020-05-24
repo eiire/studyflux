@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
+{% block page_title %} PROJECT {% endblock %}
 {% block page_content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'  %}"/> {# load global static files #}
-    <div align="center" class="welcome"><basefont >WELCOME TO MY <font style="color: white; tab-size: 10px"> {{ project.title }} </font></div>
-    <div class="topnavigation">
+    <div class="my_navbar" id="my_navbar">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
         {% if user_auth %}
-            <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' name_portfolio user_id%}">My portfolios</a>
-            <a "padding-right: 35px; padding-left: 35px;" href="{% url 'article_index' user_id %}">My blog</a>
+            <a href="{% url 'project_index' name_portfolio user_id%}">My portfolios</a>
+            <a href="{% url 'article_index' user_id %}">My blog</a>
         {% endif %}
-        <!--<a style="margin-left: 1%" href="#contact">Contact</a>-->
-        <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
+         <a href="https://github.com/eiire">Contact</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
+            <i>F</i>
+        </a>
     </div>
     <hr>
     <div class="container-fluid">

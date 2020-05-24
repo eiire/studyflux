@@ -3,12 +3,20 @@
 {% block page_title %} PROJECTS {% endblock %}
 {% block page_content %}
 
-    <div class="topnavigation">
-        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
-    {#    <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'project_index' %}">My projects</a>#}
-        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="{% url 'article_index' 'TEST'%}">My blog</a>
-    <!--        <a style="margin-left: 1%" href="#contact">Contact</a>-->
-        <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
+    <div class="my_navbar" id="my_navbar">
+        <a class="active" href="{% url 'index' %}">Home</a>
+
+        {% if user == True %}
+            <a href="{% url 'get_userpage' user_id %}">My portfolios</a>
+            <a href="{% url 'project_creator' user_id name_portfolio %}">Create</a>
+        {% endif %}
+
+        <a href="{% url 'article_index' 'TEST'%}">My blog</a>
+        <a href="https://github.com/eiire">Contact</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
+            <i>F</i>
+        </a>
     </div>
 
     <hr>

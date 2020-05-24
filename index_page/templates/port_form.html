@@ -2,18 +2,19 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block page_title %}ARTICLE|CREATOR{% endblock %}
+{% block page_title %}PORTFOLIO|CREATOR{% endblock %}
 
 {% block page_content %}
-    <div class="topnavigation">
-        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
-        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
-{#           href="{% url 'get_userpage' user_id %}">My portfolios</a>#}
-        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;"
-{#           href="{% url 'article_index' user_id %}">My blog</a>#}
-        <a style="float: right" href={% url 'logout' %}>Exit</a>
-        <a style="margin-left: 1%" href="#contact">Contact</a>
-        <font style="float: right"> <a href="{% url 'about' %}">About</a> </font>
+    <div class="my_navbar" id="my_navbar">
+        <a class="active" href="{% url 'index' %}"> Home </a>
+        {# <a href="{% url 'get_userpage' user_id %}">My portfolios</a> #}
+        {# <a href="{% url 'article_index' user_id %}">My blog</a>#}
+        <a href={% url 'logout' %}> Exit </a>
+        <a href="https://github.com/eiire"> Contact </a>
+        <a href="{% url 'about' %}"> About </a>
+        <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
+            <i>F</i>
+        </a>
     </div>
 
     <hr>
@@ -24,7 +25,9 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.media }}
-                    {{ form.as_p }}
+                    <p>{{ form.name }}</p>
+                    <p>{{ form.image }}</p>
+                    <p>{{ form.contacts }}</p>
                     <p> <button type="submit" class="btn btn-primary">Submit</button> </p>
                 </form>
             </div>

@@ -54,7 +54,7 @@ def article_dlt(request, user_id, pk):
             post = posts.get(id=pk)
             post.delete()
 
-            return redirect("article_index", request.user.id)
+            return redirect("article_index", request.user)
         except:
             return HttpResponse(status=401)
     else:
@@ -62,7 +62,6 @@ def article_dlt(request, user_id, pk):
 
 
 def article_index(request, user):
-    print(MEDIA_ROOT)
     try:
         user = User.objects.get(id=user)
         posts = Post.objects.filter(user=user).order_by('-created_on')
@@ -70,7 +69,7 @@ def article_index(request, user):
         context = {
             "posts": posts,
             "user_id": user.id,
-            "user": request.user
+            "is_user": request.user.is_authenticated
         }
     except:
         return HttpResponse(status=401)

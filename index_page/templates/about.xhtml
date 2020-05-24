@@ -2,18 +2,17 @@
 {% load static %}
 {% block page_title %} ABOUT THIS SITE {% endblock %}
 {% block page_content %}
+
 <body>
-    <div style=" position: relative; z-index: 1" class="topnavigation">
-        <a class="active" style="margin-right: 5%;" href="{% url 'index' %}">Home</a>
-<!--        <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="#news">News</a>-->
-        <a style="margin-left: 1%" href="#contact">Contact</a>
-<!--        <font style="float: right"> <a href="pages/about.xhtml">About</a> </font>-->
+    <div class="my_navbar" id="my_navbar">
+        <a class="active" href="{% url 'index' %}">Home</a>
+        {# <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="#news">News</a> #}
+        <a href="https://github.com/eiire">Contact</a>
+        <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
+            <i>F</i>
+        </a>
     </div>
-<!--    <div class="row">-->
-<!--        <div class="block_of_description">-->
-<!--            The main goal of the site is learning English language and WEB-development.-->
-<!--        </div>-->
-<!--    </div>-->
+
     <div style="background-color: #efefef" class="container-fluid">
         <div class="row">
             <div class="col-sm-1 no-float"></div>
