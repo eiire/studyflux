@@ -25,9 +25,14 @@
             <div class="col offset-2">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form.media }}
-                    {{ form.as_p }}
-                    <p> <button type="submit" class="btn btn-primary">Submit</button> </p>
+                    <p>{{ form.media }}</p>
+                    <p>{{ form.header }}</p>
+                    <p>{{ form.image }}</p>
+                    <p>{{ form.title }}</p>
+                    <p>{{ form.categories }}</p>
+                    <p>{{ form_cat }}</p>
+                    <p>{{ form.body }}</p>
+                    <p> <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-1">Submit</button> </p>
                 </form>
             </div>
         </div>

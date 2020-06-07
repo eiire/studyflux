@@ -16,37 +16,42 @@
         </a>
     </div>
 
-    <div class="container-fluid">
-        <hr>
-        <div class="row row-cols-1 row-cols-md-4">
-            {% for post in posts %}
-                <div class="col mb-4">
-                    {% if is_user %}
-                        <a href="{% url 'article_dlt' user_id post.pk %}"> Delete article </a>
-                    {% endif %}
+    <hr>
 
-                    <div class="card">
+    <div style="background: #f8f9fa" class="container mt-4">
+        <div class="card-columns blog">
+            {% for post in posts %}
+                <div class="card box-shadow-sm blog_card">
+                    <div style="background: #e4e4e4" class="card-header text-black">
+                        <h5 class="my-0 font-weight-normal" id="art_header">{{ post.title }}</h5>
+                    </div>
+
+                    <div class="card-body" style="background: #ffffff">
                         <small>
                             {{ post.created_on.date }} |&nbsp;
                             Categories:&nbsp;
                             {% for category in post.categories.all %}
-                                <a href="{% url 'article_category' category.name %}">
+                                <a href="{% url 'article_category' post.user_id category.name %}">
                                     {{ category.name }}
                                 </a>
                             {% endfor %}
                         </small>
 
-                        <img src={{ post.image.url }} class="card-img-top" alt="...">
+                        <img class="img-thumbnail" src={{ post.image.url }}>
+                        <p></p>
+                        <p class="card-text">{{ post.header | slice:"100" }}</p>
 
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.body | slice:":50" | safe }}</p>
-                            <hr>
-                            <a href="{% url 'article_detail' user_id post.pk %}" class="btn btn-primary">Detailed</a>
-                        </div>
+                        {% if is_user %}
+                            <a href="{% url 'article_dlt' user_id post.pk %}"> Delete article </a>
+                        {% endif %}
                     </div>
+
+                    <a href="{% url 'article_detail' user_id post.pk %}" type="button" class="btn btn-block my_style">Detailed</a>
                 </div>
+                <hr>
             {% endfor %}
         </div>
     </div>
+
+    <hr>
 {% endblock %}

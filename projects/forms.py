@@ -2,10 +2,6 @@ from django import forms
 
 
 class ProjectForm(forms.Form):
-    user_portfolio = forms.CharField(
-        min_length=0,
-
-    )
     title = forms.CharField(
         max_length=120
     )

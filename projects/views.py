@@ -48,11 +48,6 @@ class CreatorProjectView(FormView, LoginRequiredMixin):
         else:
             return redirect('project_creator', request.user.id)
 
-    def get_initial(self):
-        return {
-            'user_portfolio': self.name_portfolio.pk
-        }
-
     def form_valid(self, form):
         new_portfoio = Project(
             user_portfolio_id=self.name_portfolio.pk,

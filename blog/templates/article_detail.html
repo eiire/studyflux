@@ -22,7 +22,7 @@
             {{ post.created_on.date }} |&nbsp;
             Categories:&nbsp;
             {% for category in post.categories.all %}
-                <a href="{% url 'article_category' category.name %}">
+                <a href="{% url 'article_category' post.user_id category.name %}">
                     {{ category.name }}
                 </a>&nbsp;
             {% endfor %}

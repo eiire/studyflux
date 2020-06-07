@@ -3,6 +3,19 @@
 {% block page_title %} BLOG | CATEGORY {% endblock %}
 
 {% block page_content %}
+    <div class="my_navbar" id="my_navbar">
+        <a class="active" href="{% url 'index' %}">Home</a>
+        <a href="{% url 'get_userpage' user_id %}">My portfolios</a>
+        <a href="{% url 'article_index' user_id %}">My blog</a>
+        <a href={% url 'logout' %}>Exit</a>
+        <a href="https://github.com/eiire">Contact</a>
+        <a href="{% url 'about' %}">About</a>
+
+        <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
+            <i>F</i>
+        </a>
+    </div>
+
     <div class="col-md-8 offset-md-2">
         <h1>{{ category | title }}</h1>
         <hr>
@@ -12,12 +25,12 @@
                 {{ post.created_on.date }} |&nbsp;
                 Categories:&nbsp;
                 {% for category in post.categories.all %}
-                    <a href="{% url 'article_category' category.name %}">
+                    <a href="{% url 'article_category' user_id category.name %}">
                         {{ category.name }}
                     </a>&nbsp;
                 {% endfor %}
             </small>
-            <p>{{ post.body | slice:":400" }}...</p>
+            <p>{{ post.header | slice:":400" }}...</p>
         {% endfor %}
     </div>
 {% endblock %}

@@ -7,5 +7,5 @@ urlpatterns = [
     path("@<user_id>/delete/<int:pk>/", views.article_dlt, name="article_dlt"),
     path("@<user_id>/<int:pk>/", views.article_detail, name="article_detail"),
     # path("@<user_id>/edit/<user_id>/<int:pk>/", views.CreateArticle.as_view(), name="article_creation"),
-    path("<category>/", views.article_category, name="article_category"),
+    path("@<user_id>/<category>/posts/", views.article_category, name="article_category"),
 ]
