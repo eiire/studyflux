@@ -128,3 +128,11 @@ h5#art_header {
         column-count: 3
     }
 }
+
+ul#field_knowledge li {
+    list-style-type: none;
+}
+
+ul#categories li {
+    list-style-type: none;
+}

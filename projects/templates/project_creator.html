@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block page_title %} PROJECT|CREATOR {% endblock %}
+{% block page_title %} TOPICS|CREATOR {% endblock %}
 {% block page_content %}
     <div class="my_navbar" id="my_navbar">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
@@ -18,11 +18,7 @@
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
-            <p>{{ form.user_portfolio }}</p>
-            <p>{{ form.title }}</p>
-            <p>{{ form.technology }}</p>
-            <p>{{ form.github }}</p>
-            <p>{{ form.name_for_portfolios }}</p>
+            {{ form.as_p }}
             <input type="submit" class="btn btn-primary" value="Сохранить"/>
         </form>
     </div>

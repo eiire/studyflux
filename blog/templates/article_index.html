@@ -6,7 +6,7 @@
     <div class="my_navbar" id="my_navbar">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
         {% if user == True %}
-            <a href="{% url 'get_userpage' user_id %}">My portfolios</a>
+            <a href="{% url 'get_userpage' user_id %}">My knowledge</a>
             <a href="{% url 'article_creation' user_id %}">Create</a>
         {% endif %}
         <a href="{% url 'about' %}">About</a>
@@ -37,13 +37,16 @@
                             {% endfor %}
                         </small>
 
-                        <img class="img-thumbnail" src={{ post.image.url }}>
+                        {% if post.image != '' %}
+                            <img class="img-thumbnail" src={{ post.image.url }}> {% endif %}
+
                         <p></p>
+
                         <p class="card-text">{{ post.header | slice:"100" }}</p>
 
                         {% if is_user %}
-                            <a href="{% url 'article_dlt' user_id post.pk %}"> Delete article </a>
-                        {% endif %}
+                            <a href="{% url 'article_dlt' user_id post.pk %}"> Delete article </a> {% endif %}
+
                     </div>
 
                     <a href="{% url 'article_detail' user_id post.pk %}" type="button" class="btn btn-block my_style">Detailed</a>

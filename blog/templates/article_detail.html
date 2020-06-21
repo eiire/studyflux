@@ -5,7 +5,7 @@
     <div class="my_navbar" id="my_navbar">
         <a class="active" href="{% url 'index' %}">Home</a>
         {% if user == True %}
-            <a href="{% url 'get_userpage' user_id %}">My portfolios</a>
+            <a href="{% url 'get_userpage' user_id %}">My knowledge</a>
             <a href="{% url 'article_creation' user_id %}">Create</a>
         {% endif %}
         <a href="{% url 'about' %}">About</a>

@@ -67,9 +67,13 @@ def portfolio_dlt(request, user_id, pk):
 
 def get_userpage(request, user_id):
     """Получить страницу с текущим пользователем"""
-    user_portfolio = Portfolios.objects.filter(user_id=user_id)
+    field_knowledges_user = Portfolios.objects.filter(user_id=user_id)
+    for field_knowledge_user in field_knowledges_user:
+        field_knowledge_user.topics = Project.objects.filter(user_portfolio=field_knowledge_user).count()
+        # i.save()
+
     context = {
-        'portfolios': user_portfolio,
+        'portfolios': field_knowledges_user,
         'user': True,
         'user_id': user_id
     }
@@ -104,8 +108,7 @@ class CreatePortfolio(View, LoginRequiredMixin):
         new_portfolio = Portfolios(
             user=request.user,
             name=form.data['name'],
-            count_proj=0,
-            contacts=form.data['contacts'],
+            topics=0,
             image=request.FILES['image']
         )
         new_portfolio.save()

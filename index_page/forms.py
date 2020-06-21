@@ -16,7 +16,7 @@ class PortfolioForm(ModelForm):
 
     class Meta:
         model = Portfolios
-        fields = ['name', 'image', 'count_proj', 'contacts']
+        fields = ['name', 'image', 'topics']
 
 
 class LoginUser(forms.Form):

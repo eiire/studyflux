@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block page_title %}HOME{% endblock %}
+{% block page_title %}KNOWLADGES{% endblock %}
 {% block page_content %}
 
     <body bgcolor="#edf0e8">
@@ -9,8 +9,8 @@
     <div class="my_navbar" id="my_navbar">
         <a class="active" href="{% url 'index' %}">Home</a>
         {% if user_id != 'anon' %}
-            <a href="{% url 'get_userpage' user_id %}">My portfolios</a>
-            <a href={% url 'create_portfolio' user_id %}>Create</a>
+            <a href="{% url 'get_userpage' user_id %}">My knowledge</a>
+            {# <a href={% url 'create_portfolio' user_id %}>Create</a> #}
             <a href="{% url 'article_index' user_id %}">My blog</a>
             <a href={% url 'logout' %}>Exit</a>
         {% endif %}
@@ -70,10 +70,9 @@
                                     <img src="{{ portfolio.image.url }}" class="card-img-top"/>
                                     <div class="card-body">
                                         <p>Name: {{ portfolio.name }}</p>
-                                        <p>Contacts: {{ portfolio.contacts }}</p>
-                                        <p>Count proj: {{ portfolio.count_proj }}</p>
+                                        <p>Topics: {{ portfolio.topics }}</p>
                                         <a href="{% url 'project_index' portfolio.user.pk portfolio.pk %}" class="btn btn-primary">
-                                            Check Projects</a>
+                                            Check topics</a>
                                     </div>
                                 </div>
                             <hr>

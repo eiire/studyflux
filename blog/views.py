@@ -1,22 +1,19 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from blog.models import Post, Comment, Category
+from blog.forms import CommentForm, ArticleCreatorForm
+from blog.schemas import ARTICLE_SCHEMA
+from index_page.models import Portfolios, Project
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from blog.models import Post, Comment, Category
-from my_portfolio.settings import MEDIA_ROOT
-from .forms import CommentForm, ArticleCreatorForm, CategoryCreatorForm
 from jsonschema import ValidationError, validate
-from blog.schemas import ARTICLE_SCHEMA
 
 
 class CreateArticle(View):
     def get(self, request, user_id):
-        # print(ArticleCreatorForm().categories)
         if request.user.is_authenticated and request.user.id == int(user_id):
             context = {
                 "form": ArticleCreatorForm(request.user.pk),
-                "form_cat": CategoryCreatorForm(),
                 "user_id": request.user.id
             }
             return render(request, "article_creator.html", context=context)
@@ -32,9 +29,10 @@ class CreateArticle(View):
                 user_name = User.objects.get(id=user_id)
                 validate(dict(request.POST), ARTICLE_SCHEMA)
                 body_article = request.POST['body']
-                image_article = request.FILES['image']
+                image_article = request.FILES.get('image', None)
                 title_article = request.POST['title']
                 header_article = request.POST['header']
+
                 # print(dict(request.POST)['categories'])  # (!!!! request.POST['categories'] --> 1 element)
                 if dict(request.POST).get('categories') is not None:
                     categories = dict(request.POST).get('categories')
@@ -43,11 +41,22 @@ class CreateArticle(View):
 
                 all_categories = list(Category.objects.filter(id__in=categories))
 
-                if request.POST['name'] != '':
+                if request.POST['new_category'] != '':
+                    extended_category = Project(
+                        user_portfolio=Portfolios.objects.get(id=request.POST.get('field_knowledge', 2)),
+                        title=request.POST['new_category'],
+                        description='TEST',
+                    )
+
+                    extended_category.save()
+
                     category = Category(
-                        name=request.POST['name'], user=request.user
+                        name=request.POST['new_category'],
+                        user=request.user,
+                        project=extended_category
                     )  # add function to add multiple categories via splitter
                     category.save()
+
                     all_categories.append(category)
 
                 article = Post(

@@ -5,21 +5,19 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, NoReverseMatch
 from django.views.generic import FormView
 
+from blog.models import Category
 from index_page.models import Portfolios
 from projects.forms import ProjectForm
 from projects.models import Project
 
 
 class CreatorProjectView(FormView, LoginRequiredMixin):
-    user_id = None
-    name_portfolio = None
     form_class = ProjectForm
     template_name = 'project_creator.html'
     success_url = reverse_lazy('index')
 
     def get(self, request, user_id, name_portfolio):
         try:
-            # portfolio <- project
             user_portfolios = Portfolios.objects.filter(user=request.user)
             current_portfolios = user_portfolios.get(id=name_portfolio)
             self.name_portfolio = current_portfolios
@@ -36,8 +34,8 @@ class CreatorProjectView(FormView, LoginRequiredMixin):
         try:
             user_portfolios = Portfolios.objects.filter(user=request.user)
             current_portfolios = user_portfolios.get(id=name_portfolio)
-            self.name_portfolio = current_portfolios
-            current_portfolios.count_proj += 1
+            self.field_knowledge = current_portfolios
+            current_portfolios.topics += 1
             current_portfolios.save()
         except ObjectDoesNotExist:
             return HttpResponse(status=404)
@@ -49,14 +47,13 @@ class CreatorProjectView(FormView, LoginRequiredMixin):
             return redirect('project_creator', request.user.id)
 
     def form_valid(self, form):
-        new_portfoio = Project(
-            user_portfolio_id=self.name_portfolio.pk,
+        new_category = Project(
             title=form["title"].value(),
-            technology=form["technology"].value(),
-            github=form["github"].value(),
-            name_for_portfolios=form["name_for_portfolios"].value(),
+            description=form["description"].value(),
+            user_portfolio=self.field_knowledge
         )
-        new_portfoio.save()
+        new_category.save()
+        Category(name=form["title"].value(), user=self.request.user, project=new_category).save()
         return super(CreatorProjectView, self).form_valid(form)
 
 
