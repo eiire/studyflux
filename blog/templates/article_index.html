@@ -20,7 +20,7 @@
 
     <div style="background: #f8f9fa" class="container mt-4">
         <div class="card-columns blog">
-            {% for post in posts %}
+            {% for post in post_list %}
                 <div class="card box-shadow-sm blog_card">
                     <div style="background: #e4e4e4" class="card-header text-black">
                         <h5 class="my-0 font-weight-normal" id="art_header">{{ post.title }}</h5>
@@ -45,7 +45,9 @@
                         <p class="card-text">{{ post.header | slice:"100" }}</p>
 
                         {% if is_user %}
-                            <a href="{% url 'article_dlt' user_id post.pk %}"> Delete article </a> {% endif %}
+                            <a href="{% url 'article_dlt' user_id post.pk %}"> Delete article </a> {% endif %}|
+                        {% if is_user %}
+                            <a href="{% url 'update_article' user_id post.pk %}"> Edit article </a> {% endif %}
 
                     </div>
 

@@ -1,53 +1,48 @@
 from django import forms
-from django.forms import ModelForm, models
-from blog.models import Post, Category
+
+from blog.models import Category
 from index_page.models import Portfolios
+from django.urls import reverse
 
 
-class ArticleCreatorForm(ModelForm):
-    """ Post model-form extended Category model-form. """
+class ModelFormPostMixin:
+    fields, exclude = '__all__', ['user']
+    widgets = {
+        'knowledge_field': forms.RadioSelect(attrs={'id': 'field_knowledge'}),
+        'categories': forms.CheckboxSelectMultiple(attrs={'id': 'categories'}),
+        'header': forms.Textarea(attrs={'cols': '100', 'rows': '5', 'class': 'form-control'}),
+        'image': forms.FileInput(attrs={'type': 'file', 'class': 'form-control-file'}),
+        'title': forms.Textarea(attrs={'cols': '100', 'rows': '1', 'class': 'form-control'}),
+        'body': forms.Textarea(attrs={'cols': '1000', 'rows': '10', 'class': 'form-control'})
+    }
+    labels = {'categories': 'Please equip the category this post'}
+    help_texts = {'categories': '(not required)'}
 
-    def __init__(self, user_id, *args, **kwargs):
-        super(ArticleCreatorForm, self).__init__(*args, **kwargs)
-        # bound method ModelChoiceField.label_from_instance of django.forms.models.ModelMultipleChoiceField
-        self.fields['categories'].label_from_instance = lambda obj: "%s" % obj.name
-        self.fields['categories'].queryset = Category.objects.filter(user_id=user_id)
+    def get_form(self, **kwargs):
+        """Return an instance of the form to be used in this view."""
+        form_class = self.get_form_class()
+        form = form_class(**self.get_form_kwargs())
+        form.fields['knowledge_field'].label_from_instance = lambda obj: "%s" % obj.name
+        form.fields['knowledge_field'].queryset = Portfolios.objects.filter(user=self.request.user)
+        form.fields['categories'].label_from_instance = lambda obj: "%s" % obj.name
+        form.fields['categories'].queryset = Category.objects.filter(user=self.request.user)
 
-        self.fields.update({'new_category': forms.fields.CharField(
-            required=False,
-            label='New Category',
-            help_text='(not required)'
-        )})
+        return form
 
-        self.fields.update({'field_knowledge': models.ModelMultipleChoiceField(
-            queryset=Portfolios.objects.filter(user=user_id),
-            label='Choose a field of knowledge:',
-            widget=forms.RadioSelect(attrs={'id': 'field_knowledge'})
-        )})
-        self.fields['field_knowledge'].label_from_instance = lambda obj: "%s" % obj.name
+    def get_form_class(self):
+        return forms.modelform_factory(
+            self.model, fields=self.fields, exclude=self.exclude,
+            widgets=self.widgets, labels=self.labels, help_texts=self.help_texts
+        )
 
-    class Meta:
-        model = Post
-        fields, exclude = '__all__', ['user']
-
-        widgets = {
-            'categories': forms.CheckboxSelectMultiple(attrs={'id': 'categories'}),
-            'header': forms.Textarea(attrs={'cols': '100', 'rows': '5', 'class': 'form-control'}),
-            'image': forms.FileInput(attrs={'type': 'file', 'class': 'form-control-file'}),
-            # 'new_category': forms.TextInput(attrs={'required': 'False'}),
-        }
-
-        labels = {
-            'categories': 'Please equip the category this post',
-        }
-
-        help_texts = {
-            'categories': '(not required)',
-        }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_id'] = self.kwargs.get('user_id')
+        return context
 
 
-class FieldKnowledgeFprm():
-    pass
+    def get_success_url(self):
+        return reverse('article_index', args=self.kwargs['user_id'])
 
 
 class CommentForm(forms.Form):

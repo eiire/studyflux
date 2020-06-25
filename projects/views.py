@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, NoReverseMatch
 from django.views.generic import FormView
 
-from blog.models import Category
+from blog.models import Category, Post
 from index_page.models import Portfolios
 from projects.forms import ProjectForm
 from projects.models import Project
@@ -59,6 +59,8 @@ class CreatorProjectView(FormView, LoginRequiredMixin):
 
 def project_index(request, user_id, name_portfolio):
     projects = Project.objects.filter(user_portfolio=name_portfolio)
+    count_articles_project = [Post.objects.filter(categories__name__contains=Category.objects.get(project=project).name).count() for project in projects]
+    projects = zip(projects, count_articles_project)
     context = {
         'user': request.user.is_authenticated,
         'user_id': user_id,

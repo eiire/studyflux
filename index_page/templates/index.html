@@ -10,7 +10,7 @@
         <a class="active" href="{% url 'index' %}">Home</a>
         {% if user_id != 'anon' %}
             <a href="{% url 'get_userpage' user_id %}">My knowledge</a>
-            {# <a href={% url 'create_portfolio' user_id %}>Create</a> #}
+             <a href={% url 'create_portfolio' user_id %}>Create</a>
             <a href="{% url 'article_index' user_id %}">My blog</a>
             <a href={% url 'logout' %}>Exit</a>
         {% endif %}
