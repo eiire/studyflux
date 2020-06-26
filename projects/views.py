@@ -57,16 +57,16 @@ class CreatorProjectView(FormView, LoginRequiredMixin):
         return super(CreatorProjectView, self).form_valid(form)
 
 
-def project_index(request, user_id, name_portfolio):
-    projects = Project.objects.filter(user_portfolio=name_portfolio)
-    count_articles_project = [Post.objects.filter(categories__name__contains=Category.objects.get(project=project).name).count() for project in projects]
+def project_index(request, user_id, id_knowledge):
+    projects = Project.objects.filter(user_portfolio=id_knowledge)
+    count_articles_project = [Post.objects.filter(categories__id__contains=Category.objects.get(project=project).id).count() for project in projects]
     projects = zip(projects, count_articles_project)
     context = {
         'user': request.user.is_authenticated,
         'user_id': user_id,
         'user_auth': request.user.is_authenticated,
         'projects': projects,
-        'name_portfolio': name_portfolio,
+        'id_knowledge': id_knowledge,
     }
     return render(request, 'project_index.html', context)
 
@@ -76,7 +76,7 @@ def project_detail(request, user_id, name_portfolio, pk):
     context = {
         'user_id': user_id,
         'user_auth': request.user.is_authenticated,
-        'name_portfolio': name_portfolio,
+        'id_knowledge': name_portfolio,
         'project': project,
     }
     return render(request, 'project_detail.html', context)

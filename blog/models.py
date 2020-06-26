@@ -10,7 +10,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to="blog/art_cover", blank=True)
     knowledge_field = models.ForeignKey('index_page.Portfolios', on_delete=models.CASCADE, primary_key=False)

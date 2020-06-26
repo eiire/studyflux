@@ -8,7 +8,7 @@
 
         {% if user == True %}
             <a href="{% url 'get_userpage' user_id %}">My knowledge</a>
-            <a href="{% url 'project_creator' user_id name_portfolio %}">Create</a>
+            <a href="{% url 'project_creator' user_id id_knowledge %}">Create</a>
         {% endif %}
 
         <a href="{% url 'article_index' user_id%}">My blog</a>
@@ -33,7 +33,7 @@
                                 Topic: {{ project.0.title }}
                             </a>
                             |
-                            <a href="{% url 'project_detail' user_id name_portfolio project.0.pk %}">
+                            <a href="{% url 'project_detail' user_id id_knowledge project.0.pk %}">
                                 Articles: {{ project.1 }}
                             </a>
                         </h4>

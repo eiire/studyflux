@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 
 from index_page.models import Portfolios
 from django.contrib.auth.models import User
@@ -48,6 +48,10 @@ def get_startpage(request):
                     return HttpResponse('Invalid login')
 
             return render(request, "index.html")
+
+
+class StartPage(ListView):
+    pass
 
 
 def portfolio_dlt(request, user_id, pk):

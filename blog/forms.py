@@ -21,7 +21,7 @@ class ModelFormPostMixin:
     def get_form(self, **kwargs):
         """Return an instance of the form to be used in this view."""
         form_class = self.get_form_class()
-        form = form_class(**self.get_form_kwargs())
+        form = form_class(**self.get_form_kwargs())  # for UpdateView get_form_kewargs return 'instance' Model object PK
         form.fields['knowledge_field'].label_from_instance = lambda obj: "%s" % obj.name
         form.fields['knowledge_field'].queryset = Portfolios.objects.filter(user=self.request.user)
         form.fields['categories'].label_from_instance = lambda obj: "%s" % obj.name

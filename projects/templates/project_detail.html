@@ -5,7 +5,7 @@
     <div class="my_navbar" id="my_navbar">
         <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
         {% if user_auth %}
-            <a href="{% url 'project_index' name_portfolio user_id%}">My portfolios</a>
+            <a href="{% url 'project_index' id_knowledge user_id%}">My portfolios</a>
             <a href="{% url 'article_index' user_id %}">My blog</a>
         {% endif %}
          <a href="https://github.com/eiire">Contact</a>

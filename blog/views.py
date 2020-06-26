@@ -1,3 +1,5 @@
+from django import forms
+from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from blog.forms import CommentForm, ModelFormPostMixin
@@ -24,6 +26,15 @@ class TopicArticles(ListView):
 class CreateArticleView(ModelFormPostMixin, CreateView, LoginRequiredMixin):
     model = Post
     template_name = 'articles_readactor.html'
+
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        # A form based on the model(post) and does not exist field.user  in the form from request POST, bc commit=False.
+        post = form.save(commit=False)
+        post.user = self.request.user
+        self.object = post
+        return super().form_valid(form)
+
 
 
 class UpdateArticleView(ModelFormPostMixin, UpdateView, LoginRequiredMixin):
