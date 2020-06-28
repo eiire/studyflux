@@ -1,122 +1,92 @@
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import FormView, ListView
-
+from django.urls import reverse
+from django.views.generic import FormView, ListView, DeleteView
+from blog.models import Post
 from index_page.models import Portfolios
-from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
-from projects.models import Project
-from .forms import ReviewForm, LoginUser, PortfolioForm
+
+class StartPageView(ListView):
+    template_name = "index.html"
+    context_object_name, extra_context = 'knowledges', {'user_id': 'global'}
+    queryset = Portfolios.objects.filter(user_id=1)  # 1 is global knowledges
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Post.objects.all()
+        context['user'] = self.request.user
+        return context
 
 
-def get_startpage(request):
-    """Получить главную страницу"""
-    if request.user.username != '':
-        user_id = User.objects.get(username=request.user).pk
-        return redirect('get_userpage', user_id=user_id)
-    else:
-        form = LoginUser(request.POST)
+class UserPageView(StartPageView):
+    def get_queryset(self):
+        if self.request.user.id != self.kwargs.get('user_id'):
+            user_knowledges = Portfolios.objects.filter(user_id=self.kwargs['user_id'])
+            return user_knowledges if user_knowledges.count() != 0 else None
 
-        context = {
-            'portfolios': Portfolios.objects.all(),
-            'user': False,
-            'user_id': 'anon',
-            'auth_form': form,
-            'is_user': request.user.is_authenticated,
-        }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        if request.method == 'GET':
-            return render(request, "index.html", context)
-        elif request.method == 'POST':
-            if form.is_valid():
-                cd = form.cleaned_data
-                user = authenticate(username=cd['login'], password=cd['password'])
+        if self.request.user.id == self.kwargs.get('user_id'):
+            context['posts'] = Post.objects.all()  # [task] Select by subscription
+        else:
+            context['posts'] = Post.objects.filter(user_id=self.kwargs.get('user_id'))
 
-                if user is not None:
-                    if user.is_active:
-                        login(request, user)
-                        user_id = User.objects.get(username=request.user).pk
-                        return redirect('get_userpage', user_id=user_id)
-                    else:
-                        return HttpResponse('Disabled account')
-                else:
-                    return HttpResponse('Invalid login')
-
-            return render(request, "index.html")
+        context['user_id'] = self.kwargs.get('user_id')
+        return context
 
 
-class StartPage(ListView):
+# TOPICS
+class KnowledgePageView():
     pass
 
 
-def portfolio_dlt(request, user_id, pk):
-    if request.user.is_authenticated:
-        try:
-            user = User.objects.get(id=request.user.pk)
-            posts = Portfolios.objects.filter(user=user)
-            post = posts.get(id=pk)
-            post.delete()
-
-            return redirect("index")
-        except ObjectDoesNotExist:
-            return HttpResponse(status=401)
-    else:
-        return redirect("login")
+# TOPICS
+class UserKnowledgePageView():
+    pass
 
 
-def get_userpage(request, user_id):
-    """Получить страницу с текущим пользователем"""
-    field_knowledges_user = Portfolios.objects.filter(user_id=user_id)
-    for field_knowledge_user in field_knowledges_user:
-        field_knowledge_user.topics = Project.objects.filter(user_portfolio=field_knowledge_user).count()
-        # i.save()
-
-    context = {
-        'portfolios': field_knowledges_user,
-        'user': True,
-        'user_id': user_id
-    }
-    return render(request, "index.html", context)
+class UserProfile():
+    pass
 
 
 class RegisterFormView(FormView):
     form_class = UserCreationForm
     success_url = "/login/"
-
     template_name = "register.html"
 
     def form_valid(self, form):
         form.save()
-
         return super(RegisterFormView, self).form_valid(form)
 
 
-class CreatePortfolio(View, LoginRequiredMixin):
-    """Создание/редактирование портфолио для аутентефицированного пользователя"""
-    def get(self, request, user_id):
-        form = PortfolioForm()
-        return render(request, 'port_form.html', {'form': form})
+class CreateKnowledge(View, LoginRequiredMixin):
+    def get(self, request, **kwargs):
+        knowledge_img = {
+            'all-streams': 'portfolio/1.png',
+            'Development': 'portfolio/1.png'
+        }
+        all_knowledge = ['all-streams', 'Development']
+        user_knowledge = [el['name'] for el in Portfolios.objects.filter(user=request.user.id).values('name')]
 
-    def post(self, request, user_id):
-        form = PortfolioForm(request.POST)  # binding
-        try:
-            form.is_valid()
-        except:
-            return HttpResponse(status=401)
+        if kwargs.get('knowledge') in all_knowledge and kwargs.get('knowledge') not in user_knowledge:
+            Portfolios(user=request.user, name=kwargs['knowledge'], topics=0, image=knowledge_img[kwargs['knowledge']])\
+                .save()
 
-        new_portfolio = Portfolios(
-            user=request.user,
-            name=form.data['name'],
-            topics=0,
-            image=request.FILES['image']
-        )
-        new_portfolio.save()
-        return redirect('get_userpage', request.user.id)
+        return redirect('index_user', self.request.user.id)
+
+
+class DeleteKnowledge(DeleteView, LoginRequiredMixin):
+    model = Portfolios
+    template_name = 'knowledge_confirm_delete.html'
+
+    def get_queryset(self):
+        return Portfolios.objects.filter(user=self.request.user)
+
+    def get_success_url(self, **kwargs):
+        return reverse("index_user", args=[self.request.user.id])
 
 
 def about(request):

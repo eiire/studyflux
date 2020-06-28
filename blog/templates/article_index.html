@@ -4,12 +4,10 @@
 {% block page_content %}
 
     <div class="my_navbar" id="my_navbar">
-        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>
-        {% if user == True %}
-            <a href="{% url 'get_userpage' user_id %}">My knowledge</a>
-            <a href="{% url 'article_creation' user_id %}">Create</a>
-        {% endif %}
-        <a href="{% url 'about' %}">About</a>
+{#        <a class="active" style="margin-right: 5%" href="{% url 'index' %}">Home</a>#}
+{#        <a href="{% url 'index_user' user_id %}">My knowledge</a>#}
+{#        <a href="{% url 'article_creation' user_id %}">Create</a>#}
+{#        <a href="{% url 'about' %}">About</a>#}
 
         <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
             <i>F</i>
@@ -31,7 +29,7 @@
                             {{ post.created_on.date }} |&nbsp;
                             Categories:&nbsp;
                             {% for category in post.categories.all %}
-                                <a href="{% url 'article_category' post.user_id category.name %}">
+                                <a href="{% url 'article_category' post.user_id category.id %}">
                                     {{ category.name }}
                                 </a>
                             {% endfor %}

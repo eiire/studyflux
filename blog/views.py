@@ -1,9 +1,7 @@
-from django import forms
-from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from blog.forms import CommentForm, ModelFormPostMixin
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Category
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -13,11 +11,11 @@ class TopicArticles(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        return Post.objects.filter(categories__name__contains=self.kwargs.get('category')).order_by('-created_on')
+        return Post.objects.filter(categories__id__contains=self.kwargs.get('category_id')).order_by('-created_on')
 
     def get_context_data(self, **kwargs):
         context = super(TopicArticles, self).get_context_data(**kwargs)
-        context['category'] = self.kwargs.get('category')
+        context['category'] = Category.objects.get(pk=self.kwargs.get('category_id'))
         context['current_user_id'] = self.request.user.pk
         context['user_id'] = self.kwargs.get('user_id')
         return context
@@ -25,7 +23,7 @@ class TopicArticles(ListView):
 
 class CreateArticleView(ModelFormPostMixin, CreateView, LoginRequiredMixin):
     model = Post
-    template_name = 'articles_readactor.html'
+    template_name = 'articles_redactor.html'
 
     def form_valid(self, form):
         """If the form is valid, save the associated model."""
@@ -36,11 +34,10 @@ class CreateArticleView(ModelFormPostMixin, CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-
 class UpdateArticleView(ModelFormPostMixin, UpdateView, LoginRequiredMixin):
     """ View initializes data from the model-object instance """
     model = Post
-    template_name = 'articles_readactor.html'
+    template_name = 'articles_redactor.html'
 
     def get_queryset(self):
         return Post.objects.filter(user=self.request.user)  # after get_object if <pk> in url

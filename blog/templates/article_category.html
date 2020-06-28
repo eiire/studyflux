@@ -4,12 +4,10 @@
 
 {% block page_content %}
     <div class="my_navbar" id="my_navbar">
-        <a class="active" href="{% url 'index' %}">Home</a>
-{#        <a href="{% url 'get_userpage' user_id %}">My knowledge</a>#}
-{#        <a href="{% url 'article_index' user_id %}">My blog</a>#}
-        <a href={% url 'logout' %}>Exit</a>
-        <a href="https://github.com/eiire">Contact</a>
-        <a href="{% url 'about' %}">About</a>
+{#        <a class="active" href="{% url 'index' %}">Home</a>#}
+{#         <a href="{% url 'index_page' user_id %}">My knowledge</a>#}
+{#         <a href="{% url 'article_index' user_id %}">My blog</a>#}
+{#        <a href={% url 'logout' %}>Exit</a>#}
 
         <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
             <i>F</i>
@@ -17,7 +15,7 @@
     </div>
 
     <div class="col-md-8 offset-md-2">
-        <h1>{{ category | title }}</h1>
+        <h1>{{ category.name | title }}</h1>
         <hr>
         {% for post in posts %}
             <h2><a href="{% url 'article_detail' user_id post.pk %}">{{ post.title }}</a></h2>
@@ -25,7 +23,7 @@
                 {{ post.created_on.date }} |&nbsp;
                 Categories:&nbsp;
                 {% for category in post.categories.all %}
-                    <a href="{% url 'article_category' user_id category.name %}">
+                    <a href="{% url 'article_category' user_id category.id %}">
                         {{ category.name }}
                     </a>&nbsp;
                 {% endfor %}

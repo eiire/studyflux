@@ -6,12 +6,12 @@
     <div class="my_navbar" id="my_navbar">
         <a class="active" href="{% url 'index' %}">Home</a>
 
-        {% if user == True %}
-            <a href="{% url 'get_userpage' user_id %}">My knowledge</a>
-            <a href="{% url 'project_creator' user_id id_knowledge %}">Create</a>
+        {% if user == True and user_id != 'global' %}
+            <a href="{% url 'index_user' user_id %}">My knowledge</a>
+            {# <a href="{% url 'project_creator' user_id id_knowledge %}">Create</a> #}
+            <a href="{% url 'article_index' user_id %}">My blog</a>
         {% endif %}
 
-        <a href="{% url 'article_index' user_id%}">My blog</a>
         <a href="https://github.com/eiire">Contact</a>
         <a href="{% url 'about' %}">About</a>
 
@@ -23,13 +23,14 @@
     <hr>
 
     <div class="row" align="center">
-        {% for project in projects %}
+        {% for project in object_list %}
             <div class="col-md-4">
                 <div class="card mb-2">
 {#                    <img class="card-img-top" src="{% static project.image %}">#}
                     <div class="card-body">
                         <h4>
-                            <a href="{% url 'article_category' user_id project.0.title %}">
+                            {# Project [OneToOne] Category #}
+                            <a href="{% url 'article_category' user_id project.0.category.pk %}">
                                 Topic: {{ project.0.title }}
                             </a>
                             |
