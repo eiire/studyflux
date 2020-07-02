@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block page_title %}ARTICLE|CREATOR{% endblock %}
+
+{% block buttom_navbar %}
+    <a class="active" href="{% url 'UserPage' username %}">Home</a>
+    {#        <a href="{% url 'index_user' user_id %}">My knowledge</a>#}
+    {#        <a href="{% url 'article_index' user_id %}">My user_blog</a>#}
+    {#        <a href={% url 'logout' %}>Exit</a>#}
+    {#        <a href="https://github.com/eiire">Contact</a>#}
+    {#        <a href="{% url 'about' %}">About</a>#}
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col offset-2">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {% for field in form %}
+                        <hr> {{ field.label_tag }} <p> {{ field }} </p>
+                    {% endfor %}
+                    <p> <button type="Submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-1">Submit</button> </p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

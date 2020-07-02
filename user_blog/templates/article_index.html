@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}ARTICLES{% endblock %}
+{% block buttom_navbar %}
+    <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}">Home</a>
+    {#        <a href="{% url 'index_user' user_id %}">My knowledge</a>#}
+    {#        <a href="{% url 'article_creation' user_id %}">Create</a>#}
+    {#        <a href="{% url 'about' %}">About</a>#}
+    {% if username == user.username %}
+        <a href="{% url 'article_creation' username %}"> Create </a>
+    {% endif %}
+
+{% endblock %}
+{% block page_content %}
+    <hr>
+
+    <div style="background: #f8f9fa" class="container mt-4">
+        <div class="card-columns blog">
+            {% for post in post_list %}
+                <div class="card box-shadow-sm blog_card">
+                    <div style="background: #e4e4e4" class="card-header text-black">
+                        <h5 class="my-0 font-weight-normal" id="art_header">{{ post.title }}</h5>
+                    </div>
+
+                    <div class="card-body" style="background: #ffffff">
+                        <small>
+                            {{ post.created_on.date }} |&nbsp;
+                            Categories:&nbsp;
+                            {% for category in post.categories.all %}
+                                <a href="{% url 'article_category' post.user.username category.project.user_portfolio.name category.name %}">
+                                    {{ category.name }}
+                                </a>
+                            {% endfor %}
+                        </small>
+
+                        {% if post.image != '' %}
+                            <img class="img-thumbnail" src={{ post.image.url }}>
+                        {% endif %}
+
+                        <p></p>
+
+                        <p class="card-text">{{ post.header | slice:"100" }}</p>
+
+                        {% if user.username == username %}
+                            <a href="{% url 'article_dlt' post.user.username post.pk %}"> Delete article </a> |
+                            <a href="{% url 'update_article' post.user.username post.pk %}"> Edit article </a>
+                        {% endif %}
+
+                    </div>
+
+                    <a href="{% url 'article_detail' post.user.username post.pk %}" type="button" class="btn btn-block my_style">Detailed</a>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+
+    <hr>
+{% endblock %}

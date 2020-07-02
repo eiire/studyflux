@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %} PROJECT {% endblock %}
+
+{% block buttom_navbar %}
+    <a class="active" style="margin-right: 5%" href="{% url 'project_index' username knowledge  %}"> Topics </a>
+    <a href="https://github.com/eiire"> Contact </a>
+    <a href="{% url 'about' username %}"> About </a>
+{% endblock %}
+
+{% block page_content %}
+    <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="{% static project.image %}" alt="" width="100%"> {# load static files inside project #}
+            </div>
+            <div class="col-md-3">
+                <h5>About the project:</h5>
+                <p>{{ project.description }}</p>
+                <br>
+                <h5>Technology used:</h5>
+                <p>{{ project.technology }}</p>
+                <h5>GitHub Project`s:</h5>
+                <p>{{ project.github }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

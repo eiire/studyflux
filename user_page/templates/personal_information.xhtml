@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %} ABOUT THIS SITE {% endblock %}
+
+{% block buttom_navbar %}
+    <a class="active" href="{% url 'UserPage' username %}">Home</a>
+    {# <a style="margin-left: 1%; padding-right: 35px; padding-left: 35px;" href="#news">News</a> #}
+    <a href="https://github.com/eiire">Contact</a>
+{% endblock %}
+
+{% block page_content %}
+<body>
+    <h2 align="center">
+        {{ username }}
+    </h2>
+    <div style="background-color: #efefef" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-1 no-float"></div>
+            <div class="col-sm-6 no-float">
+                <div class="block_of_description">
+                    The main goal of the site is learning English language and WEB-development.
+                </div>
+            </div>
+            <div class="col-sm-2 no-float"></div>
+            <div class="col-sm-3 no-float">
+                <div class="my_container">
+                    <div class="my_overlay">
+                        <center><img src="{% static 'img/forabout.JPG' %}" alt="Me" class="my_imageme"/></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block page_title %}ARTICLE{% endblock %}
+
+{% block buttom_navbar %}
+    <a class="active" href="{% url 'UserPage' username %}">Home</a>
+    {#        <a href="{% url 'index_user' user_id %}">My knowledge</a>#}
+    {#        <a href="{% url 'article_creation' user_id %}">Create</a>#}
+    {#        <a href="{% url 'about' %}">About</a>#}
+{% endblock %}
+
+{% block page_content %}
+    <div class="col-md-8 offset-md-2">
+        <h1>{{ post.title }}</h1>
+
+        <small>
+            {{ post.created_on.date }} |&nbsp
+            Categories:&nbsp;
+            {% for category in post.categories.all %}
+                <a href="{% url 'article_category' post.user.username category.project.user_portfolio.name category.name %}">
+                    {{ category.name }}
+                </a>&nbsp;
+            {% endfor %}
+        </small>
+
+        <p>{{ post.body | safe | linebreaks }}</p>
+
+        <h3>Leave a comment:</h3>
+
+        <form action="{% url 'article_detail' username post.pk %}" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.author }}
+            </div>
+
+            <div class="form-group">
+                {{ form.body }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <h3>Comments:</h3>
+
+        {% for comment in comments %}
+            <p>
+                On {{ comment.created_on.date }}&nbsp;
+                <b>{{ comment.author }}</b> wrote:
+            </p>
+
+            <p>{{ comment.body }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

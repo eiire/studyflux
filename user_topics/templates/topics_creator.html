@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %} TOPICS|CREATOR {% endblock %}
+
+{% block buttom_navbar %}
+    <a class="active" style="margin-right: 5%" href="{% url 'UserPage' user.username %}"> Home </a>
+    <a href="{% url 'project_index' user.username knowledge %}"> Topics </a>
+    <a href="https://github.com/eiire">Contact</a>
+    <a href="{% url 'about' user.username %}">About</a>
+{% endblock %}
+
+{% block page_content %}
+    <hr>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Сохранить"/>
+        </form>
+    </div>
+{% endblock %}

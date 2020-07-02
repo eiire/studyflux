@@ -11,11 +11,19 @@
       crossorigin="anonymous">
 
 <div class="welcome">
-    <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> {% block page_title %}{% endblock %} </font>
+    <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> {% block page_title %} {% endblock %} </font>
     PAGE </basefont>
 </div>
 
-{% block page_content %}{% endblock %}
+<div class="my_navbar" id="my_navbar">
+    {% block buttom_navbar %} {% endblock %}
+
+    <a href="javascript:void(0);" class="icon" onclick="collaps_navbar()">
+        <i>F</i>
+    </a>
+</div>
+
+{% block page_content %} {% endblock %}
 
 <script src="{% static 'js/scripts.js' %}"></script>
 
