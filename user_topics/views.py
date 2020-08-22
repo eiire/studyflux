@@ -24,7 +24,7 @@ class CreateTopic(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        Category(name=form["title"].value(), user=self.request.user, project=self.object).save()
+        Category(name=form["title"].value(), user=self.request.user, topic=self.object).save()
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -41,10 +41,26 @@ class Topics(ListView):
             .filter(user_portfolio__name=self.kwargs.get('knowledge'))
 
         count_articles_topic = [
-            Post.objects.filter(categories__id=Category.objects.get(project=project).id).count()
-            for project in topics
+            Post.objects.filter(categories__id=Category.objects.get(topic=topic).id).count()
+            for topic in topics
         ]
-        topics = zip(topics, count_articles_topic)
+
+        articles_in = [
+            Post.objects.filter(categories__id=Category.objects.get(topic=topic).id)
+            for topic in topics
+        ]
+
+        scale_interval = (max(count_articles_topic) / 3)
+        quantity_display = [
+            'linear-gradient(90deg, rgba(233, 66, 66, 1) 44%, rgba(255, 255, 255, 1) 100%)'
+            if count < scale_interval else
+            'linear-gradient(90deg, rgba(233,226,66,1) 44%, rgba(255,255,255,1) 100%)'
+            if scale_interval < count < scale_interval * 2 else
+            'linear-gradient(90deg, rgba(66,233,66,1) 44%, rgba(255,255,255,1) 100%)'
+            for count in count_articles_topic
+        ]
+
+        topics = list(zip(topics, count_articles_topic, quantity_display, articles_in))  # unpacking the iterator for reuse in the template
         return topics
 
     def get_context_data(self, **kwargs):

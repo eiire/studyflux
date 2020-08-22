@@ -7,3 +7,10 @@ function collaps_navbar() {
         navbar.className = "my_navbar";
     }
 }
+
+function bootstrap_unstyle_body() {
+    if (window.location.href.indexOf('/topics/') !== -1)
+        document.body.className = 'topic_page'
+}
+
+window.onload = bootstrap_unstyle_body;

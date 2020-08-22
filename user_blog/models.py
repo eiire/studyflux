@@ -18,7 +18,7 @@ class Post(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=30, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    project = models.OneToOneField('user_topics.Topic', on_delete=models.CASCADE, primary_key=False)
+    topic = models.OneToOneField('user_topics.Topic', on_delete=models.CASCADE, primary_key=False)
 
 
 class Comment(models.Model):

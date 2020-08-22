@@ -23,3 +23,6 @@ projects/migrations/*.py
 index_page/migrations/*.py
 blog/migrations/*.py
 my_portfolio/static/img/uploads/2020
+user_topics/migrations/*.py
+user_page/migrations/*.py
+user_blog/migrations/*.py
