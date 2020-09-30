@@ -1,6 +1,7 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.http import JsonResponse
+from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView, DetailView
 from user_blog.forms import CommentForm, ModelFormPostMixin
-from user_blog.models import Post, Comment
+from user_blog.models import Post, PostLike, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -56,7 +57,15 @@ class ListArticles(ListView):
     context_object_name = 'post_list'
 
     def get_queryset(self):
-        return Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')
+        if self.request.user.is_authenticated:
+            post_on_page = Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')
+            user_like = PostLike.objects.filter(user=self.request.user)
+            post_liked = [True if user_like.filter(post=post) else False for post in post_on_page]
+        else:
+            post_on_page = Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')
+            post_liked = [0 for _ in post_on_page]
+
+        return list(zip(post_on_page, post_liked))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -73,3 +82,13 @@ class DetailArticleView(DetailView):
         context['username'] = self.kwargs.get('username')
         context['comments'] = Comment.objects.filter(post=self.object)
         return context
+
+
+class LikeHandlerView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        if self.request.GET.get('rel') == 'Unliked':
+            PostLike(user_id=self.request.user.id, post_id=self.request.GET.get('post_id')).save()
+        else:
+            PostLike.objects.filter(user_id=self.request.user.id, post_id=self.request.GET.get('post_id')).delete()
+
+        return JsonResponse(data={'data': 'CHECK'})

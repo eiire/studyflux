@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
+{% block sub_script %}
+    <script>
+        $('.like').die('click').live("click", function() {
+            let id = $(this).attr("id");
+            let rel = $(this).attr("rel");
+            let data_string = 'post_id=' + id +'&rel='+ rel;
+            $.ajax({
+                type: 'GET',
+                url: '{% url 'like_handler' username %}',
+                dataType: 'json',
+                data: data_string,
+                success: function (data) {
+                    alert(data.data)
+                }
+            });
+        })
+    </script>
+{% endblock %}
 {% block page_title %}ARTICLES{% endblock %}
 {% block buttom_navbar %}
     <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}">Home</a>
@@ -24,17 +42,17 @@
 
                     <div class="card-body" style="background: #ffffff">
                         <small>
-                            {{ post.created_on.date }} |&nbsp;
+                            {{ post.0.created_on.date }} |&nbsp;
                             Categories:&nbsp;
-                            {% for category in post.categories.all %}
-                                <a href="{% url 'article_category' post.user.username category.topic.user_portfolio.name category.name %}">
+                            {% for category in post.0.categories.all %}
+                                <a href="{% url 'article_category' post.0.user.username category.topic.user_portfolio.name category.name %}">
                                     {{ category.name }}
                                 </a>
                             {% endfor %}
                         </small>
 
-                        {% if post.image != '' %}
-                            <img class="img-thumbnail" src={{ post.image.url }}>
+                        {% if post.0.image != '' %}
+                            <img class="img-thumbnail" src={{ post.0.image.url }}>
                         {% endif %}
 
                         <p></p>
@@ -42,13 +60,22 @@
                         <p class="card-text">{{ post.header | slice:"100" }}</p>
 
                         {% if user.username == username %}
-                            <a href="{% url 'article_dlt' post.user.username post.pk %}"> Delete article </a> |
-                            <a href="{% url 'update_article' post.user.username post.pk %}"> Edit article </a>
-                        {% endif %}
+                            <a href="{% url 'article_dlt' post.0.user.username post.0.pk %}"> Delete article </a> |
+                            <a href="{% url 'update_article' post.0.user.username post.0.pk %}"> Edit article </a>
 
+                            {% if post.1 %}
+                                <div>
+                                    <a href="" class="like" id="{{ post.0.id }}" title="Like" rel="Liked">Liked</a>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <a href="" class="like" id="{{ post.0.id }}" title="Like" rel="Unliked">Unliked</a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
                     </div>
 
-                    <a href="{% url 'article_detail' post.user.username post.pk %}" type="button" class="btn btn-block my_style">Detailed</a>
+                    <a href="{% url 'article_detail' post.0.user.username post.0.pk %}" type="button" class="btn btn-block my_style">Detailed</a>
                 </div>
                 <hr>
             {% endfor %}
