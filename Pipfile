@@ -7,12 +7,14 @@ verify_ssl = true
 pytest-django = "*"
 
 [packages]
-Django = "*"
+Django = "==3.1.2"
 Pillow = "*"
 django-ckeditor = "*"
 jsonschema = "*"
 django_crispy = "*"
 self = "*"
+djangorestframework = "==3.12.1"
+django-cors-headers = "==3.5.0"
 
 [requires]
 python_version = "3.6"

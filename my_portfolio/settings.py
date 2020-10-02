@@ -14,6 +14,7 @@ SECRET_KEY = 'd&dp!_n&93v)yrfom7k*h_3pwjrabnxv@m)p3lf0u=8wr&_jo)'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -31,6 +32,8 @@ INSTALLED_APPS = [
     'user_topics',
     'user_blog',
     'user_page',
+    'rest_framework',
+    'corsheaders',
 ]
 
 
@@ -42,6 +45,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'my_portfolio.urls'

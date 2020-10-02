@@ -57,15 +57,7 @@ class ListArticles(ListView):
     context_object_name = 'post_list'
 
     def get_queryset(self):
-        if self.request.user.is_authenticated:
-            post_on_page = Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')
-            user_like = PostLike.objects.filter(user=self.request.user)
-            post_liked = [True if user_like.filter(post=post) else False for post in post_on_page]
-        else:
-            post_on_page = Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')
-            post_liked = [0 for _ in post_on_page]
-
-        return list(zip(post_on_page, post_liked))
+        return Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,7 +80,10 @@ class LikeHandlerView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         if self.request.GET.get('rel') == 'Unliked':
             PostLike(user_id=self.request.user.id, post_id=self.request.GET.get('post_id')).save()
+            print(Post.objects.get(postlike__post_id=self.request.GET.get('post_id')))
+            return JsonResponse(data={'data': 'Liked', 'post_id': self.request.GET.get('post_id')})
         else:
+            print(Post.objects.get(postlike__post_id=self.request.GET.get('post_id')), 'ff')
+            # print(Post.objects.get(id__=self.request.GET.get('post_id')))
             PostLike.objects.filter(user_id=self.request.user.id, post_id=self.request.GET.get('post_id')).delete()
-
-        return JsonResponse(data={'data': 'CHECK'})
+            return JsonResponse(data={'data': 'Unliked', 'post_id': self.request.GET.get('post_id')})
