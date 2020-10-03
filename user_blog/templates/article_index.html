@@ -1,25 +1,45 @@
 {% extends "base.html" %}
-{% load static %}
+
 {% block sub_script %}
-    <script type="text/javascript">
-        // using jQuery
-        $('.like').die('click').live("click", function() {
-            let id = $(this).attr("id");
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8000/like_api/v1/posts/' + id + '/like/',
+<script type="text/javascript">
+    const likes = $('.like')
 
-                beforeSend: function (xhr, settings) {
-                    xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
-                },
+    likes.each(function (i, e) {
+        let like_obj = this
+        let post_id = $(this).attr("id").split('_')[1];
 
-                success: function (data) {
-                    alert(data.data)
-                }
-            });
-        })
-    </script>
+        $.ajax({
+            type: 'GET',
+            url: 'http://127.0.0.1:8000/like_api/v1/posts/' + post_id + '/',
+            context: function () {return like_obj} (),
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            success: function (data) {
+                if (data.is_fan)
+                    e.setAttribute('checked', 'checked')
+            }
+        });
+    })
+
+    likes.on("click", function() {
+        let like_obj = this
+        let post_id = $(this).attr("id").split('_')[1];
+        let method;
+        this.getAttribute('checked') === 'checked' ? method = '/unlike/' : method = '/like/'
+        $.ajax({
+            type: 'POST',
+            url: 'http://127.0.0.1:8000/like_api/v1/posts/' + post_id + method,
+            context: function () {
+                return like_obj
+            } (),
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            success: function () {
+                method === '/unlike/' ? this.removeAttribute('checked') : this.setAttribute('checked', 'checked')
+            }
+        });
+    })
+</script>
 {% endblock %}
+
 {% block page_title %}ARTICLES{% endblock %}
 {% block buttom_navbar %}
     <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}">Home</a>
@@ -60,16 +80,14 @@
                         <p></p>
 
                         <p class="card-text">{{ post.header | slice:"100" }}</p>
-                        <p>User_auth: {{ user.is_authenticated }}</p>
                         {% if user.username == username %}
                             <a href="{% url 'article_dlt' post.user.username post.pk %}"> Delete article </a> |
                             <a href="{% url 'update_article' post.user.username post.pk %}"> Edit article </a>
                         {% endif %}
 
-                        {# For testing #}
-                        <div>
-                            <span class="like" id="{{ post.id }}" rel="Unliked">Like</span>
-                        </div>
+                        <p></p>
+                        Like:
+                        <input type="checkbox" class="like" id="liked_{{ post.id }}">
                     </div>
 
                     <a href="{% url 'article_detail' post.user.username post.pk %}" type="button" class="btn btn-block my_style">Detailed</a>

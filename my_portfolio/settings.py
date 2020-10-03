@@ -16,6 +16,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
 
+SESSION_COOKIE_HTTPONLY = False
+# CSRF_COOKIE_HTTPONLY = False
 
 # Application definition
 
@@ -34,6 +36,8 @@ INSTALLED_APPS = [
     'user_page',
     'rest_framework',
     'corsheaders',
+    'rest_framework.authtoken',
+    'apis.like_api',
 ]
 
 
@@ -169,4 +173,11 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         'width': '100%',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
