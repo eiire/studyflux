@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block sub_script %}
+    <script type="text/javascript" src="{% static 'blog_script.js' %}"></script>
+{% endblock %}
+
 {% block sub_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'topic_style.css' %}"/> {# CSS style from app #}
+
     <style>
         {% for topic in object_list %}
             .wrapper_sort_system > input:checked + .sort_system ._{{ topic.1 }},
@@ -45,7 +52,7 @@
 {% block page_content %}
     <hr>
 
-    <div class="content">
+    <div class="my_content">
         <div class="topics">
             <label for="All"> All </label>
             {% for topic in object_list %}

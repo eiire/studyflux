@@ -1,46 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block sub_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog_style.css' %}"/>
+{% endblock %}
 
 {% block sub_script %}
-<script type="text/javascript">
-    const likes = $('.like')
-
-    likes.each(function (i, e) {
-        let like_obj = this
-        let post_id = $(this).attr("id").split('_')[1];
-
-        $.ajax({
-            type: 'GET',
-            url: 'http://127.0.0.1:8000/like_api/v1/posts/' + post_id + '/',
-            context: function () {return like_obj} (),
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            success: function (data) {
-                if (data.is_fan)
-                    e.setAttribute('checked', 'checked')
-            }
-        });
-    })
-
-    likes.on("click", function() {
-        let like_obj = this
-        let post_id = $(this).attr("id").split('_')[1];
-        let method;
-        this.getAttribute('checked') === 'checked' ? method = '/unlike/' : method = '/like/'
-        $.ajax({
-            type: 'POST',
-            url: 'http://127.0.0.1:8000/like_api/v1/posts/' + post_id + method,
-            context: function () {
-                return like_obj
-            } (),
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            success: function () {
-                method === '/unlike/' ? this.removeAttribute('checked') : this.setAttribute('checked', 'checked')
-            }
-        });
-    })
-</script>
+    <script type="text/javascript" src="{% static 'blog_script.js' %}"></script>
 {% endblock %}
 
 {% block page_title %}ARTICLES{% endblock %}
+
 {% block buttom_navbar %}
     <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}">Home</a>
     {#        <a href="{% url 'index_user' user_id %}">My knowledge</a>#}
@@ -49,53 +19,53 @@
     {% if username == user.username %}
         <a href="{% url 'article_creation' username %}"> Create </a>
     {% endif %}
-
 {% endblock %}
 {% block page_content %}
     <hr>
+    <input type="checkbox" id="display_swither">
+    <label for="display_swither"> DISPLAY MODE:&nbsp; </label>
 
-    <div style="background: #f8f9fa" class="container mt-4">
-        <div class="card-columns blog">
-            {% for post in post_list %}
-                <div class="card box-shadow-sm blog_card">
-                    <div style="background: #e4e4e4" class="card-header text-black">
-                        <h5 class="my-0 font-weight-normal" id="art_header">{{ post.title }}</h5>
-                    </div>
+    <div class="my_content">
+        {% for post in post_list %}
+            <div class="my_card">
+                <div class="img_container">
+                    {% if post.image != '' %}
+                        <img src={{ post.image.url }}>
+                    {% endif %}
+                </div>
 
-                    <div class="card-body" style="background: #ffffff">
-                        <small>
-                            {{ post.created_on.date }} |&nbsp;
-                            Categories:&nbsp;
-                            {% for category in post.categories.all %}
-                                <a href="{% url 'article_category' post.user.username category.topic.user_portfolio.name category.name %}">
-                                    {{ category.name }}
-                                </a>
-                            {% endfor %}
-                        </small>
+                <div class="info">
+                    <a href="{% url 'article_detail' post.user.username post.pk %}">{{ post.title }}</a>
 
-                        {% if post.image != '' %}
-                            <img class="img-thumbnail" src={{ post.image.url }}>
-                        {% endif %}
+                    <small>
+                        {{ post.created_on.date }} |&nbsp;
+                        Categories:&nbsp;
+                        {% for category in post.categories.all %}
+                            <a href="{% url 'article_category' post.user.username category.topic.user_portfolio.name category.name %}">
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                    </small>
 
-                        <p></p>
-
-                        <p class="card-text">{{ post.header | slice:"100" }}</p>
+                    <div>
                         {% if user.username == username %}
                             <a href="{% url 'article_dlt' post.user.username post.pk %}"> Delete article </a> |
                             <a href="{% url 'update_article' post.user.username post.pk %}"> Edit article </a>
                         {% endif %}
-
-                        <p></p>
-                        Like:
-                        <input type="checkbox" class="like" id="liked_{{ post.id }}">
                     </div>
 
-                    <a href="{% url 'article_detail' post.user.username post.pk %}" type="button" class="btn btn-block my_style">Detailed</a>
+                    <a href="{% url 'article_detail' post.user.username post.pk %}" type="button">Detailed</a>
                 </div>
-                <hr>
-            {% endfor %}
-        </div>
-    </div>
 
-    <hr>
+                <div class="description">
+                    {{ post.header | slice:"1000" }}
+                </div>
+
+                <div class="like">
+                    Like:
+                    <input type="checkbox" class="like" id="liked_{{ post.id }}">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

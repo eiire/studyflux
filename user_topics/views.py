@@ -50,7 +50,7 @@ class Topics(ListView):
             for topic in topics
         ]
 
-        scale_interval = (max(count_articles_topic) / 3)
+        scale_interval = (max(count_articles_topic) / 3) if len(count_articles_topic) != 0 else 0
         quantity_display = [
             'linear-gradient(90deg, rgba(233, 66, 66, 1) 44%, rgba(255, 255, 255, 1) 100%)'
             if count < scale_interval else

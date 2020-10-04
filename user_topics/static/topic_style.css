@@ -10,7 +10,7 @@ body.topic_page {
     background-color: #e5e5e5;
 }
 
-.content {
+.my_content {
     display: flex;
     width: 80%;
     margin: 0 auto;
@@ -114,7 +114,7 @@ body.topic_page {
     margin: auto;
 }
 
-.content > input {
+.my_content > input {
     display: none;
 }
 
