@@ -44,14 +44,16 @@ class RegisterFormView(FormView):
 class CreateKnowledge(View, LoginRequiredMixin):
     def get(self, request, **kwargs):
         knowledge_img = {
-            'all-streams': 'portfolio/1.png',
-            'Development': 'portfolio/1.png'
+            'All-streams': 'portfolio/1.png',
+            'Development': 'portfolio/2.png',
+            'Economics': 'portfolio/3.png',
+            'Lifestyle': 'portfolio/4.png',
         }
-        all_knowledge = ['all-streams', 'Development']
+        all_knowledge = ['All-streams', 'Development', 'Economics', 'Lifestyle']
         user_knowledge = [el['name'] for el in Knowledge.objects.filter(user=request.user.id).values('name')]
 
         if kwargs.get('knowledge') in all_knowledge and kwargs.get('knowledge') not in user_knowledge:
-            Knowledge(user=request.user, name=kwargs['knowledge'], topics=0, image=knowledge_img[kwargs['knowledge']])\
+            Knowledge(user=request.user, name=kwargs['knowledge'], image=knowledge_img[kwargs['knowledge']])\
                 .save()
 
         return redirect('UserPage', self.request.user.username)

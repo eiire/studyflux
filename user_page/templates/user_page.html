@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block page_title %} {{ username }}|PAGE {% endblock %}
+
+{% block sub_style%}
+    <link rel="stylesheet" type="text/css" href="{% static 'userpage_style.css' %}"/>
+{% endblock %}
 
 {% block buttom_navbar %}
     <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}"> Home </a>
@@ -14,7 +19,7 @@
     {% endif %}
 
     {% if username == user.username %}
-        <a href="{% url 'CreateKnowledge' username 'all-streams' %}"> Create [test/only all-streams]</a>
+        <a href="{% url 'CreateKnowledge' username 'Development' %}"> Create [test/only Development]</a>
     {% endif %}
 
     <a href="{% url 'about' username %}">About</a>
@@ -26,10 +31,10 @@
         <div id="demo" class="carousel slide" data-ride="carousel">
             <ul class="carousel-indicators">
                 {% for object in knowledges %}
-                    {% if forloop.counter ==  1%}
-                        <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    {% if forloop.counter0 ==  0 %}
+                        <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                     {% else %}
-                        <li data-target="#demo" data-slide-to="1"></li>
+                        <li data-target="#demo" data-slide-to="{{ forloop.counter0 }}"></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -62,30 +67,35 @@
         </div>
     {% endif %}
 
-    <div class="col-md-8 offset-md-2">
-        <h1>{{ category | title }}</h1>
-        <hr>
-        {% for post in posts %}
-            <h2><a href="{% url 'article_detail' post.user.username post.pk %}">{{ post.title }}</a></h2>
+    <hr>
 
-            <small>
-                <p> {{ post.created_on.date }} |&nbsp;
-                    Categories:&nbsp;
-                    {% for category in post.categories.all %}
-                        <a href="{% url 'article_category' post.user.username category.topic.user_portfolio.name category.name %}">
-                            {{ category.name }}
-                        </a>&nbsp;
-                    {% endfor %}
-                </p>
+    <div class="content">
+        {% for post in posts %}
+            <div class="card" >
+                <div class="card-body">
+                    <h5 href="{% url 'article_detail' post.user.username post.pk %}" class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.header | slice:":400" }}...</p>
+                    {#                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>#}
+                    <small>
+                        <p class="card-text"> {{ post.created_on.date }} |&nbsp;
+                            Categories:&nbsp;
+                            {% for category in post.categories.all %}
+                                <a href="{% url 'article_category' post.user.username category.topic.user_portfolio.name category.name %}">
+                                    {{ category.name }}
+                                </a>&nbsp;
+                            {% endfor %}
+                        </p>
+                        <a href="{% url 'article_detail' post.user.username post.pk %}" class="card-title">Detail</a>
+                    </small>
+                </div>
 
                 {% if post.image %}
-                    <img src="{{ post.image.url }}">
+                    <div class="img_container">
+                        <img class="card-img-bottom" src="{{ post.image.url }}">
+                    </div>
                 {% endif %}
-            </small>
-
-            <p>{{ post.header | slice:":400" }}...</p>
+            </div>
         {% endfor %}
     </div>
-
     </body>
 {% endblock %}

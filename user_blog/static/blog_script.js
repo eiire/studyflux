@@ -49,3 +49,10 @@ likes.on("click", function() {
         }
     });
 })
+
+function get_comment_form(parent_id) {
+    let parent = $("#id_parent")
+    parent_id === 'write_comment' ? parent.val('') : parent.val(parent_id);
+
+    $("#comment_form").insertAfter("#" + parent_id);
+}

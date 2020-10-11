@@ -3,8 +3,10 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class PostLike(models.Model):
@@ -38,8 +40,17 @@ class Category(models.Model):
 
 
 class Comment(models.Model):
+    path = ArrayField(models.IntegerField())
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    author = models.CharField(max_length=70)
-    body = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    body = models.TextField('Comment')
+    date = models.DateTimeField('Date comment', default=timezone.now)
+
+    def __str__(self):
+        return self.body[0:200]
+
+    def get_offset(self):
+        return 5 if len(self.path) - 1 > 5 else len(self.path) - 1
+
+    def get_col(self):
+        return 12 - 5 if len(self.path) - 1 > 5 else 12 - len(self.path) - 1

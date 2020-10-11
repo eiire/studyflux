@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block sub_style %}{% endblock %}
+
+{% block sub_script %}
+    <script type="text/javascript" src="{% static 'blog_script.js' %}"></script>
+{% endblock %}
+
 {% block page_title %}ARTICLE{% endblock %}
 
 {% block buttom_navbar %}
@@ -24,32 +32,47 @@
 
         <p>{{ post.body | safe | linebreaks }}</p>
 
-        <h3>Leave a comment:</h3>
-
-        <form action="{% url 'article_detail' username post.pk %}" method="post">
-            {% csrf_token %}
-
-            <div class="form-group">
-                {{ form.author }}
-            </div>
-
-            <div class="form-group">
-                {{ form.body }}
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-
-        <h3>Comments:</h3>
-
         {% for comment in comments %}
-            <p>
-                On {{ comment.created_on.date }}&nbsp;
-                <b>{{ comment.author }}</b> wrote:
-            </p>
+            <div class="row" id="{{ comment.id }}">
+                <div class="col-md-{{ comment.get_col }} offset-{{ comment.get_offset }}">
+                    <div>
+                        <div>
+                            <strong>{{ comment.user.username }}</strong>&nbsp;&nbsp;
+                            {{ comment.date }}
+                        </div>
+                        <div >
+                            <div>{{ comment.body|safe }}</div>
 
-            <p>{{ comment.body }}</p>
-            <hr>
+                            {% if form %}
+                                <a onclick="get_comment_form({{ comment.id }})"> &nbsp;&nbsp;Reply </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
+
+        {% if form %}
+            <h3 id="write_comment">
+                <a onclick="get_comment_form('write_comment')">Write comment</a>
+            </h3>
+
+            <form id="comment_form" action="{% url 'add_comment' username post.id %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button>&nbsp;&nbsp;Comment</button>
+            </form>
+
+        {% else %}
+            <div>
+                <div>
+                    <h3>Comments</h3>
+                </div>
+                <div>
+                    Not auth! <br />
+                </div>
+            </div>
+        {% endif %}
+
     </div>
 {% endblock %}

@@ -7,4 +7,7 @@ class Knowledge(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     name = models.CharField(max_length=30)
     image = models.ImageField(upload_to='portfolio')
-    topics = models.IntegerField(default=0)
+
+    @property
+    def topics(self):
+        return Topic.objects.filter(user_portfolio=self).count()

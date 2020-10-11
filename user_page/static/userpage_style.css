@@ -1,0 +1,45 @@
+#demo .carousel-inner a {
+    display: block;
+    position: relative;
+    padding-bottom: 30%; /* !!! */
+    /*margin: 0 20px 0 20px;*/
+    overflow: hidden;
+}
+
+#demo .carousel-inner a img {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    /*max-height: 100%;*/
+    margin: auto;
+}
+
+.content {
+    width: 30%;
+    margin: 0 0 0 10%;
+}
+
+.content > .card {
+    margin-top: 2%
+}
+
+.content > .card > .img_container {
+    position: relative;
+    padding-bottom: 100%; /* !!! */
+    /*margin: 0 20px 0 20px;*/
+    overflow: hidden;
+}
+
+.content > .card > .img_container > img {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    /*max-height: 100%;*/
+    margin: auto;
+}

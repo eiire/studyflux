@@ -1,7 +1,11 @@
-from django.http import JsonResponse
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import get_object_or_404, redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView, DetailView
 from user_blog.forms import CommentForm, ModelFormPostMixin
-from user_blog.models import Post, PostLike, Comment
+from user_blog.models import Post, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -72,18 +76,32 @@ class DetailArticleView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['username'] = self.kwargs.get('username')
-        context['comments'] = Comment.objects.filter(post=self.object)
+        context['comments'] = Comment.objects.filter(post=self.object).order_by('path')
+
+        if self.request.user.is_authenticated:
+            context['form'] = CommentForm
+
         return context
 
+    @method_decorator(login_required)
+    def post(self, *qrgs, **kwargs):
+        form = CommentForm(self.request.POST)
+        post = get_object_or_404(Post, id=self.kwargs.get('post'))
 
-class LikeHandlerView(LoginRequiredMixin, View):
-    def get(self, *args, **kwargs):
-        if self.request.GET.get('rel') == 'Unliked':
-            PostLike(user_id=self.request.user.id, post_id=self.request.GET.get('post_id')).save()
-            print(Post.objects.get(postlike__post_id=self.request.GET.get('post_id')))
-            return JsonResponse(data={'data': 'Liked', 'post_id': self.request.GET.get('post_id')})
-        else:
-            print(Post.objects.get(postlike__post_id=self.request.GET.get('post_id')), 'ff')
-            # print(Post.objects.get(id__=self.request.GET.get('post_id')))
-            PostLike.objects.filter(user_id=self.request.user.id, post_id=self.request.GET.get('post_id')).delete()
-            return JsonResponse(data={'data': 'Unliked', 'post_id': self.request.GET.get('post_id')})
+        if form.is_valid():
+            comment = Comment()
+            comment.path = []
+            comment.post = post
+            comment.user = auth.get_user(self.request)
+            comment.body = form.cleaned_data['body']
+            comment.save()
+
+            try:
+                comment.path.extend(Comment.objects.get(id=form.cleaned_data['parent']).path)
+                comment.path.append(comment.id)
+            except ObjectDoesNotExist:
+                comment.path.append(comment.id)
+
+            comment.save()
+
+        return redirect('article_detail', username=self.kwargs.get('username'), pk=post.pk)
