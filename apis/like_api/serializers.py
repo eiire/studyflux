@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from user_blog import services as likes_services
+from apis.like_api import services as likes_services
 from user_blog.models import Post
 
 

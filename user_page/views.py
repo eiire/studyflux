@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views.generic import FormView, ListView, DeleteView
 from user_blog.models import Post
 from user_page.models import Knowledge
+from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
@@ -22,7 +23,8 @@ class UserPageView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts'] = Post.objects.filter(user__username=self.kwargs.get('username'))  # [task] Pin posts
+        context['posts'] = Post.objects.filter(user__username=self.kwargs.get('username'), pinned=True) \
+            .annotate(count=Count('likes')).order_by('-count')
         context['username'] = self.kwargs.get('username')
         return context
 

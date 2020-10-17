@@ -41,7 +41,7 @@
                         {{ post.created_on.date }} |&nbsp;
                         Categories:&nbsp;
                         {% for category in post.categories.all %}
-                            <a href="{% url 'article_category' post.user.username category.topic.user_portfolio.name category.name %}">
+                            <a href="{% url 'article_category' post.user.username category.topic.knowledge.name category.name %}">
                                 {{ category.name }}
                             </a>
                         {% endfor %}

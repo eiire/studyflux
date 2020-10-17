@@ -26,7 +26,7 @@
 {% endblock %}
 
 {%  block page_content %}
-    <body>
+<body>
     {% if knowledges %}
         <div id="demo" class="carousel slide" data-ride="carousel">
             <ul class="carousel-indicators">
@@ -69,33 +69,38 @@
 
     <hr>
 
-    <div class="content">
+    <div class="container">
         {% for post in posts %}
-            <div class="card" >
-                <div class="card-body">
-                    <h5 href="{% url 'article_detail' post.user.username post.pk %}" class="card-title">{{ post.title }}</h5>
-                    <p class="card-text">{{ post.header | slice:":400" }}...</p>
-                    {#                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>#}
+            <div class="row">
+                <div class="col-md-7">
+                    <a href="{% url 'article_detail' post.user.username post.pk %}">
+                        {% if post.image %}
+                            <div class="img_container">
+                                <img src="{{ post.image.url }}" alt="">
+                            </div>
+                        {% else %}
+                            <img class="img-fluid rounded mb-3 mb-md-0" src="" alt="">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    <h3 href="{% url 'article_detail' post.user.username post.pk %}">{{ post.title }}</h3>
                     <small>
                         <p class="card-text"> {{ post.created_on.date }} |&nbsp;
                             Categories:&nbsp;
                             {% for category in post.categories.all %}
-                                <a href="{% url 'article_category' post.user.username category.topic.user_portfolio.name category.name %}">
+                                <a href="{% url 'article_category' post.user.username category.topic.knowledge.name category.name %}">
                                     {{ category.name }}
                                 </a>&nbsp;
                             {% endfor %}
                         </p>
-                        <a href="{% url 'article_detail' post.user.username post.pk %}" class="card-title">Detail</a>
                     </small>
+                    <p>{{ post.header | slice:":400" }}...</p>
+                    <a class="btn btn-primary" href="{% url 'article_detail' post.user.username post.pk %}">View post</a>
                 </div>
-
-                {% if post.image %}
-                    <div class="img_container">
-                        <img class="card-img-bottom" src="{{ post.image.url }}">
-                    </div>
-                {% endif %}
             </div>
         {% endfor %}
+        <hr>
     </div>
-    </body>
+</body>
 {% endblock %}

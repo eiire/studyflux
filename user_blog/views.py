@@ -4,7 +4,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView, DetailView
-from user_blog.forms import CommentForm, ModelFormPostMixin
+from user_blog.forms import CommentForm
+from user_blog.mixins import ModelFormPostMixin
 from user_blog.models import Post, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 

@@ -1,6 +1,6 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from user_blog import services
+from . import services
 from .serializers import FanSerializer
 
 

@@ -17,6 +17,7 @@ class PostLike(models.Model):
 
 
 class Post(models.Model):
+    pinned = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to="user_blog/art_cover", blank=True)

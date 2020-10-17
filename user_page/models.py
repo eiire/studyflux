@@ -10,4 +10,4 @@ class Knowledge(models.Model):
 
     @property
     def topics(self):
-        return Topic.objects.filter(user_portfolio=self).count()
+        return Topic.objects.filter(knowledge=self).count()

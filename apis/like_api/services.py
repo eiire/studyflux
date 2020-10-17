@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from .models import PostLike
+from user_blog.models import PostLike
 User = get_user_model()
 
 
