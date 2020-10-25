@@ -1,10 +1,16 @@
+import ckeditor_uploader
 from django.conf import settings
-from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from ckeditor_uploader import views
+from django.views.decorators.cache import never_cache
+
 from user_page import views
+from my_portfolio.batteries_patches.ckeditor_uploader_patch import upload
 
 urlpatterns = [
     path("", views.StartPageView.as_view(), name='TEST'),
@@ -13,7 +19,10 @@ urlpatterns = [
     path('users/@<username>/', include('user_topics.urls')),
     path('users/@<username>/blog/', include('user_blog.urls')),
 
-    path('ckeditor', include('ckeditor_uploader.urls')),
+    # path('ckeditor', include('ckeditor_uploader.urls')), default staff_member_required
+    path('upload/', login_required(upload), name='ckeditor_upload'),
+    # browse files from the server for is_staff users
+    path('browse/', never_cache(staff_member_required(ckeditor_uploader.views.browse)), name='ckeditor_browse'),
     path('register/', views.RegisterFormView.as_view(), name='register'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

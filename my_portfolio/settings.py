@@ -133,6 +133,8 @@ MEDIA_URL = '/img/'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/'
