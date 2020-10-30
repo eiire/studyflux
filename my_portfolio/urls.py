@@ -13,7 +13,9 @@ from user_page import views
 from my_portfolio.batteries_patches.ckeditor_uploader_patch import upload
 
 urlpatterns = [
-    path("", views.StartPageView.as_view(), name='TEST'),
+    # path("", views.StartPageView.as_view(), name='TEST'),
+    path("", include('general_page.urls')),
+    # path("", include('user_page.urls')),
 
     path('users/@<username>/', include('user_page.urls'), {}),
     path('users/@<username>/', include('user_topics.urls')),
