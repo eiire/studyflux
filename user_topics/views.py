@@ -8,7 +8,7 @@ from .servisec import get_extended_queryset_topic
 
 
 class CreateTopic(LoginRequiredMixin, CreateView):
-    model, fields = Topic, '__all__'
+    model, fields = Topic, ['title', 'knowledge', 'description']
     template_name = 'topics_creator.html'
 
     def get_form(self, **kwargs):
@@ -23,8 +23,10 @@ class CreateTopic(LoginRequiredMixin, CreateView):
         return reverse("project_index", args=self.kwargs.values())
 
     def form_valid(self, form):
-        self.object = form.save()
-        Category(name=form["title"].value(), user=self.request.user, topic=self.object).save()
+        topic = form.save(commit=False)
+        topic.user = self.request.user
+        self.object = topic
+        # Category(name=form["title"].value(), user=self.request.user, topic=self.object).save()
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

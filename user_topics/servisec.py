@@ -1,4 +1,6 @@
 from django.db.models import Count
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from user_blog.models import Post, Category
 from user_topics.models import Topic
@@ -32,3 +34,14 @@ def get_extended_queryset_topic(view_obj):
 
     return list(zip(topics, count_likes_articles_topic, quantity_display,
                     articles_in))  # unpacking the iterator for reuse in the template
+
+
+@receiver(post_save, sender=Topic)
+def create_category(sender, instance, created, **kwargs):
+    if created:
+        Category.objects.create(name=instance.title, user=instance.knowledge.user, topic=instance)
+
+
+@receiver(post_save, sender=Topic)
+def save_category(sender, instance, **kwargs):
+    instance.category.save()
