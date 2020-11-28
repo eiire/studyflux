@@ -5,6 +5,10 @@
     <script src="{% static "dist/main.js" %}"></script>
 {% endblock %}
 
+{% block sub_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'userpage_style.css' %}"/>
+{% endblock %}
+
 {% block page_title %} TEST {% endblock %}
 
 {% block buttom_navbar %}
@@ -15,6 +19,7 @@
 {% endblock %}
 
 {% block page_content %}
+    <hr>
     <div id="post_list">
         <!-- React will load here -->
     </div>

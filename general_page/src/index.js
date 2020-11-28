@@ -1,1 +1,1 @@
-import app from "./components/post_list";
+import PostList from "./components/post_list";
