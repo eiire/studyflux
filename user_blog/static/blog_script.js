@@ -22,7 +22,7 @@ likes.each(function (i, e) {
 
     $.ajax({
         type: 'GET',
-        url: 'http://127.0.0.1:8000/like_api/v1/posts/' + post_id + '/',
+        url: 'https://studyflux.herokuapp.com/like_api/v1/posts/' + post_id + '/',
         context: function () {return like_obj} (),
         headers: {'X-CSRFToken': csrf_token},
         success: function (data) {
@@ -39,7 +39,7 @@ likes.on("click", function() {
     this.getAttribute('checked') === 'checked' ? method = '/unlike/' : method = '/like/'
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8000/like_api/v1/posts/' + post_id + method,
+        url: 'https://studyflux.herokuapp.com/like_api/v1/posts/' + post_id + method,
         context: function () {
             return like_obj
         } (),
