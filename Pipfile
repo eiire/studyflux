@@ -8,14 +8,17 @@ pytest-django = "*"
 
 [packages]
 Django = "==3.1.2"
-Pillow = "*"
-django-ckeditor = "*"
+Pillow = "==8.0.1"
+django-ckeditor = "==6.0.0"
 jsonschema = "*"
-django_crispy = "*"
-self = "*"
+django_crispy = "==1.8.1"
+self = "==2020.7.1"
 djangorestframework = "==3.12.1"
 django-cors-headers = "==3.5.0"
 psycopg2 = "==2.8.6"
+gunicorn = "==20.0.4"
+whitenoise = "==5.2.0"
+dj-database-url = "==0.5.0"
 
 [requires]
 python_version = "3.6"
