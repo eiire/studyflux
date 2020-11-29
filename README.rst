@@ -1,35 +1,10 @@
-Установка
+StudyFlux
 ---------
 
-**Примечание**: инструкция выполняется относительно папки с проектом (*my_portfolio*) под *Linux* системой.
+**Link**: https://studyflux.herokuapp.com/
 
-Установить pipenv https://docs.pipenv.org/
-
-.. code-block:: bash
-
-    $ pip install pipenv
-
-
-Установить зависимости проекта, включая зависимости для разработки
-
-.. code-block:: bash
-
-    $ pipenv install --dev
-
-Активировать virtualenv проекта
-
-.. code-block:: bash
-
-    $ pipenv shell
-
-Запустить миграции
-
-.. code-block:: bash
-
-    $ python manage.py migrate
-
-Запуск сервера
-
-.. code-block:: bash
-
-    $ python manage.py runserver
+**Remark**:
+    1. release in alpha state;
+    2. branch master - heroku deploy;
+    3. branch main - stable project code only for deploy;
+    4. branch development - for development.
