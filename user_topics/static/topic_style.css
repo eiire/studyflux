@@ -1,11 +1,3 @@
-header {
-    font: bold 4em "Space Mono", monospace;
-    letter-spacing: 9px;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 2%;
-}
-
 body.topic_page {
     background-color: #e5e5e5;
 }

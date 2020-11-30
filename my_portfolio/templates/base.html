@@ -13,10 +13,24 @@
 
 {% block sub_style %} {% endblock %} {# CSS style from app #}
 
-<div class="welcome">
-    <basefont>WELCOME TO MY <font style="color: white; tab-size: 10px"> {% block page_title %} {% endblock %} </font>
-    PAGE </basefont>
-</div>
+<header class="page-header">
+    <div class="logo">
+        WELCOME TO MY&nbsp
+            <div style="color: white; tab-size: 10px">
+                {% block page_title %} {% endblock %}
+            </div>
+        &nbspPAGE
+    </div>
+    <div class="account">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="login"> Log In </a>
+            <a href="{% url 'register' %}" class="signup"> Sign Up </a>
+        {% else %}
+            <a href="{% url 'UserPage' user %}">  {{ user.username }} </a>
+            <a href="{% url 'logout' %}" class="login"> Log Out </a>
+        {% endif %}
+    </div>
+</header>
 
 <div class="my_navbar" id="my_navbar">
     {% block buttom_navbar %} {% endblock %}

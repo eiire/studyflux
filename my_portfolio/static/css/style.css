@@ -1,8 +1,23 @@
-.welcome {
+header.page-header {
+    display: flex;
     color: #333;
     background-color: #af6800;
     padding: 1vmin;
-    text-align: center;
+}
+
+header.page-header > .logo {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header.page-header > .account {
+    display: flex;
+}
+
+header.page-header > .account > a {
+    color: #e5e5e5;
+    margin: 0 5px 0 5px;
 }
 
 .my_navbar {
