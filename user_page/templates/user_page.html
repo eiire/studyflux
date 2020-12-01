@@ -9,14 +9,7 @@
 
 {% block buttom_navbar %}
     <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}"> Home </a>
-
-    {% if user.is_authenticated %}
-        <a href="{% url 'article_index' username %}"> Blog </a>
-        <a href="{% url 'logout' %}"> Log out </a>
-    {% else %}
-        <a href="{% url 'login' %}"> Log in </a>
-        <a href="{% url 'register' %}"> Sign up </a>
-    {% endif %}
+    <a href="{% url 'article_index' username %}"> Blog </a>
 
     {% if username == user.username %}
         <a href="{% url 'CreateKnowledge' username 'Development' %}"> Create [test/only Development]</a>

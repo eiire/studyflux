@@ -14,7 +14,8 @@
 {% block sub_style %} {% endblock %} {# CSS style from app #}
 
 <header class="page-header">
-    <div class="logo">
+    <a href="{% url 'app' %}" class="logo"> StudyFlow </a>
+    <div class="meta">
         WELCOME TO MY&nbsp
             <div style="color: white; tab-size: 10px">
                 {% block page_title %} {% endblock %}

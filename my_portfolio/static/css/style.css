@@ -1,11 +1,21 @@
 header.page-header {
     display: flex;
+    align-items: center;
     color: #333;
     background-color: #af6800;
     padding: 1vmin;
 }
 
-header.page-header > .logo {
+header.page-header > a.logo {
+    display: flex;
+    color: #e6e6e6;
+    font: bold 1em "Space Mono", monospace;
+    letter-spacing: 4px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+header.page-header > .meta {
     display: flex;
     margin-left: auto;
     margin-right: auto;
