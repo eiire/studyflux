@@ -37,7 +37,7 @@ class PostList extends Component {
       <div className="container" >
         {this.state.data.map(post => {
           return (
-            <Post post={post} />
+            <Post post={post} is_auth={this.state.is_auth}/>
           );
         })}
       </div>

@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
+import {Like} from "./like";
+import {is_auth} from '../vars'
 
 export function Post({post}) {
-    const csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').attr('value')
-    const [is_fan, setIs_fan] = useState(post.is_fan)
-
     return post.image === null
         ? <div className="col">
             <h3 href={post.url_post}> {post.title} </h3>
@@ -19,22 +18,7 @@ export function Post({post}) {
                 </p>
             </small>
 
-            <div className="like"> Like:
-                { is_fan
-                    ? <div onClick={() =>
-                        fetch('http://127.0.0.1:8000/like_api/v1/posts/'+ post.id + '/unlike/', {
-                            method: 'POST',
-                            headers: {'X-CSRFToken': csrfmiddlewaretoken},
-                        }).then((data) => setIs_fan(false))
-                    }> - </div>
-                    : <div onClick={() =>
-                        fetch('http://127.0.0.1:8000/like_api/v1/posts/'+ post.id + '/unlike/', {
-                            method: 'POST',
-                            headers: {'X-CSRFToken': csrfmiddlewaretoken},
-                        }).then((data) => setIs_fan(true))
-                    }> + </div>
-                }
-            </div>
+            {is_auth ? <Like post={post}/> : undefined}
 
             <p> {post.header} </p>
             <a className="btn btn-primary" href={post.url}> View post </a>
@@ -60,22 +44,7 @@ export function Post({post}) {
                     </p>
                 </small>
 
-                <div className="like"> Like:
-                    { is_fan
-                        ? <div onClick={() =>
-                            fetch('http://127.0.0.1:8000/like_api/v1/posts/'+ post.id + '/unlike/', {
-                                method: 'POST',
-                                headers: {'X-CSRFToken': csrfmiddlewaretoken},
-                            }).then((data) => setIs_fan(false))
-                        }> - </div>
-                        : <div onClick={() =>
-                            fetch('http://127.0.0.1:8000/like_api/v1/posts/'+ post.id + '/unlike/', {
-                                method: 'POST',
-                                headers: {'X-CSRFToken': csrfmiddlewaretoken},
-                            }).then((data) => setIs_fan(true))
-                        }> + </div>
-                    }
-                </div>
+                {is_auth ? <Like post={post}/> : undefined}
 
                 <p> {post.header} </p>
                 <a className="btn btn-primary" href={post.url}> View post </a>
