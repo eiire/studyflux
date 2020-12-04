@@ -1,10 +1,8 @@
 from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from user_blog.models import Category
 from user_page.models import Knowledge
-from user_topics.models import Topic
-from .servisec import get_extended_queryset_topic
+from .servisec import *
 
 
 class CreateTopic(LoginRequiredMixin, CreateView):
@@ -45,6 +43,7 @@ class Topics(ListView):
         context = super().get_context_data(**kwargs)
         context['username'] = self.kwargs.get('username')
         context['knowledge'] = self.kwargs.get('knowledge')
+        context['posts'] = Post.objects.filter(user__username=context['username']).order_by('-created_on')
         return context
 
 

@@ -1,48 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState} from 'react';
 import { render } from "react-dom";
 import { Post } from "./post";
 
-class PostList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      loaded: false,
-      placeholder: "Loading"
-    };
-  }
+function PostList() {
+    const [state, setState] = useState({
+        data: [],
+        loaded: false
+    })
 
-  componentDidMount() {
     fetch("general_page_api/v1/posts/")
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        this.setState(() => {
-          return {
+        .then(response => {
+          if (response.status > 400)
+              setState({ placeholder: "Something went wrong!" })
+
+          return response.json();
+        })
+        .then(data => setState({
             data,
             loaded: true
-          };
-        });
-      });
-  }
+        }));
 
-  render() {
     return (
-      <div className="container" >
-        {this.state.data.map(post => {
-          return (
-            <Post post={post} is_auth={this.state.is_auth}/>
-          );
-        })}
-      </div>
+        <div className="container" >
+            {state.data.map(post => {
+                return (
+                    <Post post={post} />
+                );
+            })}
+        </div>
     );
-  }
 }
 
 
