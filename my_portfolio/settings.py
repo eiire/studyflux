@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'eiiredb5',
         'USER': 'postgres',
-        'PASSWORD': 'qtlpxz',
+        'PASSWORD': 'yo-ruby',
         'HOST': 'localhost',
         'PORT': '5432',
     }

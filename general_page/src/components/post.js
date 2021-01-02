@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Like} from "./like";
 import {is_auth} from '../vars'
 
@@ -8,6 +8,10 @@ export function Post({post}) {
             <h3 href={post.url_post}> {post.title} </h3>
 
             <small>
+                <h5 className="card-text text-right">
+                    <a href={post.user_url} style={{color:'#af6800'}}> {post.username} </a>
+                </h5>
+
                 <p className="card-text">
                     {(new Date(post.created_on)).toLocaleDateString().split('/').join(' ')}
                     |&nbsp;Categories:&nbsp;
@@ -34,6 +38,10 @@ export function Post({post}) {
                 <h3 href={post.url_post}> {post.title} </h3>
 
                 <small>
+                    <h5 className="card-text text-right">
+                        <a href={post.user_url}> {post.username} </a>
+                    </h5>
+
                     <p className="card-text">
                         { (new Date(post.created_on)).toLocaleDateString().split('/').join(' ') }
                         |&nbsp;Categories:&nbsp;

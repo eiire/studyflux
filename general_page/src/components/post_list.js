@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { render } from "react-dom";
 import { Post } from "./post";
 
@@ -8,17 +8,21 @@ function PostList() {
         loaded: false
     })
 
-    fetch("general_page_api/v1/posts/")
-        .then(response => {
-          if (response.status > 400)
-              setState({ placeholder: "Something went wrong!" })
+    useEffect(() => {
+        fetch("general_page_api/v1/posts/")
+            .then(response => {
+                if (response.status > 400)
+                    setState({placeholder: "Something went wrong!"})
 
-          return response.json();
-        })
-        .then(data => setState({
-            data,
-            loaded: true
-        }));
+                return response.json();
+            })
+            .then(data => setState(() => {
+                return {
+                    data,
+                    loaded: true
+                }
+            }))
+    }, [])
 
     return (
         <div className="container" >
