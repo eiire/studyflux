@@ -51,7 +51,7 @@
 
 {% block page_content %}
     <hr>
-
+<body>
     <div class="my_content">
         <div class="topics">
             <label for="All"> All </label>
@@ -98,5 +98,24 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="break"></div>
+        {% if is_paginated %}
+            <div class="pagination">
+            {% if page_obj.has_previous %}
+                <div>
+                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous&nbsp;</a></span>
+                </div>
+            {% endif %}
+                <div class="">
+                    <span> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                </div>
+            {% if page_obj.has_next %}
+                <div>
+                    <span><a href="?page={{ page_obj.next_page_number }}">&nbsp;Next</a></span>
+                </div>
+            {% endif %}
+            </div>
+        {% endif %}
     </div>
+</body>
 {% endblock %}

@@ -4,6 +4,7 @@ body.topic_page {
 
 .my_content {
     display: flex;
+    flex-wrap: wrap;
     width: 80%;
     margin: 0 auto;
     justify-content: space-around;
@@ -144,4 +145,18 @@ body.topic_page {
 
 .wrapper_sort_system > input {
     margin: 3%;
+}
+
+.my_content > .pagination {
+    display: flex;
+    list-style: none;
+    background-color: #af6800;
+    padding: 10px;
+    color: white;
+    margin: 5px;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
 }

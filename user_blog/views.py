@@ -45,9 +45,6 @@ class UpdateArticleView(ModelFormPostMixin, UpdateView, LoginRequiredMixin):
     model = Post
     template_name = 'articles_redactor.html'
 
-    def get_queryset(self):
-        return Post.objects.filter(user__username=self.request.user)  # after get_object if <pk> in url
-
 
 class DeleteArticleView(ModelFormPostMixin, DeleteView, LoginRequiredMixin):
     model = Post
@@ -60,6 +57,7 @@ class DeleteArticleView(ModelFormPostMixin, DeleteView, LoginRequiredMixin):
 class ListArticles(ListView):
     template_name = 'article_index.html'
     context_object_name = 'post_list'
+    paginate_by = 6
 
     def get_queryset(self):
         return Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')

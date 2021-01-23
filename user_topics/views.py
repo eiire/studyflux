@@ -35,15 +35,17 @@ class CreateTopic(LoginRequiredMixin, CreateView):
 
 class Topics(ListView):
     template_name = 'topics_index.html'
+    context_object_name = 'posts'
+    paginate_by = 16
 
     def get_queryset(self):
-        return get_extended_queryset_topic(self)
+        return Post.objects.filter(user__username=self.kwargs['username']).order_by('-created_on')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['username'] = self.kwargs.get('username')
         context['knowledge'] = self.kwargs.get('knowledge')
-        context['posts'] = Post.objects.filter(user__username=context['username']).order_by('-created_on')
+        context['object_list'] = get_extended_queryset_topic(self)
         return context
 
 

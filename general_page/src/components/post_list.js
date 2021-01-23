@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { Post } from "./post";
+import {csrf_token} from "../vars";
 
 function PostList() {
     const [state, setState] = useState({
         data: [],
-        loaded: false
+        loaded: false,
+        next: null,
+        previous: '',
+        count: 0,
     })
 
     useEffect(() => {
@@ -17,20 +21,46 @@ function PostList() {
                 return response.json();
             })
             .then(data => setState(() => {
+                console.log(data)
                 return {
-                    data,
-                    loaded: true
+                    data: data.results,
+                    loaded: true,
+                    next: data.next,
+                    previous: data.previous,
+                    count: data.count
                 }
             }))
     }, [])
 
     return (
-        <div className="container" >
-            {state.data.map(post => {
-                return (
-                    <Post post={post} />
-                );
-            })}
+        <div>
+            <div className="container" >
+                {state.data.map(post => {
+                    return (
+                        <Post post={post} />
+                    );
+                })}
+            </div>
+            <ul className="pagination justify-content-center">
+                <li className="page-item">
+                    <div className="page-link" onClick={() =>
+                        fetch(state.next, {
+                            method: 'GET',
+                            headers: {'X-CSRFToken': csrf_token},
+                        }).then(response => response.json()).then(data => {
+                            setState(() => {
+                                return {
+                                    data: state.data.concat(data.results),
+                                    loaded: true,
+                                    next: data.next,
+                                    previous: data.previous,
+                                    count: data.count
+                                }
+                            })
+                        })
+                    }>Next 10 post</div>
+                </li>
+            </ul>
         </div>
     );
 }
