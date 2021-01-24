@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block page_title %}ARTICLE|CREATOR{% endblock %}
+{% block sub_style %} <link rel="stylesheet" type="text/css" href="{% static 'blog_style.css' %}"/> {% endblock %}
 
 {% block buttom_navbar %}
     <a class="active" href="{% url 'UserPage' username %}">Home</a>
@@ -17,6 +18,14 @@
     <div class="container">
         <div class="row">
             <div class="col offset-2">
+                {% if fail_rights_article == True %}
+                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <strong>{{ user.username }}</strong>, this article is not yours, but <strong>{{ username }}</strong> article
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.media }}

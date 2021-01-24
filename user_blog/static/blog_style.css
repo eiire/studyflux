@@ -128,3 +128,7 @@ input#display_swither:checked + label + .my_content > .my_card > .info {
     margin-right: auto;
     width: max-content;
 }
+
+.alert   {
+    border-radius: unset!important;
+}
