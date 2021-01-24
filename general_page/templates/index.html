@@ -11,16 +11,37 @@
 
 {% block page_title %} TEST {% endblock %}
 
-{% block buttom_navbar %}
-    {# <a class="active" href="{% url 'project_index' username %}"> Topics </a> #}
-    {# <a href="{% url 'user_page' user_id %}">My knowledge</a> #}
-    {# <a href="{% url 'article_index' user_id %}">My user_blog</a> #}
-    {# <a href={% url 'logout' %}>Exit</a> #}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'UserPage' 'ff' %}">{{ 'ff' }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'article_index' 'ff' %}">Blog</a>
+                </li>
+
+                {% if username == user.username %}
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Create
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'All-streams' %}">All-streams</a>
+                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'Development' %}">Development</a>
+                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'Economics' %}">Economics</a>
+                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'Lifestyle' %}">Lifestyle</a>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
 {% endblock %}
 
 {% block page_content %}
     <hr>
-    <div id="post_list">
-        <!-- React will load here -->
-    </div>
+    <div id="post_list"></div>
 {% endblock %}

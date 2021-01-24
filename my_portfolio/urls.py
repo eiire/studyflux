@@ -8,7 +8,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from ckeditor_uploader import views
 from django.views.decorators.cache import never_cache
-
+from my_portfolio.view import CustomDjangoLoginView
 from user_page import views
 from my_portfolio.batteries_patches.ckeditor_uploader_patch import upload
 
@@ -26,7 +26,7 @@ urlpatterns = [
     # browse files from the server for is_staff users
     path('browse/', never_cache(staff_member_required(ckeditor_uploader.views.browse)), name='ckeditor_browse'),
     path('register/', views.RegisterFormView.as_view(), name='register'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('login/', CustomDjangoLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
 
