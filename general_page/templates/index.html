@@ -11,34 +11,16 @@
 
 {% block page_title %} TEST {% endblock %}
 
-{% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'UserPage' 'ff' %}">{{ 'ff' }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'article_index' 'ff' %}">Blog</a>
-                </li>
-
-                {% if username == user.username %}
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Create
-                    </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'All-streams' %}">All-streams</a>
-                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'Development' %}">Development</a>
-                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'Economics' %}">Economics</a>
-                            <a class="dropdown-item" href="{% url 'CreateKnowledge' username 'Lifestyle' %}">Lifestyle</a>
-                        </div>
-                    </li>
-                {% endif %}
-            </ul>
+{% block buttom_navbar %}
+    {% if user.is_authenticated %}
+        <div class="active">
+            <a href="{% url 'UserPage' username %}"> Home </a>
         </div>
-    </nav>
+    {% else %}
+        <div class="active">
+            <a href="{% url 'register' %}"> Home </a>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block page_content %}

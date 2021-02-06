@@ -4,7 +4,7 @@ import {is_auth} from '../vars'
 
 export function Post({post}) {
     return post.image === null
-        ? <div className="col">
+        ? <div className="col mt-5 mb-5">
             <h3 href={post.url_post}> {post.title} </h3>
 
             <small>

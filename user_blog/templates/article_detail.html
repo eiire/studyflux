@@ -10,7 +10,9 @@
 {% block page_title %}ARTICLE{% endblock %}
 
 {% block buttom_navbar %}
-    <a class="active" href="{% url 'UserPage' username %}">Home</a>
+    <div class="active">
+        <a href="{% url 'UserPage' username %}">Home</a>
+    </div>
     {#        <a href="{% url 'index_user' user_id %}">My knowledge</a>#}
     {#        <a href="{% url 'article_creation' user_id %}">Create</a>#}
     {#        <a href="{% url 'about' %}">About</a>#}

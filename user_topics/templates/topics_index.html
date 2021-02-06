@@ -39,10 +39,10 @@
 {% block page_title %} TOPICS {% endblock %}
 
 {% block buttom_navbar %}
-    <a class="active" href="{% url 'UserPage' username %}"> Home </a>
+    <div class="active">
+        <a href="{% url 'UserPage' username %}"> Home </a>
+    </div>
     <a href="{% url 'article_index' username %}"> Blog </a>
-    <a href="https://github.com/eiire"> Contact </a>
-    <a href="{% url 'about' username %}"> About </a>
 
     {% if username == user.username %}
         <a href="{% url 'project_creator' username knowledge %}"> Create </a>

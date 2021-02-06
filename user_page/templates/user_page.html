@@ -9,14 +9,22 @@
 {% endblock %}
 
 {% block buttom_navbar %}
-    <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}"> Home </a>
+    <div class="active" href="{% url 'app' %}">
+        <a href="{% url 'app' %}">All users streams</a>
+    </div>
     <a href="{% url 'article_index' username %}"> Blog </a>
 
     {% if username == user.username %}
-        <a href="{% url 'CreateKnowledge' username 'Development' %}"> Create [test/only Development]</a>
+        <div class="my_dropdown">
+            <span>Create</span>
+            <div class="dropdown_list">
+                <a href="{% url 'CreateKnowledge' username 'All-streams' %}"> All streams </a>
+                <a href="{% url 'CreateKnowledge' username 'Development' %}"> Development </a>
+                <a href="{% url 'CreateKnowledge' username 'Economics' %}"> Economics </a>
+                <a href="{% url 'CreateKnowledge' username 'Lifestyle' %}"> Lifestyle </a>
+            </div>
+        </div>
     {% endif %}
-
-    <a href="{% url 'about' username %}">About</a>
 {% endblock %}
 {%  block page_content %}
 <body>
