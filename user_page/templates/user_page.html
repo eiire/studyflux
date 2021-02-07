@@ -71,7 +71,7 @@
                     <a href="{% url 'article_detail' post.user.username post.pk %}">
                         {% if post.image %}
                             <div class="img_container">
-                                <img src="{{ post.image.url }}" alt="">
+                                <img src="{{ post.image.url }}" alt="" onerror="this.src = '{% static 'img/noimg.jpg' %}';">
                             </div>
                         {% else %}
                             <img class="img-fluid rounded mb-3 mb-md-0" src="" alt="">

@@ -32,7 +32,9 @@
             <div class="my_card">
                 <div class="img_container">
                     {% if post.image != '' %}
-                        <img src={{ post.image.url }}>
+                        <img src={{ post.image.url }} onerror="this.src = '{% static 'img/noimg.jpg' %}';">
+                    {% else %}
+                        <img src={% static 'img/noimg.jpg' %}>
                     {% endif %}
                 </div>
 

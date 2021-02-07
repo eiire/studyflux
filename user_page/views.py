@@ -38,10 +38,10 @@ class RegisterFormView(FormView):
 class CreateKnowledge(View, LoginRequiredMixin):
     def get(self, request, **kwargs):
         knowledge_img = {
-            'All-streams': 'portfolio/2.png',
-            'Development': 'portfolio/2.png',
-            'Economics': 'portfolio/2.png',
-            'Lifestyle': 'portfolio/2.png',
+            'All-streams': 'portfolio/1.jpg',
+            'Development': 'portfolio/2.jpg',
+            'Economics': 'portfolio/3.jpg',
+            'Lifestyle': 'portfolio/4.jpg',
         }
         all_knowledge = ['All-streams', 'Development', 'Economics', 'Lifestyle']
         user_knowledge = [el['name'] for el in Knowledge.objects.filter(user=request.user.id).values('name')]

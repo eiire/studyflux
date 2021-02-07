@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Like} from "./like";
 import {is_auth} from '../vars'
 
 export function Post({post}) {
-    return post.image === null
+    const [state, setState] = useState({
+        img: true,
+    });
+
+     useEffect(() => {
+        fetch(post.image)
+            .then(response => {
+                if (response.status > 400)
+                    setState({img: false})
+
+                return response.json();
+            })
+    }, [])
+
+    return !state.img
         ? <div className="col mt-5 mb-5">
             <h3 href={post.url_post}> {post.title} </h3>
 
@@ -30,7 +44,7 @@ export function Post({post}) {
         : <div className="row">
             <div className="col-md-7" >
                 <a href={post.url}>
-                    <div className="img_container"> <img src={post.image} alt={post.image.split('/').pop()} /> </div>
+                    <div className="img_container"> <img src={post.image} /> </div>
                 </a>
             </div>
 
