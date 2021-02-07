@@ -5,6 +5,6 @@ StudyFlux
 
 **Remark**:
     1. release in alpha state;
-    2. branch master - heroku deploy;
-    3. branch main - stable project code only for deploy;
-    4. branch development - for development.
+    2. branch main-heroku —  deploying a test server to Heroku;
+    3. branch main — stable project code without unnecessary files;
+    4. branch development — development.

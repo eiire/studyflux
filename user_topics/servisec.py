@@ -17,11 +17,6 @@ def get_extended_queryset_topic(view_obj):
         for topic in topics
     ]
 
-    articles_in = [
-        Post.objects.filter(categories__id=Category.objects.get(topic=topic).id).order_by('-created_on')
-        for topic in topics
-    ]
-
     scale_interval = (max(count_likes_articles_topic) / 3) if len(count_likes_articles_topic) != 0 else 0
     quantity_display = [
         'linear-gradient(90deg, rgba(233, 66, 66, 1) 44%, rgba(255, 255, 255, 1) 100%)'
@@ -32,8 +27,7 @@ def get_extended_queryset_topic(view_obj):
         for count in count_likes_articles_topic
     ]
 
-    return list(zip(topics, count_likes_articles_topic, quantity_display,
-                    articles_in))  # unpacking the iterator for reuse in the template
+    return list(zip(topics, count_likes_articles_topic, quantity_display))  # unpacking the iterator
 
 
 @receiver(post_save, sender=Topic)

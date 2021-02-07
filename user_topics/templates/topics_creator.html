@@ -3,10 +3,10 @@
 {% block page_title %} TOPICS|CREATOR {% endblock %}
 
 {% block buttom_navbar %}
-    <a class="active" style="margin-right: 5%" href="{% url 'UserPage' user.username %}"> Home </a>
+    <div class="active">
+        <a href="{% url 'UserPage' user.username %}"> Home </a>
+    </div>
     <a href="{% url 'project_index' user.username knowledge %}"> Topics </a>
-    <a href="https://github.com/eiire">Contact</a>
-    <a href="{% url 'about' user.username %}">About</a>
 {% endblock %}
 
 {% block page_content %}

@@ -3,7 +3,9 @@
 {% block page_title %} BLOG | CATEGORY {% endblock %}
 
 {% block buttom_navbar %}
-    <a class="active" href="{% url 'project_index' username knowledge %}"> Topics </a>
+    <div class="active">
+        <a href="{% url 'project_index' username knowledge %}"> Topics </a>
+    </div>
     {#         <a href="{% url 'user_page' user_id %}">My knowledge</a>#}
     {#         <a href="{% url 'article_index' user_id %}">My user_blog</a>#}
     {#        <a href={% url 'logout' %}>Exit</a>#}

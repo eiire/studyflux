@@ -1,74 +1,68 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
+import { Post } from "./post";
+import {csrf_token} from "../vars";
 
-class PostList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      loaded: false,
-      placeholder: "Loading"
-    };
-  }
+function PostList() {
+    const [state, setState] = useState({
+        data: [],
+        loaded: false,
+        next: null,
+        previous: '',
+        count: 0,
+    })
 
-  componentDidMount() {
-    fetch("general_page_api/v1/posts/")
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        this.setState(() => {
-          return {
-            data,
-            loaded: true
-          };
-        });
-      });
-  }
+    useEffect(() => {
+        fetch("general_page_api/v1/posts/")
+            .then(response => {
+                if (response.status > 400)
+                    setState({placeholder: "Something went wrong!"})
 
-  render() {
+                return response.json();
+            })
+            .then(data => setState(() => {
+                console.log(data)
+                return {
+                    data: data.results,
+                    loaded: true,
+                    next: data.next,
+                    previous: data.previous,
+                    count: data.count
+                }
+            }))
+    }, [])
+
     return (
-      <div className="container" >
-        {this.state.data.map(post => {
-          return (
-            <div className="row">
-              <div className="col-md-7" >
-                <a href={post.url}>
-                  <div className="img_container">
-                    <img src={post.image} alt={post.image.split('/').pop()} />
-                  </div>
-                </a>
-              </div>
-              <div className="col-md-5">
-                <h3 href={post.url_post}> {post.title} </h3>
-                <small>
-                  <p className="card-text"> {
-                    (new Date(post.created_on)).toLocaleDateString().split('/').join(' ')
-                  } |&nbsp;
-                    Categories:&nbsp;
-                    {post.topics.map(topic => {
-                      return (
-                        <a href={topic.url}>
-                          {topic.title}
-                        </a>
-                      )
-                    })}
-                  </p>
-                </small>
-                <p> {post.header} </p>
-                <a className="btn btn-primary" href={post.url}> View post </a>
-              </div>
+        <div>
+            <div className="container" >
+                {state.data.map(post => {
+                    return (
+                        <Post post={post} />
+                    );
+                })}
             </div>
-          );
-        })}
-      </div>
+            <ul className="pagination justify-content-center">
+                <li className="page-item">
+                    <div className="page-link" onClick={() =>
+                        fetch(state.next, {
+                            method: 'GET',
+                            headers: {'X-CSRFToken': csrf_token},
+                        }).then(response => response.json()).then(data => {
+                            setState(() => {
+                                return {
+                                    data: state.data.concat(data.results),
+                                    loaded: true,
+                                    next: data.next,
+                                    previous: data.previous,
+                                    count: data.count
+                                }
+                            })
+                        })
+                    }>Next 10 post</div>
+                </li>
+            </ul>
+        </div>
     );
-  }
 }
 
 

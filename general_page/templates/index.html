@@ -6,21 +6,24 @@
 {% endblock %}
 
 {% block sub_style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'userpage_style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'general_page.css' %}"/>
 {% endblock %}
 
 {% block page_title %} TEST {% endblock %}
 
 {% block buttom_navbar %}
-    {# <a class="active" href="{% url 'project_index' username %}"> Topics </a> #}
-    {# <a href="{% url 'user_page' user_id %}">My knowledge</a> #}
-    {# <a href="{% url 'article_index' user_id %}">My user_blog</a> #}
-    {# <a href={% url 'logout' %}>Exit</a> #}
+    {% if user.is_authenticated %}
+        <div class="active">
+            <a href="{% url 'UserPage' username %}"> Home </a>
+        </div>
+    {% else %}
+        <div class="active">
+            <a href="{% url 'register' %}"> Home </a>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block page_content %}
     <hr>
-    <div id="post_list">
-        <!-- React will load here -->
-    </div>
+    <div id="post_list"></div>
 {% endblock %}

@@ -1,7 +1,4 @@
-from django.template.defaulttags import url
 from rest_framework import serializers
-
-import user_blog
 from apis.general_page_api import services
 from apis.like_api import services as likes_services
 from user_blog.models import Post
@@ -12,13 +9,15 @@ class PostSerializer(serializers.ModelSerializer):
     is_fan = serializers.SerializerMethodField()
     topics = serializers.SerializerMethodField()
     knowledge_field = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
+    user_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
         fields = (
             'id',
-            'user',
+            'username',
             'title',
             'image',
             'knowledge_field',
@@ -30,6 +29,7 @@ class PostSerializer(serializers.ModelSerializer):
             'created_on',
             'last_modified',
             'url',
+            'user_url'
         )
 
     def get_topics(self, obj):
@@ -47,6 +47,12 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_url(self, obj) -> str:
         return f'/users/@{obj.user}/blog/post/{obj.pk}/'
+
+    def get_user_url(self, obj) -> str:
+        return f'/users/@{obj.user}'
+
+    def get_username(self, obj) -> str:
+        return obj.user.username
 
 
 class TopicSerializer(serializers.ModelSerializer):
