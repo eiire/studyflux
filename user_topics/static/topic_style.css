@@ -1,17 +1,10 @@
-header {
-    font: bold 4em "Space Mono", monospace;
-    letter-spacing: 9px;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 2%;
-}
-
 body.topic_page {
     background-color: #e5e5e5;
 }
 
 .my_content {
     display: flex;
+    flex-wrap: wrap;
     width: 80%;
     margin: 0 auto;
     justify-content: space-around;
@@ -152,4 +145,18 @@ body.topic_page {
 
 .wrapper_sort_system > input {
     margin: 3%;
+}
+
+.my_content > .pagination {
+    display: flex;
+    list-style: none;
+    background-color: #af6800;
+    padding: 10px;
+    color: white;
+    margin: 5px;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
 }

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_filters %}
 {% load static %}
 
 {% block page_title %} {{ username }}|PAGE {% endblock %}
@@ -8,23 +9,23 @@
 {% endblock %}
 
 {% block buttom_navbar %}
-    <a class="active" style="margin-right: 5%" href="{% url 'UserPage' username %}"> Home </a>
-
-    {% if user.is_authenticated %}
-        <a href="{% url 'article_index' username %}"> Blog </a>
-        <a href="{% url 'logout' %}"> Log out </a>
-    {% else %}
-        <a href="{% url 'login' %}"> Log in </a>
-        <a href="{% url 'register' %}"> Sign up </a>
-    {% endif %}
+    <div class="active" href="{% url 'app' %}">
+        <a href="{% url 'app' %}">All users streams</a>
+    </div>
+    <a href="{% url 'article_index' username %}"> Blog </a>
 
     {% if username == user.username %}
-        <a href="{% url 'CreateKnowledge' username 'Development' %}"> Create [test/only Development]</a>
+        <div class="my_dropdown">
+            <span>Create</span>
+            <div class="dropdown_list">
+                <a href="{% url 'CreateKnowledge' username 'All-streams' %}"> All streams </a>
+                <a href="{% url 'CreateKnowledge' username 'Development' %}"> Development </a>
+                <a href="{% url 'CreateKnowledge' username 'Economics' %}"> Economics </a>
+                <a href="{% url 'CreateKnowledge' username 'Lifestyle' %}"> Lifestyle </a>
+            </div>
+        </div>
     {% endif %}
-
-    <a href="{% url 'about' username %}">About</a>
 {% endblock %}
-
 {%  block page_content %}
 <body>
     {% if knowledges %}
@@ -38,7 +39,6 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-
             <div class="carousel-inner">
                 {% for knowledge in knowledges %}
                     {% if forloop.counter == 1 %}
@@ -46,18 +46,15 @@
                     {% else %}
                         <div class="carousel-item">
                     {% endif %}
-
                         <a href="{% url 'project_index' knowledge.user.username knowledge.name %}">
                             <img src="{{ knowledge.image.url }}">
                         </a>
-
                         <div class="carousel-caption">
                             <h3>{{ knowledge.name }} | {{ knowledge.topics }}</h3>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-
             <a class="carousel-control-prev" href="#demo" data-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
             </a>
@@ -66,9 +63,7 @@
             </a>
         </div>
     {% endif %}
-
     <hr>
-
     <div class="container">
         {% for post in posts %}
             <div class="row">
@@ -102,5 +97,48 @@
         {% endfor %}
         <hr>
     </div>
+    {% if is_paginated %}
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for numb_page in page_obj.paginator.num_pages|range %}
+                {% if page_obj.number == numb_page|add:1 %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ numb_page|add:1 }}">{{ numb_page|add:1 }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ numb_page|add:1 }}">{{ numb_page|add:1 }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
 </body>
 {% endblock %}

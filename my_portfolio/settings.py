@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'eiiredb5',
         'USER': 'postgres',
-        'PASSWORD': 'qtlpxz',
+        'PASSWORD': 'yo-ruby',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -184,5 +184,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'PAGE_SIZE': 10
 }

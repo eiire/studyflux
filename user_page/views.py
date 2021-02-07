@@ -9,28 +9,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
 
-class StartPageView(ListView):
-    def get(self, request, *args, **kwargs):
-        return redirect('UserPage', 'CHANGE_USER')
-
-
 class UserPageView(ListView):
     template_name = "user_page.html"
-    context_object_name = 'knowledges'
+    context_object_name = 'posts'
+    paginate_by = 3
 
     def get_queryset(self):
-        return Knowledge.objects.filter(user__username=self.kwargs.get('username'))
+        return Post.objects.filter(user__username=self.kwargs.get('username'), pinned=True) \
+            .annotate(count=Count('likes')).order_by('-count')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts'] = Post.objects.filter(user__username=self.kwargs.get('username'), pinned=True) \
-            .annotate(count=Count('likes')).order_by('-count')
+        context['knowledges'] = Knowledge.objects.filter(user__username=self.kwargs.get('username'))
         context['username'] = self.kwargs.get('username')
         return context
-
-
-class UserProfile():
-    pass
 
 
 class RegisterFormView(FormView):
@@ -46,10 +38,10 @@ class RegisterFormView(FormView):
 class CreateKnowledge(View, LoginRequiredMixin):
     def get(self, request, **kwargs):
         knowledge_img = {
-            'All-streams': 'portfolio/1.png',
+            'All-streams': 'portfolio/2.png',
             'Development': 'portfolio/2.png',
-            'Economics': 'portfolio/3.png',
-            'Lifestyle': 'portfolio/4.png',
+            'Economics': 'portfolio/2.png',
+            'Lifestyle': 'portfolio/2.png',
         }
         all_knowledge = ['All-streams', 'Development', 'Economics', 'Lifestyle']
         user_knowledge = [el['name'] for el in Knowledge.objects.filter(user=request.user.id).values('name')]

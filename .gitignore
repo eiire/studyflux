@@ -13,8 +13,6 @@ db.sqlite3
 my_portfolio/static/img/blog/*.jpg
 my_portfolio/static/img/blog/*.JPG
 my_portfolio/static/img/blog/*.png
-my_portfolio/static/img/portfolio/*.jpg
-my_portfolio/static/img/portfolio/*.png
 my_portfolio/static/img/*.jpg
 my_portfolio/static/img/*.png
 my_portfolio/static/img/blog/art_cover/*.jpg

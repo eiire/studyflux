@@ -1,7 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView, DetailView
 from user_blog.forms import CommentForm
@@ -45,8 +45,17 @@ class UpdateArticleView(ModelFormPostMixin, UpdateView, LoginRequiredMixin):
     model = Post
     template_name = 'articles_redactor.html'
 
-    def get_queryset(self):
-        return Post.objects.filter(user__username=self.request.user)  # after get_object if <pk> in url
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        # A form based on the model(post) and does not exist field.user  in the form from request POST, bc commit=False.
+        post = form.save(commit=False)
+        if post.user == self.request.user:
+            self.object = post
+            return super().form_valid(form)
+        else:
+            context = self.get_context_data(**self.kwargs)
+            context['fail_rights_article'] = True
+            return render(self.request, 'articles_redactor.html', context)
 
 
 class DeleteArticleView(ModelFormPostMixin, DeleteView, LoginRequiredMixin):
@@ -60,6 +69,7 @@ class DeleteArticleView(ModelFormPostMixin, DeleteView, LoginRequiredMixin):
 class ListArticles(ListView):
     template_name = 'article_index.html'
     context_object_name = 'post_list'
+    paginate_by = 6
 
     def get_queryset(self):
         return Post.objects.filter(user__username=self.kwargs.get('username')).order_by('-created_on')

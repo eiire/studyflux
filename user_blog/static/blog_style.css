@@ -120,3 +120,15 @@ input#display_swither:checked + label + .my_content > .my_card > .info {
     width: 15%;
 }
 /*END SWITHER*/
+
+.pagination {
+    clear: left;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+}
+
+.alert   {
+    border-radius: unset!important;
+}

@@ -39,10 +39,10 @@
 {% block page_title %} TOPICS {% endblock %}
 
 {% block buttom_navbar %}
-    <a class="active" href="{% url 'UserPage' username %}"> Home </a>
+    <div class="active">
+        <a href="{% url 'UserPage' username %}"> Home </a>
+    </div>
     <a href="{% url 'article_index' username %}"> Blog </a>
-    <a href="https://github.com/eiire"> Contact </a>
-    <a href="{% url 'about' username %}"> About </a>
 
     {% if username == user.username %}
         <a href="{% url 'project_creator' username knowledge %}"> Create </a>
@@ -51,7 +51,7 @@
 
 {% block page_content %}
     <hr>
-
+<body>
     <div class="my_content">
         <div class="topics">
             <label for="All"> All </label>
@@ -66,23 +66,19 @@
         {% endfor %}
 
         <div class="cards_topics">
-            {% for topic in object_list %}
-                {% for article in topic.3 %}
-                    <div class="topic {{ topic.0.title }}">
-
-                        <div class="img_container">
-                            {% if article.image != '' %}
-                                <img src={{ article.image.url }}>
-                            {% endif %}
-                        </div>
-
-                        <div class="description_wrapper">
-                            <div class="desc">
-                                {{ article.header }}
-                            </div>
-                        </div>
+            {% for post in posts %}
+                <div class="topic {% for topic in post.categories.all %} {{ topic.name }} {% endfor %}">
+                    <div class="img_container">
+                        {% if post.image != '' %}
+                            <img src={{ post.image.url }}>
+                        {% endif %}
                     </div>
-                {% endfor %}
+                     <div class="description_wrapper">
+                        <div class="desc">
+                            {{ post.header }}
+                        </div>
+                     </div>
+                </div>
             {% endfor %}
         </div>
 
@@ -102,5 +98,24 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="break"></div>
+        {% if is_paginated %}
+            <div class="pagination">
+            {% if page_obj.has_previous %}
+                <div>
+                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous&nbsp;</a></span>
+                </div>
+            {% endif %}
+                <div class="">
+                    <span> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                </div>
+            {% if page_obj.has_next %}
+                <div>
+                    <span><a href="?page={{ page_obj.next_page_number }}">&nbsp;Next</a></span>
+                </div>
+            {% endif %}
+            </div>
+        {% endif %}
     </div>
+</body>
 {% endblock %}
