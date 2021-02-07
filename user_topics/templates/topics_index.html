@@ -70,7 +70,7 @@
                 <div class="topic {% for topic in post.categories.all %} {{ topic.name }} {% endfor %}">
                     <div class="img_container">
                         {% if post.image != '' %}
-                            <img src={{ post.image.url }}>
+                            <img src={{ post.image.url }} onerror="this.src = '{% static 'img/noimg.jpg' %}';">
                         {% endif %}
                     </div>
                      <div class="description_wrapper">
