@@ -22,7 +22,7 @@
                 background: {{ topic.2 }};
             }
 
-            input[id="{{ topic.0.title }}"]:checked ~ .cards_topics > div:not(.{{ topic.0.title }}) {
+            input[id="{{ topic.0.title|slugify }}"]:checked ~ .cards_topics > div:not(.{{ topic.0.title|slugify }}) {
                 opacity: 0.5;
             }
 
@@ -56,18 +56,18 @@
         <div class="topics">
             <label for="All"> All </label>
             {% for topic in object_list %}
-                <label for="{{ topic.0.title }}">{{ topic.0.title }}</label>
+                <label for="{{ topic.0.title|slugify }}">{{ topic.0.title|slugify }}</label>
             {% endfor %}
         </div>
 
         <input type="radio" id="All" name="r1">
         {% for topic in object_list %}
-            <input type="radio" id="{{ topic.0.title }}" name="r1">
+            <input type="radio" id="{{ topic.0.title|slugify }}" name="r1">
         {% endfor %}
 
         <div class="cards_topics">
             {% for post in posts %}
-                <div class="topic {% for topic in post.categories.all %} {{ topic.name }} {% endfor %}">
+                <div class="topic {% for topic in post.categories.all %} {{ topic.name|slugify }} {% endfor %}">
                     <div class="img_container">
                         {% if post.image != '' %}
                             <img src={{ post.image.url }} onerror="this.src = '{% static 'img/noimg.jpg' %}';">

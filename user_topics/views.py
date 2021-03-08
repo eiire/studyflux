@@ -1,4 +1,5 @@
-from django.views.generic import CreateView, ListView, DetailView
+from django import forms
+from django.views.generic import CreateView, ListView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from user_page.models import Knowledge
@@ -8,6 +9,14 @@ from .servisec import *
 class CreateTopic(LoginRequiredMixin, CreateView):
     model, fields = Topic, ['title', 'knowledge', 'description']
     template_name = 'topics_creator.html'
+    widgets = {
+        'title': forms.Textarea(attrs={'cols': '100', 'rows': '1', 'class': 'form-control'}),
+        'image': forms.FileInput(attrs={'type': 'file', 'class': 'form-control-file'}),
+        'description': forms.Textarea(attrs={'cols': '1000', 'rows': '10', 'class': 'form-control'})
+    }
+
+    def get_form_class(self):
+        return forms.modelform_factory(self.model, fields=self.fields, widgets=self.widgets)
 
     def get_form(self, **kwargs):
         form_class = self.get_form_class()

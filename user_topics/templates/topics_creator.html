@@ -11,11 +11,17 @@
 
 {% block page_content %}
     <hr>
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-primary" value="Сохранить"/>
-        </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-2 ">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <hr> {{ field.label_tag }} <p> {{ field }} </p>
+                    {% endfor %}
+                    <input type="submit" class="btn btn-primary" value="Сохранить"/>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
