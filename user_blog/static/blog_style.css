@@ -75,9 +75,23 @@
 /*END CARD*/
 
 /*SWITCHER*/
+input#display_swither:checked + label {
+  color: #af6800;
+}
+
 label[for='display_swither'] {
+    cursor: pointer;
+    padding: 5px;
     float: right;
 }
+
+label[for='display_swither'] {
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 5px;
+    float: left;
+}
+
 input#display_swither {
     float: right;
     margin-right: 1%;
