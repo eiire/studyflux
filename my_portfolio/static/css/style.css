@@ -213,3 +213,16 @@ ul#field_knowledge li {
 ul#categories li {
     list-style-type: none;
 }
+
+/* BUTTON */
+.btn-primary {
+    color: #fff;
+    background-color: #bf7826 !important;
+    border-color: #bf7826!important;
+}
+
+.btn-primary:hover {
+    color: #333!important;
+    background-color: #ca822c !important;
+    border-color: #ca822c!important;
+}
