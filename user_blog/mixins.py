@@ -8,14 +8,14 @@ from user_page.models import Knowledge
 class ModelFormPostMixin:
     fields, exclude = '__all__', ['user']
     widgets = {
-        'knowledge_field': forms.RadioSelect(attrs={'id': 'field_knowledge'}),
-        'categories': forms.CheckboxSelectMultiple(attrs={'id': 'categories'}),
+        'knowledge_field': forms.Select(attrs={'id': 'field_knowledge', 'class': 'select2'}),
+        'categories': forms.SelectMultiple(attrs={'id': 'categories', 'class': 'select2'}),
         'header': forms.Textarea(attrs={'cols': '100', 'rows': '5', 'class': 'form-control'}),
         'image': forms.FileInput(attrs={'type': 'file', 'class': 'form-control-file'}),
         'title': forms.Textarea(attrs={'cols': '100', 'rows': '1', 'class': 'form-control'}),
         'body': forms.Textarea(attrs={'cols': '1000', 'rows': '10', 'class': 'form-control'})
     }
-    labels = {'categories': 'Please equip the category this post'}
+    labels = {'categories': 'Please equip the topic this post'}
     help_texts = {'categories': '(not required)'}
 
     def get_form(self, **kwargs):

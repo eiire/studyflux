@@ -146,3 +146,7 @@ input#display_swither:checked + label + .my_content > .my_card > .info {
 .alert   {
     border-radius: unset!important;
 }
+
+select {
+    width: -webkit-fill-available!important;
+}
