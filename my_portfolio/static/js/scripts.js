@@ -31,4 +31,6 @@ $(document).ready(function() {
         const dropdown = $('.my_navbar .my_dropdown div.dropdown_list');
         dropdown[0].classList.contains('displayed') ? $(dropdown).removeClass('displayed') : $(dropdown).addClass('displayed');
     });
+
+    $('.select2').select2();
 });
