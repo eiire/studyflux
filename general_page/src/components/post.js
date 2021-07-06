@@ -20,8 +20,8 @@ export function Post({post}) {
     return (
          <div className="row">
             <div className="col-md-7" >
-                <a href={state.img ? post.image : 'https://studyflux.herokuapp.com/static/img/noimg.jpg'}>
-                    <div className="img_container"> <img src={state.img ? post.image : 'https://studyflux.herokuapp.com/static/img/noimg.jpg'} /> </div>
+                <a href={state.img ? post.image : 'static/img/noimg.jpg'}>
+                    <div className="img_container"> <img src={state.img ? post.image : 'static/img/noimg.jpg'} /> </div>
                 </a>
             </div>
 
