@@ -26,13 +26,15 @@ export function Post({post}) {
             </div>
 
             <div className="col-md-5">
-                <h3 href={post.url_post}> {post.title} </h3>
-
+                <div className="row d-flex justify-content-between align-items-center mt-5 mb-5">
+                    <div className="col-auto">
+                        <h3 href={post.url_post}> {post.title} </h3>
+                    </div>
+                    <div className="col-auto">
+                        <span class="text-lighten"> is an article written by </span> <a href={post.user_url}> {post.username} </a>
+                    </div>
+                </div>
                 <small>
-                    <h5 className="card-text text-right">
-                        <a href={post.user_url}> {post.username} </a>
-                    </h5>
-
                     <p className="card-text">
                         { (new Date(post.created_on)).toLocaleDateString().split('/').join(' ') }
                         |&nbsp;Categories:&nbsp;
@@ -43,10 +45,15 @@ export function Post({post}) {
                     </p>
                 </small>
 
-                {is_auth ? <Like post={post}/> : undefined}
-
-                <p> {post.header} </p>
-                <a className="btn btn-primary" href={post.url}> View post </a>
+               <p> {post.header} </p>
+               <div class="row d-flex justify-content-between align-items-center mt-5">
+                   <div class="col-auto">
+                       <a className="btn btn-primary" href={post.url}> View post </a>
+                   </div>
+                   <div className="col-auto">
+                       {is_auth ? <Like post={post}/> : undefined}
+                   </div>
+               </div>
             </div>
         </div>
     )

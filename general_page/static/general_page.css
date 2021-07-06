@@ -15,3 +15,13 @@
     /*max-height: 100%;*/
     margin: auto;
 }
+
+.like {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.like svg {
+    fill: #ae0000;
+}

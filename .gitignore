@@ -26,6 +26,6 @@ user_page/migrations/*.py
 user_blog/migrations/*.py
 Pipfile.lock
 /general_page/node_modules/
-/general_page/dist/
+/general_page/static/dist/
 /general_page/static/dist/
 /general_page/package-lock.json
