@@ -226,3 +226,11 @@ ul#categories li {
     background-color: #ca822c !important;
     border-color: #ca822c!important;
 }
+
+.text-lighten {
+    color: #999;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

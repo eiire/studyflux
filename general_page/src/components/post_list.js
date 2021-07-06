@@ -21,7 +21,6 @@ function PostList() {
                 return response.json();
             })
             .then(data => setState(() => {
-                console.log(data)
                 return {
                     data: data.results,
                     loaded: true,
@@ -41,26 +40,29 @@ function PostList() {
                     );
                 })}
             </div>
-            <ul className="pagination justify-content-center">
-                <li className="page-item">
-                    <div className="page-link" onClick={() =>
-                        fetch(state.next, {
-                            method: 'GET',
-                            headers: {'X-CSRFToken': csrf_token},
-                        }).then(response => response.json()).then(data => {
-                            setState(() => {
-                                return {
-                                    data: state.data.concat(data.results),
-                                    loaded: true,
-                                    next: data.next,
-                                    previous: data.previous,
-                                    count: data.count
-                                }
+            {state.next
+                ? <ul className="pagination justify-content-center">
+                    <li className="page-item cursor-pointer mt-5">
+                        <div className="page-link" onClick={() =>
+                            fetch(state.next, {
+                                method: 'GET',
+                                headers: {'X-CSRFToken': csrf_token},
+                            }).then(response => response.json()).then(data => {
+                                setState(() => {
+                                    return {
+                                        data: state.data.concat(data.results),
+                                        loaded: true,
+                                        next: data.next,
+                                        previous: data.previous,
+                                        count: data.count
+                                    }
+                                })
                             })
-                        })
-                    }>Next 10 post</div>
-                </li>
-            </ul>
+                        }>Next 10 post</div>
+                    </li>
+                </ul>
+                : null
+            }
         </div>
     );
 }

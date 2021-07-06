@@ -26,6 +26,7 @@ likes.each(function (i, e) {
         context: function () {return like_obj} (),
         headers: {'X-CSRFToken': csrf_token},
         success: function (data) {
+            console.log(data)
             if (data.is_fan)
                 e.setAttribute('checked', 'checked')
         }
