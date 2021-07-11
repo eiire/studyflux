@@ -10,6 +10,8 @@ from ckeditor_uploader import views
 from django.views.decorators.cache import never_cache
 from my_portfolio.view import CustomDjangoLoginView
 from user_page import views
+from apis.auth_api.view import signup, signin, check_auth, _logout
+from apis.general_page_api.view import get_user
 from my_portfolio.batteries_patches.ckeditor_uploader_patch import upload
 
 urlpatterns = [
@@ -26,10 +28,15 @@ urlpatterns = [
     # browse files from the server for is_staff users
     path('browse/', never_cache(staff_member_required(ckeditor_uploader.views.browse)), name='ckeditor_browse'),
     path('register/', views.RegisterFormView.as_view(), name='register'),
-    path('login/', CustomDjangoLoginView.as_view(), name='login'),
+    path('register123/', signup, name='register123'),
+    # path('login/', CustomDjangoLoginView.as_view(), name='login'),
+    path('login/', signin, name='login'),
+    path('check_auth/', check_auth, name='check_auth'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout_api/', _logout, name='logout_api'),
     path('admin/', admin.site.urls),
 
     path('general_page_api/v1/', include('apis.general_page_api.urls')),
     path('like_api/v1/', include('apis.like_api.urls')),
+    path('get-user/', get_user, name='register123'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

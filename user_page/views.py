@@ -1,12 +1,28 @@
+import json
+import random
+import string
+
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.views.generic import FormView, ListView, DeleteView
+
+from general_page.models import Confirm
 from user_blog.models import Post
 from user_page.models import Knowledge
 from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 
 class UserPageView(ListView):
@@ -15,7 +31,6 @@ class UserPageView(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        print(Post.objects.filter(user__username=self.kwargs.get('username'), pinned=True))
         return Post.objects.filter(user__username=self.kwargs.get('username'), pinned=True)
 
     def get_context_data(self, **kwargs):
@@ -47,7 +62,7 @@ class CreateKnowledge(View, LoginRequiredMixin):
         user_knowledge = [el['name'] for el in Knowledge.objects.filter(user=request.user.id).values('name')]
 
         if kwargs.get('knowledge') in all_knowledge and kwargs.get('knowledge') not in user_knowledge:
-            Knowledge(user=request.user, name=kwargs['knowledge'], image=knowledge_img[kwargs['knowledge']])\
+            Knowledge(user=request.user, name=kwargs['knowledge'], image=knowledge_img[kwargs['knowledge']]) \
                 .save()
 
         return redirect('UserPage', self.request.user.username)
