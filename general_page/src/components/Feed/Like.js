@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {csrf_token} from '../vars'
+import React, { useState } from 'react';
+import { csrf_token } from '../vars'
 
 export function Like({post}) {
     const [is_fan, setIs_fan] = useState(post.is_fan)

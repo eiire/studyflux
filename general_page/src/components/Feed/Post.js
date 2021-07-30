@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Like} from "./like";
-import {is_auth} from '../vars'
+import React, { useEffect, useState } from 'react';
+import { Like } from "./Like";
+import { connect } from "react-redux";
 
-export function Post({post}) {
+function Post({post, auth}) {
     const [state, setState] = useState({
         img: true,
     });
@@ -20,8 +20,8 @@ export function Post({post}) {
     return (
          <div className="row">
             <div className="col-md-7" >
-                <a href={state.img ? post.image : 'static/img/noimg.jpg'}>
-                    <div className="img_container"> <img src={state.img ? post.image : 'static/img/noimg.jpg'} /> </div>
+                <a href={state.img ? post.image : '/static/img/noimg.jpg'}>
+                    <div className="img_container"> <img src={state.img ? post.image : '/static/img/noimg.jpg'} /> </div>
                 </a>
             </div>
 
@@ -51,10 +51,20 @@ export function Post({post}) {
                        <a className="btn btn-primary" href={post.url}> View post </a>
                    </div>
                    <div className="col-auto">
-                       {is_auth ? <Like post={post}/> : undefined}
+                       {auth ? <Like post={post}/> : undefined}
                    </div>
                </div>
             </div>
         </div>
     )
 }
+
+const mapStateToProps = store => {
+    return {
+        auth: store.auth
+    }
+}
+
+export default connect(
+    mapStateToProps,
+)(Post)

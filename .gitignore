@@ -9,6 +9,7 @@ user_blog/migrations/__pycache__/*
 user_page/migrations/__pycache__/*
 user_page/__pycache__/*
 venv/*
+db.sqlite3
 my_portfolio/static/img/blog/*.jpg
 my_portfolio/static/img/blog/*.JPG
 my_portfolio/static/img/blog/*.png
@@ -16,6 +17,16 @@ my_portfolio/static/img/*.jpg
 my_portfolio/static/img/*.png
 my_portfolio/static/img/blog/art_cover/*.jpg
 my_portfolio/static/img/blog/art_cover/*.png
+projects/migrations/*.py
+index_page/migrations/*.py
+blog/migrations/*.py
 my_portfolio/static/img/uploads/2020
+user_topics/migrations/*.py
+user_page/migrations/*.py
+user_blog/migrations/*.py
+general_page/migrations/*.py
+Pipfile.lock
 /general_page/node_modules/
+/general_page/static/dist/
+/general_page/static/dist/
 /general_page/package-lock.json
