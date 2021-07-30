@@ -24,6 +24,7 @@ my_portfolio/static/img/uploads/2020
 user_topics/migrations/*.py
 user_page/migrations/*.py
 user_blog/migrations/*.py
+general_page/migrations/*.py
 Pipfile.lock
 /general_page/node_modules/
 /general_page/static/dist/

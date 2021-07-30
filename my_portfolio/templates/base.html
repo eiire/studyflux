@@ -22,10 +22,10 @@
             {% block page_title %} {% endblock %}
         </div>
     </div>
-    <div class="account">
+    <div id="test_account" class="account">
         {% if not user.is_authenticated %}
-            <a href="{% url 'login' %}" class="login"> <b>Log In</b> </a>
-            <a href="{% url 'register' %}" class="signup"> Sign Up </a>
+            <a href="/signin" class="login"> <b>Log In</b> </a>
+            <a href="/signup" class="signup"> Sign Up </a>
         {% else %}
             <a href="{% url 'UserPage' user %}">  {{ user.username }} </a>
             <a href="{% url 'logout' %}" class="login"> Log Out </a>

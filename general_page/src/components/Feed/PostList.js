@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
-import { Post } from "./post";
-import {csrf_token} from "../vars";
+import Post from "./Post";
+import { csrf_token } from "../vars";
+import { connect } from 'react-redux'
+import { setLoading } from "../../actions";
+import fetch from '../functions/fetchWithTimeout'
+import '../../styles/general_page.css'
 
-function PostList() {
+function PostList({setLoading}) {
     const [state, setState] = useState({
         data: [],
         loaded: false,
@@ -13,14 +16,18 @@ function PostList() {
     })
 
     useEffect(() => {
-        fetch("general_page_api/v1/posts/")
+        setLoading(true)
+
+        fetch('general_page_api/v1/posts/')
             .then(response => {
                 if (response.status > 400)
-                    setState({placeholder: "Something went wrong!"})
+                    setState({placeholder: 'Something went wrong!'})
 
                 return response.json();
             })
             .then(data => setState(() => {
+                setLoading(false)
+
                 return {
                     data: data.results,
                     loaded: true,
@@ -29,17 +36,20 @@ function PostList() {
                     count: data.count
                 }
             }))
+            .catch(err => {
+                setLoading(false)
+                setState((prev) => ({...prev, placeholder: 'Timeout expired'}))
+            })
     }, [])
 
     return (
-        <div>
-            <div className="container" >
-                {state.data.map(post => {
-                    return (
-                        <Post post={post} />
-                    );
-                })}
-            </div>
+        <React.Fragment>
+            {state.data.map(post => {
+                return (
+                    <Post key={post.id} post={post} />
+                );
+            })}
+
             {state.next
                 ? <ul className="pagination justify-content-center">
                     <li className="page-item cursor-pointer mt-5">
@@ -63,12 +73,23 @@ function PostList() {
                 </ul>
                 : null
             }
-        </div>
+        </React.Fragment>
     );
 }
 
+const mapStateToProps = store => {
+    return {
+        //
+    }
+}
 
-export default PostList;
+const mapDispatchToProps = dispatch => {
+    return {
+        setLoading: loading => dispatch(setLoading(loading)),
+    }
+}
 
-const container = document.getElementById("post_list");
-render(<PostList />, container);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PostList)
