@@ -112,8 +112,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'site@mail.ru'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
-EMAIL_HOST_USER = "bulax.d@mail.ru"
-EMAIL_HOST_PASSWORD = "qtlpxz1324"
+EMAIL_HOST_USER = os.getenv('smtp_mail')
+EMAIL_HOST_PASSWORD = os.getenv('smtp_password')
 EMAIL_USE_TLS = True
 
 # Internationalization
