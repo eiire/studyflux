@@ -9,6 +9,9 @@
     margin: 0 1% 20px 1%;
     float: left;
     transition: width 0.5s;
+    padding: 7px;
+    box-shadow: 0 10px 50px 0 rgb(0 0 0 / 8%);
+    background: #f8f8f824;
 }
 
 @media only screen and (min-width: 450px) {
@@ -98,7 +101,7 @@ input#display_swither {
 }
 
 input#display_swither:checked + label + .my_content > .my_card {
-    margin-top: 5%;
+    margin-top: 1%;
     width: 100%;
 }
 
@@ -149,4 +152,10 @@ input#display_swither:checked + label + .my_content > .my_card > .info {
 
 select {
     width: -webkit-fill-available!important;
+}
+
+@media screen and (max-width: 600px) {
+    input#display_swither + label {
+        display: none;
+    }
 }
