@@ -22,7 +22,7 @@ likes.each(function (i, e) {
 
     $.ajax({
         type: 'GET',
-        url: 'like_api/v1/posts/' + post_id + '/',
+        url: window.location.origin + '/like_api/v1/posts/' + post_id + '/',
         context: function () {return like_obj} (),
         headers: {'X-CSRFToken': csrf_token},
         success: function (data) {
@@ -37,9 +37,10 @@ likes.on("click", function() {
     let post_id = $(this).attr("id").split('_')[1];
     let method;
     this.getAttribute('checked') === 'checked' ? method = '/unlike/' : method = '/like/'
+
     $.ajax({
         type: 'POST',
-        url: 'like_api/v1/posts/' + post_id + method,
+        url: window.location.origin + '/like_api/v1/posts/' + post_id + method,
         context: function () {
             return like_obj
         } (),
