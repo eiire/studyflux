@@ -19,11 +19,11 @@ def get_extended_queryset_topic(view_obj):
 
     scale_interval = (max(count_likes_articles_topic) / 3) if len(count_likes_articles_topic) != 0 else 0
     quantity_display = [
-        'linear-gradient(90deg, rgba(233, 66, 66, 1) 44%, rgba(255, 255, 255, 1) 100%)'
+        '#CD5C5C'
         if count < scale_interval else
-        'linear-gradient(90deg, rgba(233,226,66,1) 44%, rgba(255,255,255,1) 100%)'
+        '#F0E68C'
         if scale_interval < count < scale_interval * 2 else
-        'linear-gradient(90deg, rgba(66,233,66,1) 44%, rgba(255,255,255,1) 100%)'
+        '#98FB98'
         for count in count_likes_articles_topic
     ]
 

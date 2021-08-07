@@ -119,11 +119,11 @@
                 </li>
             {% endif %}
 
-            {% for numb_page in page_obj.paginator.num_pages|range %}
-                {% if page_obj.number == numb_page|add:1 %}
-                    <li class="page-item active"><a class="page-link" href="?page={{ numb_page|add:1 }}">{{ numb_page|add:1 }}</a></li>
+            {% for numb_page in page_obj.paginator.page_range %}
+                {% if page_obj.number == numb_page%}
+                    <li class="page-item active"><a class="page-link" href="?page={{ numb_page }}">{{ numb_page }}</a></li>
                 {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ numb_page|add:1 }}">{{ numb_page|add:1 }}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ numb_page }}">{{ numb_page }}</a></li>
                 {% endif %}
             {% endfor %}
 

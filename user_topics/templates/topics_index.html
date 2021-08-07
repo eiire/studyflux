@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load topics_custom_filters %}
 
 {% block sub_script %}
     <script type="text/javascript" src="{% static 'blog_script.js' %}"></script>
@@ -10,27 +11,8 @@
 
     <style>
         {% for topic in object_list %}
-            .wrapper_sort_system > input:checked + .sort_system ._{{ topic.1 }},
-            .wrapper_sort_system > input:checked + .sort_system ._{{ topic.1 }} + span {
-                {# topic.1 is count articles #}
-                order: {{ topic.1 }};
-            }
-
-            .sort_system ._{{ topic.1 }} > .scale {
-                width: 50%;
-                {# topic.2 is background scale #}
-                background: {{ topic.2 }};
-            }
-
             input[id="{{ topic.0.title|slugify }}"]:checked ~ .cards_topics > div:not(.{{ topic.0.title|slugify }}) {
-                opacity: 0.5;
-            }
-
-            .wrapper_sort_system ._{{ topic.1 }} {
-                display: flex;
-                justify-content: space-between;
-                margin: 3%;
-                font: 1em "Space Mono", monospace;
+                display: none;
             }
         {% endfor %}
     </style>
@@ -83,21 +65,25 @@
         </div>
 
         <div class="wrapper_sort_system">
-            <span> Number of likes in topic: </span>
-            <label for="sort_system"> descending </label>
-            <input type="checkbox" id="sort_system">
-
+            <span style="text-align: center"> Number of likes in topic </span>
             <div class="sort_system">
-                {% for topic in object_list %}
-                    <div class="_{{ topic.1 }}">
-                        <div class="scale"></div>
-                        <div class="numb">{{ topic.1 }}</div>
-                    </div>
-
-                    <span> {{ topic.0.title }} </span>
-                {% endfor %}
+                <canvas id="canvas_sort_system" height="450"> </canvas>
             </div>
         </div>
+        <script type="text/javascript" src="{% static 'Chart.min.js' %}"></script>
+        <script>
+            var ctx = document.getElementById('canvas_sort_system').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: {{ object_list|make_topic_names|safe }},
+                    datasets: [{
+                        data: {{ object_list|make_topic_likes }},
+                        backgroundColor: {{ object_list|make_topic_colors|safe }}
+                    }],
+                }
+            });
+        </script>
         <div class="break"></div>
         {% if is_paginated %}
             <div class="pagination">
