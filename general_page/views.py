@@ -1,10 +1,9 @@
 from django.views.generic import TemplateView
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.shortcuts import render
 
 class GeneralPage(TemplateView):
-    template_name = 'index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(GeneralPage, self).get_context_data(**kwargs)
-        context['username'] = self.request.user.username
-        return context
+    @method_decorator(ensure_csrf_cookie)
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
