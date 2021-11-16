@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
-import { csrf_token } from "../vars";
 import { connect } from 'react-redux'
 import { setLoading } from "../../actions";
 import fetch from '../functions/fetchWithTimeout'
 import '../../styles/general_page.css'
+import Cookies from 'js-cookie'
 
 function PostList({setLoading}) {
     const [state, setState] = useState({
@@ -18,7 +18,10 @@ function PostList({setLoading}) {
     useEffect(() => {
         setLoading(true)
 
-        fetch('general_page_api/v1/posts/')
+        fetch('general_page_api/v1/posts/', {
+            method: 'GET',
+            headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+        })
             .then(response => {
                 if (response.status > 400)
                     setState({placeholder: 'Something went wrong!'})
@@ -56,7 +59,7 @@ function PostList({setLoading}) {
                         <div className="page-link" onClick={() =>
                             fetch(state.next, {
                                 method: 'GET',
-                                headers: {'X-CSRFToken': csrf_token},
+                                headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                             }).then(response => response.json()).then(data => {
                                 setState(() => {
                                     return {
