@@ -13,7 +13,7 @@ SECRET_KEY = 'd&dp!_n&93v)yrfom7k*h_3pwjrabnxv@m)p3lf0u=8wr&_jo)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 SESSION_COOKIE_HTTPONLY = False
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -111,8 +112,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'site@mail.ru'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
-EMAIL_HOST_USER = "bulax.d@mail.ru"
-EMAIL_HOST_PASSWORD = "qtlpxz1324"
+EMAIL_HOST_USER = os.getenv('smtp_mail')
+EMAIL_HOST_PASSWORD = os.getenv('smtp_password')
 EMAIL_USE_TLS = True
 
 # Internationalization
@@ -130,6 +131,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 AWS = True
 
@@ -157,7 +162,7 @@ else:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
     DEFAULT_FILE_STORAGE = 'my_portfolio.storage_backends.PublicMediaStorage'
 
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'my_portfolio/static'),)
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
