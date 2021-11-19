@@ -2,18 +2,14 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block page_title %}ARTICLE|CREATOR{% endblock %}
+{% block page_title %}| POST{% endblock %}
 {% block sub_style %} <link rel="stylesheet" type="text/css" href="{% static 'blog_style.css' %}"/> {% endblock %}
 
 {% block buttom_navbar %}
     <div class="active">
         <a href="{% url 'UserPage' username %}">Home</a>
     </div>
-    {#        <a href="{% url 'index_user' user_id %}">My knowledge</a>#}
-    {#        <a href="{% url 'article_index' user_id %}">My user_blog</a>#}
-    {#        <a href={% url 'logout' %}>Exit</a>#}
-    {#        <a href="https://github.com/eiire">Contact</a>#}
-    {#        <a href="{% url 'about' %}">About</a>#}
+    <a href="{% url 'article_index' username %}">Blog</a>
 {% endblock %}
 
 {% block page_content %}

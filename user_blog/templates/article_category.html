@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 
-{% block page_title %} BLOG | CATEGORY {% endblock %}
+{% block page_title %} |{{ topic|truncatechars:18 }}{% endblock %}
 
 {% block buttom_navbar %}
     <div class="active">
         <a href="{% url 'project_index' username knowledge %}"> Topics </a>
     </div>
-    {#         <a href="{% url 'user_page' user_id %}">My knowledge</a>#}
-    {#         <a href="{% url 'article_index' user_id %}">My user_blog</a>#}
-    {#        <a href={% url 'logout' %}>Exit</a>#}
+    <a href="{% url 'article_index' username %}"> Blog </a>
 {% endblock %}
 
 {% block page_content %}

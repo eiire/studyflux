@@ -290,3 +290,68 @@ ul#categories li {
   }
 }
 /*-----------------------------------------------------*/
+
+@media (min-width: 100px) and (max-width: 280px) {
+    div.meta {
+        font-size: 6px!important;
+    }
+
+    div.account a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 50px;
+        white-space: nowrap;
+    }
+
+    header.page-header {
+        font-size: 10px!important;
+    }
+
+    .my_navbar a,
+    .my_navbar div,
+    .my_navbar span {
+        font-size: 12px!important;
+    }
+}
+
+@media (min-width: 281px) and (max-width: 400px) {
+    div.account a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 50px;
+        white-space: nowrap;
+    }
+
+    div.meta {
+        font-size: 9px!important;
+    }
+
+    header.page-header {
+        font-size: 11px!important;
+    }
+
+    .my_navbar a,
+    .my_navbar div,
+    .my_navbar span {
+        font-size: 12px!important;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 500px) {
+    div.account a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 50px;
+        white-space: nowrap;
+    }
+
+    header.page-header {
+        font-size: 12px!important;
+    }
+
+    .my_navbar a,
+    .my_navbar div,
+    .my_navbar span {
+        font-size: 12px!important;
+    }
+}

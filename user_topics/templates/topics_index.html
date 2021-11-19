@@ -18,7 +18,7 @@
     </style>
 {% endblock %}
 
-{% block page_title %} TOPICS {% endblock %}
+{% block page_title %}| TOPICS{% endblock %}
 
 {% block buttom_navbar %}
     <div class="active">
@@ -48,6 +48,15 @@
         {% endfor %}
 
         <div class="cards_topics">
+            {% if not posts and user.username == username and object_list%} 
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> Create your first post :) </h3>
+            {%elif not posts and user.username != username and object_list%}
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> The user has no posts :( </h3>
+            {%elif not posts and user.username == username and not object_list%}
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> Create your first post and topic :) </h3>
+            {%elif not posts and user.username != username and not object_list%}
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> The user has no posts and topic :( </h3>
+            {%endif%}
             {% for post in posts %}
                 <div class="topic {% for topic in post.categories.all %} {{ topic.name|slugify }} {% endfor %}">
                     <div class="img_container">
