@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import Loader from '../components/Loader'
 import { Link } from "react-router-dom";
@@ -7,6 +7,10 @@ import {setAuth, setUser} from "../actions";
 import { csrf_token } from '../components/vars'
 
 const Wrapper = props => {
+    const [state, setState] = useState({
+        navbar_open: false,
+    })
+
     const logout = () => {
         fetch('logout_api/', {
             method: 'GET',
@@ -22,6 +26,10 @@ const Wrapper = props => {
                     props.setAuth(false)
                 }
             })
+    }
+
+    const navbarClick = () => {
+        setState(prev => ({...prev, navbar_open: state.navbar_open ? false : true}))
     }
 
     return (
@@ -46,18 +54,19 @@ const Wrapper = props => {
                     }
                 </div>
             </header>
-            <div className="my_navbar" id="my_navbar">
+            <div className={state.navbar_open ? 'my_navbar my_navbar_responsive' : 'my_navbar'} id="my_navbar">
                 <div className="active">
                     {props.auth
                         ? <a href={`/users/@${props.user.username}/`}> Home </a>
                         : <Link className='signup' push to="signup"> Home </Link>
                     }
+                    {state.navbar_open ? <div className="icon icon_responsive" onClick={navbarClick}>☰</div> : null}
                 </div>
                 {props.auth
-                    ? <a href={`/users/@${props.user.username}/blog`} style="display: flex;"> Your blog </a>
+                    ? <a href={`/users/@${props.user.username}/blog`} style={state.navbar_open ? {'display':'flex'} : {'display':'none'}}> Your blog </a>
                     : <Link className='signup' push to="signup"> Your blog </Link>
                 }
-                <div className="icon">☰</div>
+                {!state.navbar_open ? <div className="icon" onClick={navbarClick}>☰</div> : null}
             </div>
             <main>
                 <div className="container">
