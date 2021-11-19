@@ -7,5 +7,5 @@ class Topic(models.Model):
     #  Add validation for queryset <knowledge>
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     knowledge = models.ForeignKey('user_page.Knowledge', on_delete=models.CASCADE, default=0)
-    title = models.CharField(max_length=120)
+    title = models.CharField(max_length=30)
     description = models.TextField()
