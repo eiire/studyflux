@@ -16,7 +16,7 @@
 {% block sub_style %} {% endblock %} {# CSS style from app #}
 
 <header class="page-header">
-    <a href="{% url 'app' %}" class="logo"> StudyFlow </a>
+    <a href="{% url 'app' %}" class="logo"> StudyFlux </a>
     <div class="meta">
         <div style="color: white; tab-size: 10px">
             {% if user.username == username %} You {% elif username == 'You' %} You {% else %}{{username}}{% endif %} {% block page_title %} {% endblock %}

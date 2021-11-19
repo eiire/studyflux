@@ -35,7 +35,7 @@ const Wrapper = props => {
     return (
         <>
             <header className="page-header">
-                <Link className='logo' push to="/"> StudyFlow </Link>
+                <Link className='logo' push to="/"> StudyFlux </Link>
                 <div className="meta">
                     <div style={{color: 'white', tabSize: '10px'}}>
                         TEST
