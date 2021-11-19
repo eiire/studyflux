@@ -23,6 +23,7 @@ class TopicArticles(ListView):
     def get_context_data(self, **kwargs):
         context = super(TopicArticles, self).get_context_data(**kwargs)
         context['username'] = self.kwargs.get('username')
+        context['topic'] = self.kwargs.get('topic')
         context['knowledge'] = self.kwargs.get('knowledge')
         return context
 
@@ -38,6 +39,11 @@ class CreateArticleView(ModelFormPostMixin, CreateView, LoginRequiredMixin):
         post.user = self.request.user
         self.object = post
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateArticleView, self).get_context_data(**kwargs)
+        context['username'] = 'You'
+        return context
 
 
 class UpdateArticleView(ModelFormPostMixin, UpdateView, LoginRequiredMixin):
