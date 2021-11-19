@@ -53,6 +53,10 @@ const Wrapper = props => {
                         : <Link className='signup' push to="signup"> Home </Link>
                     }
                 </div>
+                {props.auth
+                    ? <a href={`/users/@${props.user.username}/blog`} style="display: flex;"> Your blog </a>
+                    : <Link className='signup' push to="signup"> Your blog </Link>
+                }
                 <div className="icon">☰</div>
             </div>
             <main>
