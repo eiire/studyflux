@@ -19,7 +19,7 @@
     <a href="{% url 'app' %}" class="logo"> StudyFlow </a>
     <div class="meta">
         <div style="color: white; tab-size: 10px">
-            {% block page_title %} {% endblock %}
+            {% if user.username == username %} You {% elif username == 'You' %} You {% else %}{{username}}{% endif %} {% block page_title %} {% endblock %}
         </div>
     </div>
     <div id="test_account" class="account">
@@ -27,8 +27,8 @@
             <a href="/signin" class="login"> <b>Log In</b> </a>
             <a href="/signup" class="signup"> Sign Up </a>
         {% else %}
-            <a href="{% url 'UserPage' user %}">  {{ user.username }} </a>
-            <a href="{% url 'logout' %}" class="login"> Log Out </a>
+            <a href="{% url 'UserPage' user %}">  You </a>
+            <a href="{% url 'logout' %}" class="login"> Logout </a>
         {% endif %}
     </div>
 </header>

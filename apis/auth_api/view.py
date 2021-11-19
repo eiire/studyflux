@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from user_page.models import Knowledge
 
 from general_page.models import Confirm
 
@@ -16,6 +17,11 @@ from general_page.models import Confirm
 def signup(request):
     user_json = json.loads(request.POST.get('user'))
     # check all data from json user
+    if (len(user_json['username']) > 20):
+        return JsonResponse({
+            'error': True,
+            'description': 'Exceeded maximum username length (20 characters)'
+        })
 
     confirm_code = request.POST.get('confirm_code')
     account_activation_token = request.COOKIES.get('account_activation_token')
@@ -78,6 +84,8 @@ def signup(request):
             # print(user)
             user = authenticate(username=user_json['username'], password=user_json['password'])
             login(request, user)
+
+            Knowledge(user=user, name='All-streams', image='portfolio/1.jpg').save()
 
             send_mail('Your Account is Activated', 'Thx', "bulax.d@mail.ru",
                       [user.email], fail_silently=False)

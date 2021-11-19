@@ -154,6 +154,30 @@ select {
     width: -webkit-fill-available!important;
 }
 
+input.like {
+    display: none;
+}
+
+.like label {
+    width: 30px;
+}
+
+.like svg {
+    fill: #ae0000;
+}
+
+.like svg.true {
+    display: none!important;
+}
+
+.like input:checked + label > svg.true {
+    display: block!important;
+}
+
+.like input:checked + label > svg.false {
+    display: none!important;
+}
+
 @media screen and (max-width: 600px) {
     input#display_swither + label {
         display: none;

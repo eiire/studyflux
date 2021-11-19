@@ -2,7 +2,7 @@
 {% load custom_filters %}
 {% load static %}
 
-{% block page_title %} {{ username }}|PAGE {% endblock %}
+{% block page_title %}| ROOT{% endblock %}
 
 {% block sub_style%}
     <link rel="stylesheet" type="text/css" href="{% static 'userpage_style.css' %}"/>
@@ -65,6 +65,19 @@
     {% endif %}
     <hr>
     <div class="container">
+        {% if not posts and user.username == username %} 
+            <div class="row mt-3"> 
+                <div class="col-md-12">
+                    <h5 style="color: rgb(112, 112, 112);text-align: center;"> Create your first post :) </h3>
+                </div>
+            </div>
+        {%elif not posts and user.username != username%}
+            <div class="row mt-3"> 
+                <div class="col-md-12">
+                    <h5 style="color: rgb(112, 112, 112);text-align: center;">The user has no posts :( </h3>
+                </div>
+            </div>
+        {%endif%}
         {% for post in posts %}
             <div class="row mt-3">
             {% if post.image %}
