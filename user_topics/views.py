@@ -27,7 +27,7 @@ class CreateTopic(LoginRequiredMixin, CreateView):
         return form
 
     def get_success_url(self, **kwargs):
-        return reverse("project_index", args=self.kwargs.values())
+        return reverse("project_index", args=[self.kwargs['username'], self.object.knowledge.name])
 
     def form_valid(self, form):
         topic = form.save(commit=False)
@@ -49,7 +49,7 @@ class Topics(ListView):
     paginate_by = 16
 
     def get_queryset(self):
-        return Post.objects.filter(user__username=self.kwargs['username']).order_by('-created_on')
+        return Post.objects.filter(user__username=self.kwargs['username'], knowledge_field__name=self.kwargs['knowledge']).order_by('-created_on')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

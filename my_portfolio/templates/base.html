@@ -19,7 +19,7 @@
     <a href="{% url 'app' %}" class="logo"> StudyFlux </a>
     <div class="meta">
         <div style="color: white; tab-size: 10px">
-            {% if user.username == username %} You {% elif username == 'You' %} You {% else %}{{username}}{% endif %} {% block page_title %} {% endblock %}
+            {% if user.username == username %} You {% elif username == 'You' %} Your {% else %}{{username}}{% endif %} {% block page_title %} {% endblock %}
         </div>
     </div>
     <div id="test_account" class="account">
@@ -27,8 +27,8 @@
             <a href="/signin" class="login"> <b>Log In</b> </a>
             <a href="/signup" class="signup"> Sign Up </a>
         {% else %}
-            <a href="{% url 'UserPage' user %}">  You </a>
-            <a href="{% url 'logout' %}" class="login"> Logout </a>
+            <a href="{% url 'UserPage' user %}" class="login">  You </a>
+            <a href="{% url 'logout' %}" class="signup"> Logout </a>
         {% endif %}
     </div>
 </header>

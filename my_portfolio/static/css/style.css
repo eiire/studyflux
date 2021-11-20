@@ -30,6 +30,11 @@ header.page-header > .account > a {
     margin: 0 5px 0 5px;
 }
 
+.login {
+    color: #333!important;
+    font-weight: bolder;
+}
+
 /*----------------------NAVBAR-------------------------*/
 .my_navbar {
     display: flex;
