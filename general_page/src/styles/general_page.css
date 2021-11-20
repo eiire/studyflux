@@ -27,6 +27,12 @@
     cursor: pointer;
 }
 
+.like-number {
+  text-decoration: none!important;
+  font: bold 1em "Space Mono", monospace;
+  color: #333;
+}
+
 .like svg {
     fill: #ae0000;
 }
