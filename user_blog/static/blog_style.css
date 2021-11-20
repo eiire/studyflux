@@ -154,6 +154,10 @@ select {
     width: -webkit-fill-available!important;
 }
 
+.like {
+    display: inline-flex;
+}
+
 input.like {
     display: none;
 }

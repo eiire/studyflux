@@ -60,9 +60,17 @@
     margin: auto;
 }
 
+.carousel-caption {
+    font-size: x-large;
+}
+
 @media only screen and (max-width: 550px) {
     #demo .carousel-inner {
         height: 200px;
+    }
+
+    .carousel-caption {
+        font-size:medium;
     }
 
     #demo .carousel-inner a {

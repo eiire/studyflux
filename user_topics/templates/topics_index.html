@@ -18,7 +18,7 @@
     </style>
 {% endblock %}
 
-{% block page_title %}| TOPICS{% endblock %}
+{% block page_title %}| {{knowledge}} TOPICS{% endblock %}
 
 {% block buttom_navbar %}
     <div class="active">
@@ -36,9 +36,9 @@
 <body>
     <div class="my_content">
         <div class="topics">
-            <label for="All"> All </label>
+            <label for="All"> All in {{knowledge}} </label>
             {% for topic in object_list %}
-                <label for="{{ topic.0.title|slugify }}">{{ topic.0.title|slugify }}</label>
+                <label for="{{ topic.0.title|slugify }}">{{ topic.0.title }}</label>
             {% endfor %}
         </div>
 
@@ -66,7 +66,9 @@
                     </div>
                      <div class="description_wrapper">
                         <div class="desc">
-                            {{ post.header }}
+                            <a style="color: azure;text-decoration: none;" href="{% url 'article_detail' post.user.username post.pk %}">
+                                {{ post.header }}
+                            </a>
                         </div>
                      </div>
                 </div>
