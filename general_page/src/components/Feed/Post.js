@@ -47,12 +47,10 @@ function Post({post, auth}) {
 
                <p> {post.header} </p>
                <div class="row d-flex justify-content-between align-items-center mt-5">
-                   <div class="col-auto">
-                       <a className="btn btn-primary" href={post.url}> View post </a>
-                   </div>
-                   <div className="col-auto">
-                       {auth ? <Like post={post}/> : undefined}
-                   </div>
+                    <div class="col-6">
+                        <a className="btn btn-primary" href={post.url}> View post </a>
+                    </div>
+                    {auth ? <Like post={post}/> : undefined}
                </div>
             </div>
         </div>

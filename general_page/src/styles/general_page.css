@@ -1,3 +1,8 @@
+.login {
+  color: #333!important;
+  font-weight: bolder;
+}
+
 .container .img_container {
     position: relative;
     padding-bottom: 50%;

@@ -44,8 +44,8 @@ const Wrapper = props => {
                 <div id="test_account" className="account">
                     {props.auth
                         ? <>
-                            <a href={`/users/@${props.user.username}/`}> {props.user.username} </a>
-                            <Link className='login' push to="/" onClick={logout}> Log Out </Link>
+                            <a className='login' href={`/users/@${props.user.username}/`}> {props.user.username} </a>
+                            <Link className='logout' push to="/" onClick={logout}> Log Out </Link>
                         </>
                         : <>
                             <Link className='login' push to="signin"> Log In </Link>
@@ -64,7 +64,7 @@ const Wrapper = props => {
                 </div>
                 {props.auth
                     ? <a href={`/users/@${props.user.username}/blog`} style={state.navbar_open ? {'display':'flex'} : {'display':'none'}}> Your blog </a>
-                    : <Link className='signup' push to="signup"> Your blog </Link>
+                    : <Link className='signup' push to="signup" style={state.navbar_open ? {'display':'flex'} : {'display':'none'}}> Your blog </Link>
                 }
                 {!state.navbar_open ? <div className="icon" onClick={navbarClick}>☰</div> : null}
             </div>
