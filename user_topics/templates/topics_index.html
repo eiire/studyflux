@@ -49,13 +49,13 @@
 
         <div class="cards_topics">
             {% if not posts and user.username == username and object_list%} 
-                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> Create your first post in this section :) </h3>
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> Create your first post in {{knowledge}} section :) </h3>
             {%elif not posts and user.username != username and object_list%}
-                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> The user has no posts in this section :( </h3>
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> The user has no posts in {{knowledge}} section :( </h3>
             {%elif not posts and user.username == username and not object_list%}
-                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> Create your first post and topic in this section :) </h3>
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> Create your first post and topic in {{knowledge}} section :) </h3>
             {%elif not posts and user.username != username and not object_list%}
-                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> The user has no posts and topic in this section :( </h3>
+                <h5 style="color: rgb(112, 112, 112);text-align: center;width: 100%;margin: 20px;"> The user has no posts and topic in {{knowledge}} section :( </h3>
             {%endif%}
             {% for post in posts %}
                 <div class="topic {% for topic in post.categories.all %} {{ topic.name|slugify }} {% endfor %}">
