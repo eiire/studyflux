@@ -38,7 +38,7 @@
                 <div class="col-md-{{ comment.get_col }} offset-{{ comment.get_offset }}">
                     <div>
                         <div>
-                            <a href="{% url 'UserPage' username %}">{{ comment.user.username }}</a>&nbsp;&nbsp;
+                            <a href="{% url 'UserPage' comment.user.username %}">{{ comment.user.username }}</a>&nbsp;&nbsp;
                             {{ comment.date }}
                         </div>
                         <div >
