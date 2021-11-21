@@ -15,7 +15,7 @@ class ModelFormPostMixin:
         'title': forms.Textarea(attrs={'cols': '100', 'rows': '1', 'class': 'form-control'}),
         'body': forms.Textarea(attrs={'cols': '1000', 'rows': '10', 'class': 'form-control'})
     }
-    labels = {'categories': 'Please equip the topic this post'}
+    labels = {'categories': 'All topics', 'knowledge_field': 'Main sections'}
     help_texts = {'categories': '(not required)'}
 
     def get_form(self, **kwargs):
@@ -24,7 +24,7 @@ class ModelFormPostMixin:
         form = form_class(**self.get_form_kwargs())  # for UpdateView get_form_kewargs return 'instance' Model object PK
         form.fields['knowledge_field'].label_from_instance = lambda obj: "%s" % obj.name
         form.fields['knowledge_field'].queryset = Knowledge.objects.filter(user=self.request.user)
-        form.fields['categories'].label_from_instance = lambda obj: "%s" % obj.name
+        form.fields['categories'].label_from_instance = lambda obj: f'{obj.name} in section "{obj.topic.knowledge.name}"'
         form.fields['categories'].queryset = Category.objects.filter(user=self.request.user)
 
         return form
