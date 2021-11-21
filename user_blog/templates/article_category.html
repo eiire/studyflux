@@ -4,7 +4,7 @@
 
 {% block buttom_navbar %}
     <div class="active">
-        <a href="{% url 'project_index' username category.topic.knowledge.name %}"> Topics </a>
+        <a href="{% url 'UserPage' username %}"> Home </a>
     </div>
     <a href="{% url 'article_index' username %}"> Blog </a>
 {% endblock %}
@@ -14,6 +14,9 @@
         <h1>{{ category.name | title }}</h1>
         <hr>
         {% for post in posts %}
+            <a href="{% url 'project_index' username post.knowledge_field.name %}">
+                Other topics in {{ post.knowledge_field.name }}
+            </a>&nbsp;
             <h2><a href="{% url 'article_detail' post.user.username post.pk %}">{{ post.title }}</a></h2>
             <small>
                 {{ post.created_on.date }} |&nbsp;
@@ -25,6 +28,7 @@
                 {% endfor %}
             </small>
             <p>{{ post.header | slice:":400" }}...</p>
+            <hr/>
         {% endfor %}
     </div>
 {% endblock %}
