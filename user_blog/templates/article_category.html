@@ -4,7 +4,7 @@
 
 {% block buttom_navbar %}
     <div class="active">
-        <a href="{% url 'project_index' username knowledge %}"> Topics </a>
+        <a href="{% url 'project_index' username category.topic.knowledge.name %}"> Topics </a>
     </div>
     <a href="{% url 'article_index' username %}"> Blog </a>
 {% endblock %}
