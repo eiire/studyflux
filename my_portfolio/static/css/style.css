@@ -220,6 +220,10 @@ ul#categories li {
 }
 
 /* BUTTON */
+.btn {
+    border-radius: 10rem!important;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #bf7826 !important;
@@ -297,6 +301,10 @@ ul#categories li {
 /*-----------------------------------------------------*/
 
 @media (min-width: 100px) and (max-width: 280px) {
+    header.page-header {
+        height: 30px;
+    }
+
     div.meta {
         font-size: 6px!important;
     }
@@ -320,6 +328,10 @@ ul#categories li {
 }
 
 @media (min-width: 281px) and (max-width: 400px) {
+    header.page-header {
+        height: 30px;
+    }
+
     div.account a:first-child {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -343,6 +355,10 @@ ul#categories li {
 }
 
 @media (min-width: 400px) and (max-width: 500px) {
+    header.page-header {
+        height: 30px;
+    }
+
     div.account a:first-child {
         overflow: hidden;
         text-overflow: ellipsis;

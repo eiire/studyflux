@@ -21,6 +21,10 @@
     margin: auto;
 }
 
+.btn {
+  border-radius: 10rem!important;
+}
+
 .like {
     width: 30px;
     height: 30px;
