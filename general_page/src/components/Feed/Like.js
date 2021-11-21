@@ -6,7 +6,7 @@ export function Like({post}) {
 
     return (
         <div className="col-6 d-flex justify-content-end">
-            <div style={{font: 'bold 1em Space Mono, monospace'}}>{post.total_likes}&nbsp;</div>
+            <div className="like-number">{post.total_likes}&nbsp;</div>
             <div className="like">
                 {is_fan
                     ? <div onClick={

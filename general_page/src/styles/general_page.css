@@ -21,10 +21,20 @@
     margin: auto;
 }
 
+.btn {
+  border-radius: 10rem!important;
+}
+
 .like {
     width: 30px;
     height: 30px;
     cursor: pointer;
+}
+
+.like-number {
+  text-decoration: none!important;
+  font: bold 1em "Space Mono", monospace;
+  color: #333;
 }
 
 .like svg {

@@ -8,6 +8,6 @@ from user_blog.models import Post
 
 class PostViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
-    queryset = Post.objects.all().order_by('-created_on')
+    queryset = Post.objects.all().order_by('-priority', '-created_on')
     serializer_class = PostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)

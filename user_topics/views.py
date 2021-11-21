@@ -12,7 +12,8 @@ class CreateTopic(LoginRequiredMixin, CreateView):
     widgets = {
         'title': forms.Textarea(attrs={'cols': '100', 'rows': '1', 'class': 'form-control'}),
         'image': forms.FileInput(attrs={'type': 'file', 'class': 'form-control-file'}),
-        'description': forms.Textarea(attrs={'cols': '1000', 'rows': '10', 'class': 'form-control'})
+        'description': forms.Textarea(attrs={'cols': '1000', 'rows': '10', 'class': 'form-control'}),
+        'knowledge': forms.Select(attrs={'class': 'form-control select2'}),
     }
 
     def get_form_class(self):

@@ -19,7 +19,13 @@
     <a href="{% url 'app' %}" class="logo"> StudyFlux </a>
     <div class="meta">
         <div style="color: white; tab-size: 10px">
-            {% if user.username == username %} You {% elif username == 'You' %} Your {% else %}{{username}}{% endif %} {% block page_title %} {% endblock %}
+            {% if user.username == username or username == 'You' %} 
+                <span style="color: #333;font-weight: bolder;">Your</span> 
+            {% else %} 
+                <span style="color: #333;font-weight: bolder;">{{username}}</span>
+            {% endif %} 
+                {% block page_title %} 
+            {% endblock %}
         </div>
     </div>
     <div id="test_account" class="account">

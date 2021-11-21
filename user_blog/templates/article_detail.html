@@ -38,14 +38,14 @@
                 <div class="col-md-{{ comment.get_col }} offset-{{ comment.get_offset }}">
                     <div>
                         <div>
-                            <strong>{{ comment.user.username }}</strong>&nbsp;&nbsp;
+                            <a href="{% url 'UserPage' username %}">{{ comment.user.username }}</a>&nbsp;&nbsp;
                             {{ comment.date }}
                         </div>
                         <div >
                             <div>{{ comment.body|safe }}</div>
 
                             {% if form %}
-                                <a onclick="get_comment_form({{ comment.id }})"> &nbsp;&nbsp;Reply </a>
+                                <a style="display:block; font-weight: 500; cursor: pointer; margin: 10px 0 5px 0;" onclick="get_comment_form({{ comment.id }})"> Reply </a>
                             {% endif %}
                         </div>
                     </div>
@@ -62,7 +62,7 @@
             <form id="comment_form" action="{% url 'add_comment' username post.id %}" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button class="btn btn-primary">&nbsp;&nbsp;Comment</button>
+                <button class="btn btn-primary">Comment</button>
             </form>
 
         {% else %}

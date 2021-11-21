@@ -28,6 +28,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     likes = GenericRelation(PostLike)
+    priority = models.IntegerField(default=0)
 
     @property
     def total_likes(self):

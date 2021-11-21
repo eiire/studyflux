@@ -6,7 +6,7 @@ from user_page.models import Knowledge
 
 
 class ModelFormPostMixin:
-    fields, exclude = '__all__', ['user']
+    fields, exclude = '__all__', ['user', 'priority']
     widgets = {
         'knowledge_field': forms.Select(attrs={'id': 'field_knowledge', 'class': 'select2'}),
         'categories': forms.SelectMultiple(attrs={'id': 'categories', 'class': 'select2'}),

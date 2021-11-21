@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Like } from "./Like";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Post({post, auth}) {
     const [state, setState] = useState({
@@ -50,7 +51,7 @@ function Post({post, auth}) {
                     <div class="col-6">
                         <a className="btn btn-primary" href={post.url}> View post </a>
                     </div>
-                    {auth ? <Like post={post}/> : undefined}
+                    {auth ? <Like post={post}/> : <Link className='signup col-6 d-flex justify-content-end like-number' push to="signup"><Like post={post}/></Link>}
                </div>
             </div>
         </div>
