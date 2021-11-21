@@ -68,13 +68,13 @@
         {% if not posts and user.username == username %} 
             <div class="row mt-3"> 
                 <div class="col-md-12">
-                    <h5 style="color: rgb(112, 112, 112);text-align: center;"> Create your first post :) </h3>
+                    <h5 style="color: rgb(112, 112, 112);text-align: center;"> You haven't pinned any posts :) </h3>
                 </div>
             </div>
         {%elif not posts and user.username != username%}
             <div class="row mt-3"> 
                 <div class="col-md-12">
-                    <h5 style="color: rgb(112, 112, 112);text-align: center;">The user has no posts :( </h3>
+                    <h5 style="color: rgb(112, 112, 112);text-align: center;"> The user hasn't pinned any posts :( </h3>
                 </div>
             </div>
         {%endif%}

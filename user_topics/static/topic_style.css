@@ -191,7 +191,7 @@ body.topic_page {
     }
 
     .topic {
-        order: 1;
+        order: 2;
         width: 100%;
         margin-bottom: 2%;
         /*padding: 0 3% 0 3%;*/
@@ -210,12 +210,12 @@ body.topic_page {
     }
 
     .wrapper_sort_system {
-        order: 2;
+        order: 3;
         width: 100%;
     }
 
     .cards_topics {
-        order: 3;
+        order: 1;
         box-shadow: none;
     }
 }
