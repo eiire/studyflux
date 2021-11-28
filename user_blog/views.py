@@ -26,12 +26,12 @@ class TopicArticles(ListView):
         
         for p in qs:
             for t in p.categories.all():
-                main_sections.append(t.topic.knowledge.name)
+                if (t.name == self.kwargs.get('topic')):
+                    main_sections.append(t.topic.knowledge.name)
 
         context = super(TopicArticles, self).get_context_data(**kwargs)
         context['username'] = self.kwargs.get('username')
         context['topic'] = self.kwargs.get('topic')
-        print (context['topic'])
         context['knowledge'] = self.kwargs.get('knowledge')
         context['main_sections'] = list(set(main_sections))
 
