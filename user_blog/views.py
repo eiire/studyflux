@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView, DetailView
 from user_blog.forms import CommentForm
 from user_blog.mixins import ModelFormPostMixin
-from user_blog.models import Post, Comment
+from user_blog.models import Category, Post, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -21,10 +21,20 @@ class TopicArticles(ListView):
         )  # __contains distinct
 
     def get_context_data(self, **kwargs):
+        main_sections = []
+        qs = self.get_queryset()
+        
+        for p in qs:
+            for t in p.categories.all():
+                main_sections.append(t.topic.knowledge.name)
+
         context = super(TopicArticles, self).get_context_data(**kwargs)
         context['username'] = self.kwargs.get('username')
         context['topic'] = self.kwargs.get('topic')
+        print (context['topic'])
         context['knowledge'] = self.kwargs.get('knowledge')
+        context['main_sections'] = list(set(main_sections))
+
         return context
 
 
