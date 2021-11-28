@@ -1,11 +1,14 @@
 .my_content {
-    margin: 0 10% 0 10%;
+    width: 1000px;
+    margin: 0 auto 0 auto;
 }
 
 /*CARDS*/
 .my_card {
     display: block;
+    position: relative;
     width: 100%;
+    height: 600px;
     margin: 0 1% 20px 1%;
     float: left;
     transition: width 0.5s;
@@ -14,21 +17,38 @@
     background: #f8f8f824;
 }
 
+@media only screen and (min-width: 250px) {
+    .my_content {
+        width: unset;
+        margin: 0 10% 0 10%;
+    }
+}
+
 @media only screen and (min-width: 450px) {
     .my_card {
-        width: 50%;
+        width: 45%;
     }
 }
 
 @media only screen and (min-width: 768px) {
+    .my_content {
+        width: 568px;
+        margin: 0 auto 0 auto;
+    }
+
     .my_card {
-        width: 33.333%;
+        width: 30%;
     }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1080px) {
+    .my_content {
+        width: 880px;
+        margin: 0 auto 0 auto;
+    }
+
     .my_card {
-        width: 23%;
+        width: 30%;
     }
 }
 
@@ -38,6 +58,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .my_content > .my_card > .info > a:hover {
@@ -72,27 +93,29 @@
     width: 100%;
     float: left;        /* [NOTE] The element becomes a block and inherits the width of the parent. */
     text-align: justify;
-    height: 100px;
+    height: 150px;
     overflow: auto;     /* At the same time will align the block in line-by-line display mode */
 }
 /*END CARD*/
 
 /*SWITCHER*/
 input#display_swither:checked + label {
-  color: #af6800;
+  color: #ffffff;
+  background-color: #333;
 }
 
 label[for='display_swither'] {
+    display: block;
     cursor: pointer;
     padding: 5px;
     float: right;
-}
-
-label[for='display_swither'] {
     text-transform: uppercase;
+    font-weight: 100;
     cursor: pointer;
-    padding: 5px;
-    float: left;
+    background-color: #ae6800;
+    border-radius: 5rem;
+    color: #fff;
+    margin-right: 1vmin;
 }
 
 input#display_swither {
@@ -103,6 +126,7 @@ input#display_swither {
 input#display_swither:checked + label + .my_content > .my_card {
     margin-top: 1%;
     width: 100%;
+    height: unset;
 }
 
 input#display_swither:checked + label + .my_content > .my_card > .img_container {
@@ -156,6 +180,9 @@ select {
 
 .like {
     display: inline-flex;
+    position: absolute;
+    bottom: 0;
+    right: 1vmin;
 }
 
 input.like {
@@ -167,6 +194,7 @@ input.like {
 }
 
 .like svg {
+    cursor: pointer;
     fill: #ae0000;
 }
 
@@ -182,7 +210,7 @@ input.like {
     display: none!important;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     input#display_swither + label {
         display: none;
     }
