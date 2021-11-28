@@ -22,7 +22,7 @@
             {% if user.username == username or username == 'You' %} 
                 <span style="color: #333;font-weight: bolder;">Your</span> 
             {% else %} 
-                <span style="color: #333;font-weight: bolder;">{{username}}</span>
+                <span style="color: #333;font-weight: bolder;">{{username|truncatechars:16}}</span>
             {% endif %} 
                 {% block page_title %} 
             {% endblock %}

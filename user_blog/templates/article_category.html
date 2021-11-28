@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block page_title %} | TOPIC {{ topic|truncatechars:18 }}{% endblock %}
+{% block page_title %} | {{ topic|truncatechars:15 }}{% endblock %}
 
 {% block buttom_navbar %}
     <div class="active">
@@ -10,16 +10,16 @@
 {% endblock %}
 
 {% block page_content %}
-    <div class="col-md-8 offset-md-2 mt-3">
+    <div class="col-12 col-md-8 offset-md-2 mt-3">
         <h5>
-            Topic <span style="font-weight:400">{{ topic | title }}</span> contains in
+            Topic <span style="font-weight:400;overflow-wrap: anywhere;">{{ topic | title }}</span> contains in
             {% for ms in main_sections %}
                 <a href="{% url 'project_index' username ms %}">{{ ms }}</a>
             {% endfor %}
         </h4>
         <hr>
         {% for post in posts %}
-            <h2><a href="{% url 'article_detail' post.user.username post.pk %}">{{ post.title }}</a></h2>
+            <h5><a href="{% url 'article_detail' post.user.username post.pk %}">{{ post.title }}</a></h3>
             <br/>
             <small>
                 {{ post.created_on.date }} |&nbsp;
